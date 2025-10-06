@@ -1,230 +1,356 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>HCI Project Web-Notebook</title>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Group K - HCI Project Web Notebook</title>
     <style>
-        body {
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
-            line-height: 1.6;
-            margin: 0;
-            padding: 0;
-            background-color: #f4f4f4;
-            color: #333;
-        }
-        .container {
-            max-width: 800px;
-            margin: 20px auto;
-            padding: 25px;
-            background-color: #fff;
-            border-radius: 8px;
-            box-shadow: 0 0 15px rgba(0,0,0,0.1);
-        }
-        h1, h2, h3 {
-            color: #2c3e50;
-        }
-        h1 {
-            text-align: center;
-            border-bottom: 2px solid #3498db;
-            padding-bottom: 10px;
-        }
-        h2 {
-            border-bottom: 1px solid #e0e0e0;
-            padding-bottom: 8px;
-            margin-top: 40px;
-        }
-        h3 {
-            margin-top: 25px;
-            color: #34495e;
-        }
-        p, li {
-            font-size: 16px;
-        }
-        ul {
-            list-style-type: disc;
-            padding-left: 20px;
-        }
-        .persona, .scenario, .risk-mitigation {
-            background-color: #ecf0f1;
-            padding: 15px;
-            border-radius: 5px;
-            margin-top: 15px;
-            border-left: 4px solid #3498db;
-        }
-        .project-meta {
-            text-align: center;
-            margin-bottom: 30px;
-            color: #7f8c8d;
-        }
-        .code-block {
-            background-color: #2d3436;
-            color: #dfe6e9;
-            padding: 15px;
-            border-radius: 5px;
-            font-family: "Courier New", Courier, monospace;
-            white-space: pre-wrap;
-        }
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-top: 20px;
-        }
-        th, td {
-            border: 1px solid #ddd;
-            padding: 12px;
-            text-align: left;
-        }
-        th {
-            background-color: #3498db;
-            color: white;
-        }
-        tr:nth-child(even) {
-            background-color: #f2f2f2;
-        }
+      body {
+        font-family: "Helvetica Neue", Arial, sans-serif;
+        line-height: 1.6;
+        background-color: #f8f9fa;
+        color: #333;
+        margin: 0;
+        padding: 0;
+      }
+      .container {
+        max-width: 900px;
+        margin: 40px auto;
+        background: #fff;
+        padding: 40px;
+        box-shadow: 0 0 8px rgba(0, 0, 0, 0.1);
+        border-radius: 8px;
+      }
+      h1,
+      h2,
+      h3,
+      h4 {
+        color: #222;
+        font-weight: 600;
+        margin-top: 1.5em;
+      }
+      h1 {
+        text-align: center;
+        margin-bottom: 0.5em;
+      }
+      h2 {
+        border-bottom: 2px solid #e5e5e5;
+        padding-bottom: 4px;
+        margin-bottom: 0.6em;
+      }
+      p,
+      ul,
+      ol {
+        margin-bottom: 1em;
+      }
+      ul {
+        padding-left: 1.2em;
+      }
+      table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 1em;
+      }
+      th,
+      td {
+        border: 1px solid #ddd;
+        padding: 8px 10px;
+        vertical-align: top;
+      }
+      th {
+        background-color: #f2f2f2;
+        text-align: left;
+      }
+      footer {
+        text-align: center;
+        font-size: 0.9em;
+        color: #777;
+        margin-top: 3em;
+      }
     </style>
-</head>
-<body>
-
+  </head>
+  <body>
     <div class="container">
-        <h1>HCI Project Web-Notebook</h1>
-        <div class="project-meta">
-            [cite_start]<p><strong>Project Title:</strong> Gaze-Aware Immersive Video Delivery (Calm Technology) [cite: 3, 68]</p>
-            [cite_start]<p><strong>Group K:</strong> Hengyuan Guo, Jiawei He, and Kaiyuan Hu [cite: 2, 66]</p>
-        </div>
+      <h1>Gaze-Aware Immersive Video Delivery</h1>
+      <p style="text-align: center; font-size: 1.1em; color: #555">
+        HCI Project Web Notebook
+      </p>
+      <p style="text-align: center; font-size: 0.9em; color: #777">
+        Group K — Hengyuan Guo, Jiawei He, Kaiyuan Hu
+      </p>
 
-        <h2>User Observation Report – ECSE 542</h2>
+      <h2>1. User Observation Report – ECSE 542</h2>
+      <p>
+        <strong>User Group:</strong> Students at McGill (classmates and lab
+        members)
+      </p>
 
-        <h3>1. Observations of Users</h3>
-        [cite_start]<p>I observed three groups of users from the McGill student community: [cite: 4, 6]</p>
-        <ul>
-            <li><strong>Graduate students:</strong> Observed in Schulich Library watching recorded lectures. [cite_start]They often paused, rewound, and concentrated their gaze on specific elements like slides or equations. [cite: 7]</li>
-            <li><strong>Research teammates:</strong> Observed in an office in the McConnell Engineering Building as they watched websites while coding. [cite_start]Their gaze shifted between the video, their IDE, and notes, causing them to miss details in their peripheral vision. [cite: 8, 9]</li>
-            <li><strong>Undergraduate peers:</strong> Observed during group study sessions on the McGill Campus and in my apartment while they reviewed lecture captures. [cite_start]Their immersion was frequently broken as they multitasked with phones, laptops, and side conversations. [cite: 10, 11]</li>
-        </ul>
-        [cite_start]<p><strong>Central Observation:</strong> In every case, users focused on only a small portion of the video at any given time, while the peripheral content was disregarded. [cite: 12] [cite_start]This disparity between uniform system delivery and focused user attention leads to wasted bandwidth and increased cognitive overload. [cite: 13]</p>
+      <h3>1.1 Observations of Users</h3>
+      <p>I observed three groups of users:</p>
+      <ul>
+        <li>
+          <strong>Graduate students in Schulich Library</strong> watching
+          recorded lectures. They frequently paused, rewound, and focused their
+          gaze on slides or equations.
+        </li>
+        <li>
+          <strong
+            >Research teammates in my office (McConnell Engineering
+            Building)</strong
+          >
+          watching websites while coding. They alternated gaze between the
+          video, IDE, and notes, often missing peripheral details.
+        </li>
+        <li>
+          <strong
+            >Undergraduate peers in group study spaces (McGill Campus &
+            apartment)</strong
+          >
+          reviewing lecture capture. They multitasked with phones, laptops, and
+          side conversations, frequently breaking immersion.
+        </li>
+      </ul>
 
-        <h3>2. Identifying the Problem</h3>
-        [cite_start]<p><strong>Problem:</strong> Current video systems stream content uniformly, without considering the user's attentional focus. [cite: 15] [cite_start]This results in network inefficiency and visual clutter, as the user's specific region of interest (ROI) is not prioritized. [cite: 16] [cite_start]For instance, a PhD student was observed staring at a single diagram for approximately 30 seconds, while the rest of the high-resolution video stream was ignored. [cite: 17]</p>
-        [cite_start]<p><strong>Opportunity:</strong> There is an opportunity to use gaze and viewport data to enhance the visual fidelity of the content where users are actively looking, while subtly reducing detail in other areas. [cite: 18]</p>
+      <p>
+        <strong>Central observation:</strong> In all cases, users focused only
+        on a small region of the video, while peripheral content was ignored.
+        This mismatch between system delivery (uniform streaming) and actual
+        attention patterns creates wasted bandwidth and cognitive overload.
+      </p>
 
-        <h3>3. Personas</h3>
-        <div class="persona">
-            [cite_start]<h4>Persona 1: Guo (Graduate Student, 24) [cite: 20]</h4>
+      <h3>1.2 Identifying the Problem</h3>
+      <p>
+        <strong>Problem:</strong> Current video systems stream uniformly,
+        regardless of user attention. Users experience visual clutter and
+        network inefficiency, while their region of interest (ROI) receives no
+        prioritization.
+      </p>
+      <ul>
+        <li>
+          <strong>Example:</strong> A PhD student stared at one diagram for ~30
+          seconds, while the rest of the video streamed at high resolution but
+          was ignored.
+        </li>
+        <li>
+          <strong>Opportunity:</strong> Leverage gaze/viewport data to deliver
+          higher fidelity where users are looking, while calmly reducing detail
+          elsewhere.
+        </li>
+      </ul>
+
+      <h3>1.3 Personas</h3>
+      <p><strong>Persona 1 – Guo (Graduate Student, 24)</strong></p>
+      <ul>
+        <li>Needs: Understand equations in recorded lectures.</li>
+        <li>Pain: Cluttered visuals and buffering reduce concentration.</li>
+        <li>Behavior: Fixates gaze on slide equations for long periods.</li>
+      </ul>
+
+      <p><strong>Persona 2 – Richard (Ph.D. Student, 26)</strong></p>
+      <ul>
+        <li>Needs: Watch research demo videos while coding.</li>
+        <li>
+          Pain: Hard to focus when multiple windows compete for attention.
+        </li>
+        <li>Behavior: Alternates gaze between main video and notes.</li>
+      </ul>
+
+      <p><strong>Persona 3 – David (Undergraduate, 19)</strong></p>
+      <ul>
+        <li>Needs: Review lecture capture quickly with group.</li>
+        <li>Pain: Distracted by multitasking and irrelevant video sections.</li>
+        <li>
+          Behavior: Constantly shifts gaze between video, phone, and peers.
+        </li>
+      </ul>
+
+      <h3>1.4 Use Case Scenario</h3>
+      <p><strong>Scenario – Guo watches a recorded lecture:</strong></p>
+      <ul>
+        <li>
+          Without system: Entire video streams uniformly, bandwidth wasted, Guo
+          struggles to maintain focus.
+        </li>
+        <li>
+          With proposed system:
+          <ul>
+            <li>Eye-tracking detects gaze on equations.</li>
+            <li>ROI is enhanced in resolution and contrast.</li>
+            <li>Peripheral video is de-emphasized but still available.</li>
+            <li>
+              Result: Guo stays focused, consumes less bandwidth, and completes
+              review more efficiently.
+            </li>
+          </ul>
+        </li>
+      </ul>
+
+      <h3>1.5 Related Products</h3>
+      <ul>
+        <li>
+          YouTube “Smart Player”: Allows users to skip less relevant parts, but
+          not gaze-aware or adaptive.
+        </li>
+        <li>
+          Foveated Rendering in VR: Used in XR headsets to improve graphics
+          performance, but not applied to streaming lectures/videos.
+        </li>
+        <li>
+          Attention tracking tools (e.g., Proctorio): Track gaze for exam
+          monitoring, but not for improving learning experience.
+        </li>
+      </ul>
+
+      <p>
+        <strong>Limitations:</strong> Existing solutions either focus on
+        rendering performance or surveillance, not calm, user-centered
+        adaptation.
+      </p>
+
+      <h3>1.6 Comparison with Proposed Solution</h3>
+      <ul>
+        <li>
+          User-centered: Improves focus rather than monitoring or punishing.
+        </li>
+        <li>
+          Calm technology: Works in the background without intrusive alerts.
+        </li>
+        <li>
+          Bandwidth-efficient: Allocates resources to ROI instead of wasting
+          them on ignored regions.
+        </li>
+      </ul>
+
+      <h3>1.7 High-Level Design</h3>
+      <ul>
+        <li>
+          <strong>Input Layer:</strong> Eye-tracking / viewport data (from
+          webcam or XR headset).
+        </li>
+        <li>
+          <strong>Processing Layer:</strong> ROI detection → adaptive streaming
+          controller.
+        </li>
+        <li>
+          <strong>Delivery Layer:</strong> Dynamic video player (high-resolution
+          ROI, low-resolution periphery).
+        </li>
+        <li>
+          <strong>Feedback Loop:</strong> User gaze continuously updates ROI
+          focus.
+        </li>
+      </ul>
+
+      <h3>1.8 Feasibility</h3>
+      <ul>
+        <li>
+          <strong>Skills:</strong>
+          <ul>
+            <li>
+              Team has experience with video streaming (research background in
+              immersive video).
+            </li>
+            <li>
+              Basic gaze estimation available via open-source APIs or headset
+              SDKs.
+            </li>
+          </ul>
+        </li>
+        <li>
+          <strong>Effort Estimate:</strong> 20–25 hours per member for prototype
+          (integration + testing).
+        </li>
+        <li>
+          <strong>Scope:</strong> Focus on design prototype + small pilot study,
+          not full system deployment.
+        </li>
+        <li><strong>Conclusion:</strong> Feasible within semester scope.</li>
+      </ul>
+
+      <h2>2. HCI Ethics Table</h2>
+
+      <table>
+        <tr>
+          <th>Group / Student Names</th>
+          <td>Group K: Hengyuan Guo, Jiawei He, and Kaiyuan Hu</td>
+        </tr>
+        <tr>
+          <th>Title of Project</th>
+          <td>Gaze-Aware Immersive Video Delivery (Calm Technology)</td>
+        </tr>
+        <tr>
+          <th>Project / Study Description</th>
+          <td>
+            The project addresses the problem of video systems streaming
+            uniformly, regardless of where a user is looking. The proposed
+            solution is a system that leverages gaze and viewport data to
+            deliver higher fidelity video where the user is looking (their
+            region of interest), while calmly reducing detail in the periphery
+            and operating as a calm technology in the background.
+          </td>
+        </tr>
+        <tr>
+          <th>Participants</th>
+          <td>
+            Small pilot group including graduate students, research teammates,
+            and undergraduate peers aged 19 to 26, across all genders.
+          </td>
+        </tr>
+        <tr>
+          <th>Recruitment</th>
+          <td>
+            Participants recruited from the McGill University community via
+            convenience sampling (classmates and lab members who volunteer).
+            Sessions conducted in controlled campus environments (labs or study
+            rooms).
+          </td>
+        </tr>
+        <tr>
+          <th>Potential Risks</th>
+          <td>
             <ul>
-                [cite_start]<li><strong>Needs:</strong> To clearly understand equations within recorded lectures. [cite: 21]</li>
-                [cite_start]<li><strong>Pain Point:</strong> Buffering and cluttered visuals hinder concentration. [cite: 22]</li>
-                [cite_start]<li><strong>Behavior:</strong> Fixates his gaze on equations presented on slides for extended periods. [cite: 23]</li>
+              <li>
+                <strong>Data Security Risk:</strong> Gaze data could be
+                vulnerable to unauthorized access if stored.
+              </li>
+              <li>
+                <strong>Minor Discomfort:</strong> Possible eye strain or
+                physical discomfort from eye-tracking equipment.
+              </li>
+              <li>
+                <strong>Psychological Risk:</strong> Awareness of being tracked
+                might alter behavior and cause mild anxiety.
+              </li>
             </ul>
-        </div>
-        <div class="persona">
-            [cite_start]<h4>Persona 2: Richard (Ph.D. Student, 26) [cite: 24]</h4>
+          </td>
+        </tr>
+        <tr>
+          <th>Risk Mitigation</th>
+          <td>
             <ul>
-                [cite_start]<li><strong>Needs:</strong> To watch research demonstration videos while simultaneously coding. [cite: 25]</li>
-                [cite_start]<li><strong>Pain Point:</strong> Finds it difficult to focus when multiple windows are competing for attention. [cite: 26]</li>
-                [cite_start]<li><strong>Behavior:</strong> Switches his gaze between the primary video and his notes. [cite: 27]</li>
+              <li>
+                <strong>Informed Consent:</strong> Clearly explain what data is
+                collected, why, how it’s used, and who has access before
+                participation.
+              </li>
+              <li>
+                <strong>User Control and Transparency:</strong> Provide a simple
+                option to disable gaze-aware features; emphasize improvement,
+                not monitoring.
+              </li>
+              <li>
+                <strong>Limiting Session Duration:</strong> Keep pilot sessions
+                short and allow breaks to minimize strain.
+              </li>
             </ul>
-        </div>
-        <div class="persona">
-            [cite_start]<h4>Persona 3: David (Undergraduate, 19) [cite: 28]</h4>
-            <ul>
-                [cite_start]<li><strong>Needs:</strong> To quickly review lecture capture material with his study group. [cite: 29]</li>
-                [cite_start]<li><strong>Pain Point:</strong> Is easily distracted by multitasking and video sections that are not relevant. [cite: 30]</li>
-                [cite_start]<li><strong>Behavior:</strong> Constantly moves his gaze between the video, his phone, and his peers. [cite: 31]</li>
-            </ul>
-        </div>
+          </td>
+        </tr>
+      </table>
 
-        <h3>4. Use Case Scenario</h3>
-        <div class="scenario">
-            [cite_start]<h4>Scenario – Guo watches a recorded lecture: [cite: 33]</h4>
-            <ul>
-                <li><strong>Without the system:</strong> The entire video streams at a uniform quality, which wastes bandwidth. [cite_start]Guo finds it hard to maintain focus. [cite: 34]</li>
-                <li><strong>With the proposed system:</strong>
-                    <ul>
-                        [cite_start]<li>Eye-tracking hardware detects that his gaze is fixed on the equations. [cite: 36]</li>
-                        [cite_start]<li>His Region of Interest (ROI) is automatically enhanced with higher resolution and contrast. [cite: 37]</li>
-                        [cite_start]<li>The peripheral areas of the video are de-emphasized but remain visible. [cite: 38]</li>
-                    </ul>
-                </li>
-                [cite_start]<li><strong>Result:</strong> Guo can stay focused, the system consumes less bandwidth, and he completes his review session more efficiently. [cite: 39]</li>
-            </ul>
-        </div>
-
-        <h3>5. Related Products</h3>
-        <ul>
-            [cite_start]<li><strong>YouTube “Smart Player” features:</strong> These allow users to skip parts of a video that are less relevant but are not gaze-aware or adaptive to user attention. [cite: 41]</li>
-            [cite_start]<li><strong>Foveated Rendering in VR:</strong> This technique is used in XR headsets to improve graphics performance but is not currently applied to streaming educational videos or lectures. [cite: 42]</li>
-            [cite_start]<li><strong>Attention tracking tools (e.g., Proctorio):</strong> These tools track gaze for exam monitoring purposes and are not designed to improve the learning experience. [cite: 43]</li>
-        </ul>
-        [cite_start]<p><strong>Limitations:</strong> Existing solutions are primarily focused on rendering performance or surveillance, not on providing a calm, user-centered adaptation. [cite: 44]</p>
-
-        <h3>6. Comparison with Proposed Solution</h3>
-        [cite_start]<p>Unlike the related products mentioned, our proposed system is: [cite: 46]</p>
-        <ul>
-            [cite_start]<li><strong>User-centered:</strong> It aims to improve user focus rather than monitoring or penalizing them. [cite: 47]</li>
-            [cite_start]<li><strong>Calm technology:</strong> The system operates in the background without intrusive alerts or notifications. [cite: 48]</li>
-            [cite_start]<li><strong>Bandwidth-efficient:</strong> It allocates network resources to the user's region of interest instead of wasting them on ignored areas. [cite: 49]</li>
-        </ul>
-
-        <h3>7. High-Level Design</h3>
-        [cite_start]<p><strong>Conceptual Architecture:</strong> [cite: 51]</p>
-        <div class="code-block">
-            [cite_start]<strong>Input Layer:</strong> Eye-tracking / viewport data (from webcam or XR headset). [cite: 52]<br>
-            &darr;<br>
-            [cite_start]<strong>Processing Layer:</strong> ROI detection &rarr; adaptive streaming controller. [cite: 53]<br>
-            &darr;<br>
-            [cite_start]<strong>Delivery Layer:</strong> Dynamic video player (high-resolution ROI, low-resolution periphery). [cite: 54]<br>
-            &darr;<br>
-            [cite_start]<strong>Feedback Loop:</strong> User gaze continuously updates the ROI focus. [cite: 55]
-        </div>
-
-        <h3>8. Feasibility</h3>
-        [cite_start]<p><strong>Skills:</strong> The team possesses experience in video streaming from a research background in immersive video. [cite: 58] [cite_start]Basic gaze estimation can be achieved using open-source APIs or headset SDKs. [cite: 59]</p>
-        [cite_start]<p><strong>Effort Estimate:</strong> A prototype, including integration and testing, is estimated to require 20–25 hours per team member. [cite: 61]</p>
-        [cite_start]<p><strong>Scope:</strong> The project will focus on a design prototype and a small pilot study, not a full system deployment. [cite: 62] [cite_start]The project is considered feasible within the semester's scope. [cite: 63]</p>
-
-        <h2>HCI Ethics Table</h2>
-        
-        <table>
-            <tr>
-                <th>Category</th>
-                <th>Details</th>
-            </tr>
-            <tr>
-                <td><strong>Project/Study Description</strong></td>
-                <td>The project addresses the issue of video systems streaming uniformly, regardless of where a user is looking. The proposed solution uses gaze and viewport data to deliver higher fidelity video to the user's region of interest, while reducing detail in the periphery. [cite_start]This system is designed to operate as a calm technology, working in the background. [cite: 70]</td>
-            </tr>
-            <tr>
-                <td><strong>Number and Type of Participants</strong></td>
-                [cite_start]<td>The study will involve a small pilot group composed of graduate students, research teammates, and undergraduate peers. [cite: 72, 73] [cite_start]The age range of participants will be 19 to 26, across all genders. [cite: 73]</td>
-            </tr>
-            <tr>
-                <td><strong>Recruitment and Location</strong></td>
-                [cite_start]<td>Participants will be recruited from the McGill University community through convenience sampling, including classmates and lab members who volunteer. [cite: 75] [cite_start]Study sessions will be conducted in controlled environments on the McGill campus, such as university labs or study rooms. [cite: 76]</td>
-            </tr>
-            <tr>
-                <td><strong>Potential Risks to Participants</strong></td>
-                <td>
-                    <ul>
-                        [cite_start]<li><strong>Data Security Risk:</strong> Collected gaze data, if stored, could be vulnerable to unauthorized access. [cite: 78]</li>
-                        [cite_start]<li><strong>Minor Discomfort:</strong> Participants might experience slight eye strain or physical discomfort from the eye-tracking equipment. [cite: 79]</li>
-                        [cite_start]<li><strong>Psychological Risk:</strong> The awareness of being tracked could make participants feel monitored or self-conscious, potentially causing minor anxiety and altering their natural viewing habits. [cite: 80]</li>
-                    </ul>
-                </td>
-            </tr>
-            <tr>
-                <td><strong>Risk Mitigation Strategies</strong></td>
-                <td>
-                    <ul>
-                        [cite_start]<li><strong>Informed Consent:</strong> Before participation, clearly explain what data is being collected, its purpose, how it will be used, and who can access it. [cite: 82]</li>
-                        [cite_start]<li><strong>User Control and Transparency:</strong> Provide an easy way for users to disable the gaze-aware feature. [cite: 83] [cite_start]Be transparent about the technology, emphasizing that its goal is to improve their experience, not to monitor them. [cite: 84]</li>
-                        [cite_start]<li><strong>Limiting Session Duration:</strong> Keep pilot study sessions to a reasonable length to minimize eye strain and offer breaks as needed. [cite: 85]</li>
-                    </ul>
-                </td>
-            </tr>
-        </table>
-
+      <footer>
+        <p>© Fall 2025 Group K - McGill University</p>
+        <p>ECSE 542 Human Computer Interaction</p>
+      </footer>
     </div>
-
-</body>
+  </body>
 </html>
