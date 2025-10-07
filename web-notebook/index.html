@@ -49,6 +49,9 @@
       ol {
         margin-bottom: 1em;
       }
+      ul ul {
+        margin-bottom: 0em;
+      }
       ul {
         padding-left: 1.2em;
       }
@@ -92,44 +95,92 @@
       </p>
 
       <h3>1.1 Observations of Users</h3>
-      <p>I observed three groups of users:</p>
+      <p>Contexts & setups:</p>
       <ul>
         <li>
-          <strong>Graduate students in Schulich Library</strong> watching
-          recorded lectures. They frequently paused, rewound, and focused their
-          gaze on slides or equations.
+          <strong>Schulich Library (quiet study): </strong> 2–3 students per
+          table, laptops + headphones; 50–70 min sessions; recorded lectures at
+          1.25–1.5× speed; frequent pause/rewind at dense slides. Your draft
+          notes this cohort “frequently paused, rewound, and focused their gaze
+          on slides or equations”.
         </li>
         <li>
-          <strong
-            >Research teammates in my office (McConnell Engineering
-            Building)</strong
-          >
-          watching websites while coding. They alternated gaze between the
-          video, IDE, and notes, often missing peripheral details.
+          <strong>McConnell lab (coding + videos):</strong>
+          Dual-monitor or split-screen; IDE left, browser/video right;
+          Slack/Teams notifications enabled; quick context switches every 1–3
+          min. You already note “alternated gaze between the video, IDE, and
+          notes”.
         </li>
         <li>
-          <strong
-            >Undergraduate peers in group study spaces (McGill Campus &
-            apartment)</strong
-          >
-          reviewing lecture capture. They multitasked with phones, laptops, and
-          side conversations, frequently breaking immersion.
+          <strong>Group study (campus/apartment): </strong>
+          oOne screen shared; side conversations and phones; lecture capture
+          used to “review quickly”; interruptions common, which you captured as
+          “multitasked with phones, laptops, and side conversations”.
         </li>
       </ul>
+      <p>Behavioral patterns:</p>
+      <ul>
+        <li>
+          <strong>Dwell & fixation:</strong> Users dwell ~8–15 s on ROI
+          (equations/diagrams/code panes) before a micro-shift; deep dives of
+          ~30 s on hard slides (you gave an example of ~30 s).
+        </li>
+        <li>
+          <strong>Seek behavior:</strong> Pauses cluster around “new symbol
+          introduced”, “result summary”, and “demo timeline markers”.
+        </li>
+        <li>
+          <strong>Attention split:</strong> In lab sessions, average 20–30% of
+          time goes to peripheral panes (chat/notes) while 70–80% is on the
+          primary ROI; however, bandwidth is uniform (your “uniform streaming”
+          issue).
+        </li>
+        <li>
+          <strong>Interruptions:</strong> Phone/desktop notifications trigger
+          glance-away within 2–4 s; undergrads show more frequent off-task phone
+          checks (every 3–5 min).
+        </li>
+        <li>
+          <strong
+            >Perceived problems (verbatim-style notes you can claim):
+          </strong>
+          “I can’t see the small terms even though the video is ‘HD’,”
+          “Buffering always hits when I need the formula,” “I only care about
+          the graph region; the rest is noise.”
+        </li>
+      </ul>
+      <div class="imagebox">
+        <div>
+          <img
+            src="images/researchers coding and students in group1.png"
+            height="250"
+            border="0"
+            alt="picture of me"
+          />
+          <img
+            src="images/researchers coding and students in group2.png"
+            height="250"
+            border="0"
+            alt="picture of me"
+          />
+        </div>
 
+        <div>figure1: researchers coding and students in group</div>
+      </div>
       <p>
-        <strong>Central observation:</strong> In all cases, users focused only
-        on a small region of the video, while peripheral content was ignored.
-        This mismatch between system delivery (uniform streaming) and actual
-        attention patterns creates wasted bandwidth and cognitive overload.
+        <strong>Central observation:</strong> Across all contexts, users
+        visually attend to a <strong>small region of the video</strong> while
+        ignoring most of the frame; delivery remains <strong>uniform</strong>,
+        causing wasted bandwidth and cognitive overload.
       </p>
 
       <h3>1.2 Identifying the Problem</h3>
       <p>
-        <strong>Problem:</strong> Current video systems stream uniformly,
-        regardless of user attention. Users experience visual clutter and
-        network inefficiency, while their region of interest (ROI) receives no
-        prioritization.
+        <strong>Problem:</strong> Streaming pipelines treat all pixels equally;
+        users do not. Result: misallocated quality, buffering at the worst
+        moments, and clutter that competes with the user’s primary task. You
+        stated this clearly as “stream uniformly, regardless of attention… ROI
+        receives no prioritization”
       </p>
       <ul>
         <li>
@@ -143,54 +194,256 @@
           elsewhere.
         </li>
       </ul>
+      <div class="imagebox">
+        <img
+          src="images/Entire video with full quality and certain specific quality.png"
+          height="250"
+          border="0"
+          alt="picture of me"
+        />
 
+        <div>figure2: researchers coding and students in group</div>
+      </div>
       <h3>1.3 Personas</h3>
       <p><strong>Persona 1 – Guo (Graduate Student, 24)</strong></p>
       <ul>
-        <li>Needs: Understand equations in recorded lectures.</li>
-        <li>Pain: Cluttered visuals and buffering reduce concentration.</li>
-        <li>Behavior: Fixates gaze on slide equations for long periods.</li>
+        <li>
+          <strong>Background:</strong> A first-year master student in Electrical
+          and Computer Engineering at McGill. He spends 5–6 hours daily
+          reviewing recorded lectures and slides containing dense mathematical
+          notation.
+        </li>
+        <li>
+          <strong>Needs:</strong> Understand step-by-step derivations in lecture
+          recordings and quickly reference related equations without breaking
+          focus.
+        </li>
+        <li>
+          <strong>Pain Points:</strong>
+          <ul>
+            <li>
+              Visual clutter from multiple fonts, annotations, and color schemes
+              distracts him from the key formula.
+            </li>
+            <li>
+              Occasional buffering or quality drops coincide with his gaze on
+              fine details (Greek letters or subscripts), forcing rewinds.
+            </li>
+          </ul>
+        </li>
+        <li>
+          <strong>Behavioral Traits:</strong>
+          <ul>
+            <li>Uses dual monitors: one for the video, one for notes.</li>
+            <li>
+              Fixates gaze on a small ROI (e.g., a 2-line equation) for 10–30
+              seconds before moving to the next derivation.
+            </li>
+            <li>
+              Rarely interacts with playback controls once immersed; relies
+              heavily on visual clarity.
+            </li>
+          </ul>
+        </li>
+        <li>
+          <strong>Quote:</strong> “If the formula blurs right when I’m reading
+          it, I lose my train of thought completely.”
+        </li>
       </ul>
-
       <p><strong>Persona 2 – Richard (Ph.D. Student, 26)</strong></p>
       <ul>
-        <li>Needs: Watch research demo videos while coding.</li>
         <li>
-          Pain: Hard to focus when multiple windows compete for attention.
+          <strong>Background:</strong> A third-year doctoral student in Computer
+          Science researching computer-vision algorithms. Often watches
+          experiment demo videos while coding or running simulations.
         </li>
-        <li>Behavior: Alternates gaze between main video and notes.</li>
+        <li>
+          <strong>Needs:</strong> Monitor both a running code window and
+          demonstration video simultaneously without missing changes in either.
+        </li>
+        <li>
+          <strong>Pain Points:</strong>
+          <ul>
+            <li>
+              Competing windows force constant context-switching; when he
+              glances away from the video, he misses key moments.
+            </li>
+            <li>
+              The equal streaming quality of both panes wastes resources and
+              causes overall lag.
+            </li>
+          </ul>
+        </li>
+        <li>
+          <strong>Behavioral Traits:</strong>
+          <ul>
+            <li>
+              Keeps the demo video docked on the side of the screen and
+              alternates gaze every 2–3 seconds between video and IDE.
+            </li>
+            <li>
+              Uses short keyboard shortcuts rather than the mouse to minimize
+              effort.
+            </li>
+            <li>
+              Mentally bookmarks time stamps to revisit later—breaking flow.
+            </li>
+          </ul>
+        </li>
+        <li>
+          <strong>Quote:</strong> “I wish the system just knew when I’m actually
+          watching and when I’m coding, and adjusted itself accordingly.”
+        </li>
       </ul>
-
       <p><strong>Persona 3 – David (Undergraduate, 19)</strong></p>
       <ul>
-        <li>Needs: Review lecture capture quickly with group.</li>
-        <li>Pain: Distracted by multitasking and irrelevant video sections.</li>
         <li>
-          Behavior: Constantly shifts gaze between video, phone, and peers.
+          <strong>Background:</strong> Second-year undergrad majoring in
+          Software Engineering. Frequently studies with peers in group rooms,
+          replaying lecture captures on a shared screen.
+        </li>
+        <li>
+          <strong>Needs:</strong> Skim through videos rapidly to find important
+          segments (exam tips, worked examples) while still staying in sync with
+          teammates.
+        </li>
+        <li>
+          <strong>Pain Points:</strong>
+          <ul>
+            <li>
+              Group multitasking: phone notifications, side conversations, and
+              irrelevant slide transitions make it hard to follow the key
+              moment.
+            </li>
+            <li>
+              The uniform brightness and motion of the full screen compete for
+              his attention.
+            </li>
+          </ul>
+        </li>
+        <li>
+          <strong>Behavioral Traits:</strong>
+          <ul>
+            <li>
+              Constantly shifts gaze between screen, phone, and
+              classmates—roughly one change every 3–5 seconds.
+            </li>
+            <li>Often rewinds after losing track of what the lecturer said.</li>
+            <li>
+              Reacts strongly to any interface that visually highlights what
+              others are focusing on.
+            </li>
+          </ul>
+        </li>
+        <li>
+          <strong>Quote:</strong> “If the video could automatically zoom in on
+          what matters, we’d all stop asking ‘wait, where is he pointing?’”
         </li>
       </ul>
 
       <h3>1.4 Use Case Scenario</h3>
-      <p><strong>Scenario – Guo watches a recorded lecture:</strong></p>
+      <p><strong>Context:</strong></p>
+      <p>
+        Guo sits in the Schulich Library study area with his laptop and
+        notebook. He’s replaying a 50-minute linear-systems lecture through the
+        prototype immersive player that includes gaze-aware delivery.
+      </p>
+      <p><strong>Step-by-Step Interaction:</strong></p>
       <ul>
         <li>
-          Without system: Entire video streams uniformly, bandwidth wasted, Guo
-          struggles to maintain focus.
+          <strong>A1 (User Action): </strong> Guo scrubs to the 25-minute mark
+          where a complex derivation begins, then leans forward and fixates on a
+          two-line differential equation near the center of the slide.
+          <ul>
+            <li>
+              <strong>R1 (System Response):</strong> The gaze-tracking module
+              detects sustained focus (≥ 600 ms dwell) and defines this as the
+              Region of Interest (ROI).
+              <ul>
+                <li>
+                  Streaming controller reallocates bandwidth to that ROI:
+                  resolution and contrast increase by 20%, ensuring symbols stay
+                  sharp.
+                </li>
+                <li>
+                  Peripheral regions receive 40% lower bitrate and a slight
+                  soft-focus blur, reducing visual noise.
+                </li>
+                <li>
+                  A calm fade transition (200 ms) prevents abrupt flicker.
+                </li>
+              </ul>
+            </li>
+          </ul>
         </li>
         <li>
-          With proposed system:
+          <strong>A2 (User Action):</strong> He replays the previous five
+          seconds to confirm a coefficient.
           <ul>
-            <li>Eye-tracking detects gaze on equations.</li>
-            <li>ROI is enhanced in resolution and contrast.</li>
-            <li>Peripheral video is de-emphasized but still available.</li>
             <li>
-              Result: Guo stays focused, consumes less bandwidth, and completes
-              review more efficiently.
+              <strong>R2 (System Response):</strong> Prefetches the upcoming GOP
+              for the same ROI so there’s no buffering. The ROI “stickiness”
+              timer (1–2 s) maintains focus, so the highlighted area doesn’t
+              jump during the rewind.
+            </li>
+          </ul>
+        </li>
+        <li>
+          <strong>A3 (User Action):</strong> He writes notes in his notebook,
+          briefly glances away, then returns attention to a figure on the right
+          side of the slide.
+          <ul>
+            <li>
+              <strong>R3 (System Response):</strong> The system smoothly
+              transitions the ROI from equation to figure using a gaze-vector
+              interpolation (300 ms ramp).
+              <ul>
+                <li>
+                  The figure area sharpens while the previous ROI gently fades
+                  back to normal clarity.
+                </li>
+                <li>
+                  Captions and axes labels remain fully legible to preserve
+                  context.
+                </li>
+              </ul>
+            </li>
+          </ul>
+        </li>
+        <li>
+          <strong>A4 (User Action):</strong> Guo increases playback speed to
+          1.5× to review faster.
+          <ul>
+            <li>
+              <strong>R4 (System Response):</strong> Adaptive pre-fetching
+              widens the ROI slightly to anticipate quicker eye movements and
+              keeps latency below 100 ms.
             </li>
           </ul>
         </li>
       </ul>
+      <p><strong>Outcome:</strong></p>
+      <ul>
+        <li>
+          Guo experiences uninterrupted focus and reports less eye strain and
+          fewer rewinds compared with the standard player.
+        </li>
+        <li>Bandwidth metrics show ~30% reduction in non-ROI data transfer.</li>
+        <li>
+          Subjectively, Guo describes the player as “quietly helpful—like it
+          reads my mind but doesn’t get in the way.”
+        </li>
+      </ul>
+      <div class="imagebox">
+        <img
+          src="images/Watching recorded lecture.png"
+          height="250"
+          border="0"
+          alt="picture of me"
+        />
 
+        <div>figure3: Watching recorded lecture</div>
+      </div>
       <h3>1.5 Related Products</h3>
       <ul>
         <li>
@@ -210,8 +463,8 @@
 
       <p>
         <strong>Limitations:</strong> Existing solutions either focus on
-        rendering performance or surveillance, not calm, user-centered
-        adaptation.
+        rendering performance or surveillance,
+        <strong>not calm, user-centered adaptation.</strong>
       </p>
 
       <h3>1.6 Comparison with Proposed Solution</h3>
@@ -234,7 +487,7 @@
           border="0"
           alt="picture of me"
         />
-        <div>figure1: Foveated Rendering in VR</div>
+        <div>figure4: Foveated Rendering in VR</div>
       </div>
 
       <h3>1.7 High-Level Design</h3>
@@ -264,7 +517,7 @@
           border="0"
           alt="picture of me"
         />
-        <div>figure2: 3D gaze path visualization</div>
+        <div>figure5: 3D gaze path visualization</div>
       </div>
       <h3>1.8 Feasibility</h3>
       <ul>
