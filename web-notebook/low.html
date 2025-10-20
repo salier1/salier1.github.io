@@ -1,0 +1,898 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>
+      Low-Fidelity Prototype & Usability Test Report — Gaze-Aware Immersive
+      Video Streaming
+    </title>
+    <style>
+      body {
+        font-family: "Helvetica Neue", Arial, sans-serif;
+        line-height: 1.6;
+        background-color: #f8f9fa;
+        color: #333;
+        margin: 0;
+        padding: 0;
+      }
+      .container {
+        max-width: 900px;
+        margin: 40px auto;
+        background: #fff;
+        padding: 40px;
+        box-shadow: 0 0 8px rgba(0, 0, 0, 0.1);
+        border-radius: 8px;
+      }
+      .imagebox {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+      }
+      h1,
+      h2,
+      h3,
+      h4 {
+        color: #222;
+        font-weight: 600;
+        margin-top: 1.5em;
+      }
+      h1 {
+        text-align: center;
+        margin-bottom: 0.5em;
+      }
+      h2 {
+        border-bottom: 2px solid #e5e5e5;
+        padding-bottom: 4px;
+        margin-bottom: 0.6em;
+      }
+      p,
+      ul,
+      ol {
+        margin-bottom: 1em;
+      }
+      ul ul {
+        margin-bottom: 0em;
+      }
+      ul {
+        padding-left: 1.2em;
+      }
+      table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 1em;
+      }
+      th,
+      td {
+        border: 1px solid #ddd;
+        padding: 8px 10px;
+        vertical-align: top;
+      }
+      th {
+        background-color: #f2f2f2;
+        text-align: left;
+      }
+      footer {
+        text-align: center;
+        font-size: 0.9em;
+        color: #777;
+        margin-top: 3em;
+      }
+      pre {
+        background: #f4f6f8;
+        padding: 12px;
+        border-radius: 6px;
+        overflow: auto;
+      }
+      nav ul li a:hover {
+        background: #f3f4f6;
+        color: #0078d4;
+      }
+      nav ul li a.active {
+        border-bottom: 3px solid #0078d4;
+        color: #0078d4;
+      }
+    </style>
+  </head>
+  <body>
+    <nav
+      style="
+        background: #ffffff;
+        border-bottom: 1px solid #e2e2e2;
+        box-shadow: 0 1px 4px rgba(0, 0, 0, 0.05);
+        position: sticky;
+        top: 0;
+        z-index: 100;
+      "
+    >
+      <ul
+        style="
+          display: flex;
+          justify-content: center;
+          list-style: none;
+          margin: 0;
+          padding: 0;
+        "
+      >
+        <li style="margin: 0">
+          <a
+            href="index.html"
+            style="
+              display: block;
+              padding: 14px 18px;
+              text-decoration: none;
+              color: #333;
+              font-weight: 500;
+            "
+            >Observation and Proposal</a
+          >
+        </li>
+        <li style="margin: 0">
+          <a
+            href="low.html"
+            style="
+              display: block;
+              padding: 14px 18px;
+              text-decoration: none;
+              color: #333;
+              font-weight: 500;
+              border-bottom: 3px solid #0078d4;
+            "
+            >Low-Fidelity Prototype</a
+          >
+        </li>
+        <li style="margin: 0">
+          <a
+            href="computer.html"
+            style="
+              display: block;
+              padding: 14px 18px;
+              text-decoration: none;
+              color: #333;
+              font-weight: 500;
+            "
+            >Computer Prototype</a
+          >
+        </li>
+        <li style="margin: 0">
+          <a
+            href="feedback.html"
+            style="
+              display: block;
+              padding: 14px 18px;
+              text-decoration: none;
+              color: #333;
+              font-weight: 500;
+            "
+            >Formative Feedback</a
+          >
+        </li>
+        <li style="margin: 0">
+          <a
+            href="alpha.html"
+            style="
+              display: block;
+              padding: 14px 18px;
+              text-decoration: none;
+              color: #333;
+              font-weight: 500;
+            "
+            >Alpha System</a
+          >
+        </li>
+        <li style="margin: 0">
+          <a
+            href="beta.html"
+            style="
+              display: block;
+              padding: 14px 18px;
+              text-decoration: none;
+              color: #333;
+              font-weight: 500;
+            "
+            >Beta System</a
+          >
+        </li>
+      </ul>
+    </nav>
+    <div class="container">
+      <header>
+        <h1>Low-Fidelity Prototype & Usability Test Report</h1>
+        <div class="meta">
+          <strong>Project:</strong> Gaze-Aware Immersive Video Streaming &nbsp;
+          | &nbsp; <strong>Course:</strong> ECSE 542 — Human-Computer
+          Interaction<br />
+          <strong>Team:</strong> Hengyuan Guo, Jiawei He, Kaiyuan Hu &nbsp; |
+          &nbsp; <strong>Date:</strong> 19 October 2025
+        </div>
+      </header>
+
+      <h2>1. Design Concepts</h2>
+      <p>
+        We used the 10 + 10 brainstorming method: each team member sketched ten
+        distinct ideas and ten variations, producing more than 30 concepts.
+        After discussion we shortlisted three concepts for deeper exploration:
+      </p>
+
+      <h3>Concept A — Gaze-Adaptive Player</h3>
+      <ul>
+        <li>The player detects the user’s gaze direction in real time.</li>
+        <li>
+          The system enhances resolution in the region of interest (ROI) while
+          softly dimming or blurring peripheral areas.
+        </li>
+      </ul>
+
+      <h3>Concept B — Attention Heatmap Dashboard</h3>
+      <ul>
+        <li>
+          A companion dashboard that visualizes aggregated gaze data as a
+          heatmap.
+        </li>
+        <li>
+          Designed for instructors or system admins to analyze user engagement
+          trends across video segments.
+        </li>
+      </ul>
+
+      <h3>Concept C — Adaptive Bandwidth Controller</h3>
+      <ul>
+        <li>
+          A background service that dynamically reallocates encoding bitrate
+          based on live gaze data.
+        </li>
+        <li>
+          Aims to optimize perceived quality while saving network resources.
+        </li>
+      </ul>
+
+      <p class="note">
+        These concepts span interaction levels from direct per-user feedback
+        (Concept A) to system-level optimization (Concept C).
+      </p>
+      <figure>
+        <img
+          src="./images/ske1.jpg"
+          alt="Sketch 1"
+          style="width: 80%; max-width: 600px"
+        />
+        <figcaption>Sketch 1</figcaption>
+      </figure>
+      <figure>
+        <img
+          src="./images/ske2.jpg"
+          alt="Sketch 2"
+          style="width: 80%; max-width: 600px"
+        />
+        <figcaption>Sketch 2</figcaption>
+      </figure>
+      <figure>
+        <img
+          src="./images/ske3.jpg"
+          alt="Sketch 3"
+          style="width: 80%; max-width: 600px"
+        />
+        <figcaption>Sketch 3</figcaption>
+      </figure>
+      <h2>2. Low-Fidelity Prototypes</h2>
+      <p>
+        We built three paper-based prototypes focused on task flow rather than
+        polished UI. During testing we animated the paper prototypes using a
+        Wizard-of-Oz technique (a team member acted as the system).
+      </p>
+
+      <h3>Prototype 1 — Gaze-Adaptive Player</h3>
+      <ul>
+        <li>Paper sketch of a rectangular video player frame.</li>
+        <li>
+          When a user “looks” at a region (simulated by pointing), the area is
+          highlighted.
+        </li>
+        <li>
+          Peripheral regions are shaded lightly to represent reduced resolution.
+        </li>
+      </ul>
+
+      <h3>Prototype 2 — Attention Heatmap Dashboard</h3>
+      <ul>
+        <li>Paper dashboard with timeline sliders and color-coded overlays.</li>
+        <li>Warm colors (red / yellow) indicate higher attention frequency.</li>
+        <li>
+          Supports visual comparison of which segments received most attention.
+        </li>
+      </ul>
+
+      <h3>Prototype 3 — Adaptive Bandwidth Controller</h3>
+      <ul>
+        <li>
+          Simplified flow diagram: gaze input → ROI detection → adaptive
+          encoding → video output.
+        </li>
+        <li>
+          The tester explained how data flows in real time to help users
+          understand back-end behavior.
+        </li>
+      </ul>
+      <figure>
+        <img
+          src="./images/workingflow.jpg"
+          alt="Sketch 1"
+          style="width: 80%; max-width: 600px"
+        />
+        <figcaption>workingflow</figcaption>
+      </figure>
+      <h2>3. Usability Goals</h2>
+      <p>
+        We defined measurable goals to evaluate the prototypes. For each goal we
+        list measurements and the rationale.
+      </p>
+
+      <table>
+        <thead>
+          <tr>
+            <th>Goal</th>
+            <th>Measurement</th>
+            <th>Rationale</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Ease of Use</td>
+            <td>
+              Percentage of users who can complete tasks without guidance;
+              observe confusion when interpreting interfaces (e.g., heatmap)
+            </td>
+            <td>
+              Ensure effortless interaction — system should behave as a "calm
+              technology".
+            </td>
+          </tr>
+          <tr>
+            <td>Efficiency</td>
+            <td>
+              Average time to complete tasks (interpret heatmap, adapt to
+              player). Target: &lt; 2 minutes per task.
+            </td>
+            <td>
+              Minimize cognitive load so benefits (e.g., bandwidth saving) are
+              not offset by complexity.
+            </td>
+          </tr>
+          <tr>
+            <td>Accuracy</td>
+            <td>
+              Error rate between detected ROI and user's actual gaze point.
+              Target: &lt; 5% error; heatmap accuracy
+            </td>
+            <td>
+              Core requirement — inaccurate detection would degrade the
+              experience.
+            </td>
+          </tr>
+          <tr>
+            <td>Calm Technology Adherence</td>
+            <td>
+              Qualitative measurement via post-test questionnaire and interviews
+              (are adjustments distracting?)
+            </td>
+            <td>
+              System changes should be natural background adjustments rather
+              than jarring events.
+            </td>
+          </tr>
+          <tr>
+            <td>Utility</td>
+            <td>
+              User ratings on perceived value (5-point Likert) for features like
+              enhanced focus and bandwidth savings
+            </td>
+            <td>
+              Ensure design elements are meaningful for users and stakeholders
+              (e.g., instructors).
+            </td>
+          </tr>
+          <tr>
+            <td>User Satisfaction</td>
+            <td>
+              Post-test averaged Likert score. Target ≥ 4.0; plus qualitative
+              feedback on comfort and willingness to use.
+            </td>
+            <td>
+              Satisfaction drives trust and adoption for a system that modifies
+              visual perception.
+            </td>
+          </tr>
+        </tbody>
+      </table>
+
+      <h2>4. Benchmark Tasks</h2>
+      <p>
+        We designed four benchmark tasks, each with goals, description, and
+        success criteria.
+      </p>
+
+      <h3>Task 1 — Experience Adaptive Focus</h3>
+      <p>
+        <strong>Goals evaluated:</strong> Ease of Use, Accuracy, Calm Technology
+        Adherence, Satisfaction
+      </p>
+      <p>
+        <strong>Description:</strong> User watches a video and naturally focuses
+        on a specific region (e.g., a slide text or a speaker). The user should
+        notice the system adjusting clarity for that region.
+      </p>
+      <p>
+        <strong>Success criteria:</strong> Task success rate target ≥ 90%;
+        accuracy of detected ROI vs. reported focus; qualitative comments on
+        naturalness and smoothness of transition.
+      </p>
+
+      <h3>Task 2 — Interpret Attention Heatmap</h3>
+      <p><strong>Goals evaluated:</strong> Efficiency, Ease of Use, Utility</p>
+      <p>
+        <strong>Description:</strong> Show the Attention Heatmap Dashboard and
+        ask the user which part of the video drew most attention.
+      </p>
+      <p>
+        <strong>Success criteria:</strong> User interprets heatmap quickly
+        (target &lt; 2 minutes), accurately identifies warm-color areas, and
+        rates dashboard clarity positively.
+      </p>
+
+      <h3>Task 3 — Understand Bandwidth Optimization</h3>
+      <p><strong>Goals evaluated:</strong> Utility, Satisfaction</p>
+      <p>
+        <strong>Description:</strong> Present the Adaptive Bandwidth Controller
+        system flow diagram. Simulate changing network conditions and ask the
+        user to explain why the ROI remains higher quality while periphery
+        degrades.
+      </p>
+      <p>
+        <strong>Success criteria:</strong> Users can verbally explain the
+        mechanism; qualitative feedback on perceived value of the background
+        feature.
+      </p>
+
+      <h3>Task 4 — Assess Visual Comfort & Transition</h3>
+      <p>
+        <strong>Goals evaluated:</strong> Calm Technology Adherence,
+        Satisfaction, Accuracy
+      </p>
+      <p>
+        <strong>Description:</strong> During Task 1, ask the user to rapidly
+        shift gaze between two points and report whether transitions are smooth
+        and if there is eye strain or distracting jumps.
+      </p>
+      <p>
+        <strong>Success criteria:</strong> Low number of negative comments about
+        lag/jumps; positive Likert ratings for "system responded naturally".
+      </p>
+
+      <p class="small">
+        Each task has a clearly defined start (instructions given) and end (user
+        confirms completion). Tasks cover gaze tracking, ROI adaptation, and
+        visual analytics.
+      </p>
+
+      <h2>5. Test Materials</h2>
+
+      <h3>5.1 Observer Briefing</h3>
+      <p>
+        <strong>Objective:</strong> Ensure all observers act consistently, stay
+        neutral, and capture correct data when using Wizard-of-Oz.
+      </p>
+      <p><strong>Roles:</strong></p>
+      <ul>
+        <li>
+          <strong>Facilitator:</strong> Leads the session, reads the script,
+          asks probes.
+        </li>
+        <li>
+          <strong>"Wizard" / System:</strong> Operates the paper prototype in
+          real time (places highlight on ROI, shades periphery).
+        </li>
+        <li>
+          <strong>Observer / Note-taker:</strong> Completes the data collection
+          sheet and records timings and verbal reactions.
+        </li>
+      </ul>
+
+      <p><strong>Observer guidelines:</strong></p>
+      <ul>
+        <li>
+          Preparation: set up in a quiet study room with all paper prototypes,
+          shading/highlight cutouts, and data sheets.
+        </li>
+        <li>
+          Remain neutral: avoid guiding the user; if asked, respond with open
+          prompts (e.g., "What do you think?").
+        </li>
+        <li>
+          Record: time per task, verbal reactions, where user points (simulated
+          gaze shifts), and any issues or confusion.
+        </li>
+      </ul>
+
+      <h3>5.2 User Introduction (Script)</h3>
+      <pre>
+Hello, thank you for participating today. We are students from the Human-Computer Interaction course (ECSE 542), and we are testing early ideas for a "Gaze-Aware Immersive Video Streaming" project.
+
+We will use a Wizard-of-Oz method: one of our team members will act as the 'system'. To simulate your gaze, please point to the area of the screen you are looking at. The teammate will update the paper prototype by highlighting that area or shading the periphery.
+
+The session will take about 20 minutes. Before we begin, please complete a brief pre-test questionnaire. Any questions before we start?
+    </pre
+      >
+
+      <h3>5.3 Pre-Test Questionnaire (Example)</h3>
+      <div
+        style="
+          border: 1px solid #ccc;
+          border-radius: 6px;
+          padding: 18px 22px;
+          margin-top: 10px;
+          background: #fafafa;
+        "
+      >
+        <p style="margin-top: 0; font-weight: 600">Participant Information</p>
+        <table style="width: 100%; border-collapse: collapse">
+          <tr>
+            <td style="border: 1px solid #ddd; padding: 8px">
+              Participant ID:
+            </td>
+            <td style="border: 1px solid #ddd; padding: 8px; width: 70%"></td>
+          </tr>
+          <tr>
+            <td style="border: 1px solid #ddd; padding: 8px">Date:</td>
+            <td style="border: 1px solid #ddd; padding: 8px"></td>
+          </tr>
+        </table>
+
+        <hr style="margin: 18px 0; border: none; border-top: 1px dashed #bbb" />
+
+        <p style="margin-top: 0; font-weight: 600">Pre-Test Questions</p>
+        <table
+          style="width: 100%; border-collapse: collapse; border: 1px solid #ddd"
+        >
+          <tr>
+            <th
+              style="
+                background: #f4f4f4;
+                border: 1px solid #ddd;
+                padding: 8px;
+                width: 70%;
+              "
+            >
+              Question
+            </th>
+            <th
+              style="background: #f4f4f4; border: 1px solid #ddd; padding: 8px"
+            >
+              Answer
+            </th>
+          </tr>
+          <tr>
+            <td style="border: 1px solid #ddd; padding: 8px">
+              1. How often do you watch online videos or lectures?
+            </td>
+            <td style="border: 1px solid #ddd; padding: 8px; height: 36px"></td>
+          </tr>
+          <tr>
+            <td style="border: 1px solid #ddd; padding: 8px">
+              2. Are you familiar with eye-tracking or gaze-based systems?
+            </td>
+            <td style="border: 1px solid #ddd; padding: 8px"></td>
+          </tr>
+          <tr>
+            <td style="border: 1px solid #ddd; padding: 8px">
+              3. Rate your comfort with new technology (1–5).
+            </td>
+            <td style="border: 1px solid #ddd; padding: 8px">☐1 ☐2 ☐3 ☐4 ☐5</td>
+          </tr>
+          <tr>
+            <td style="border: 1px solid #ddd; padding: 8px">
+              4. Have you used adaptive or personalized video systems before?
+            </td>
+            <td style="border: 1px solid #ddd; padding: 8px"></td>
+          </tr>
+        </table>
+      </div>
+
+      <h3>5.4 Post-Test Questionnaire (Likert & Open)</h3>
+      <div
+        style="
+          border: 1px solid #ccc;
+          border-radius: 6px;
+          padding: 18px 22px;
+          margin-top: 10px;
+          background: #fafafa;
+        "
+      >
+        <p style="margin-top: 0; font-weight: 600">
+          Section A — Likert Scale (1 = Strongly Disagree, 5 = Strongly Agree)
+        </p>
+        <table
+          style="width: 100%; border-collapse: collapse; border: 1px solid #ddd"
+        >
+          <tr>
+            <th
+              style="
+                background: #f4f4f4;
+                border: 1px solid #ddd;
+                padding: 8px;
+                width: 70%;
+              "
+            >
+              Statement
+            </th>
+            <th
+              style="background: #f4f4f4; border: 1px solid #ddd; padding: 8px"
+            >
+              1
+            </th>
+            <th
+              style="background: #f4f4f4; border: 1px solid #ddd; padding: 8px"
+            >
+              2
+            </th>
+            <th
+              style="background: #f4f4f4; border: 1px solid #ddd; padding: 8px"
+            >
+              3
+            </th>
+            <th
+              style="background: #f4f4f4; border: 1px solid #ddd; padding: 8px"
+            >
+              4
+            </th>
+            <th
+              style="background: #f4f4f4; border: 1px solid #ddd; padding: 8px"
+            >
+              5
+            </th>
+          </tr>
+          <tr>
+            <td style="border: 1px solid #ddd; padding: 8px">
+              1. The prototype was easy to understand.
+            </td>
+            <td style="border: 1px solid #ddd; text-align: center">☐</td>
+            <td style="border: 1px solid #ddd; text-align: center">☐</td>
+            <td style="border: 1px solid #ddd; text-align: center">☐</td>
+            <td style="border: 1px solid #ddd; text-align: center">☐</td>
+            <td style="border: 1px solid #ddd; text-align: center">☐</td>
+          </tr>
+          <tr>
+            <td style="border: 1px solid #ddd; padding: 8px">
+              2. I felt the system responded naturally to my gaze.
+            </td>
+            <td style="border: 1px solid #ddd; text-align: center">☐</td>
+            <td style="border: 1px solid #ddd; text-align: center">☐</td>
+            <td style="border: 1px solid #ddd; text-align: center">☐</td>
+            <td style="border: 1px solid #ddd; text-align: center">☐</td>
+            <td style="border: 1px solid #ddd; text-align: center">☐</td>
+          </tr>
+          <tr>
+            <td style="border: 1px solid #ddd; padding: 8px">
+              3. The visual highlight improved my focus.
+            </td>
+            <td style="border: 1px solid #ddd; text-align: center">☐</td>
+            <td style="border: 1px solid #ddd; text-align: center">☐</td>
+            <td style="border: 1px solid #ddd; text-align: center">☐</td>
+            <td style="border: 1px solid #ddd; text-align: center">☐</td>
+            <td style="border: 1px solid #ddd; text-align: center">☐</td>
+          </tr>
+          <tr>
+            <td style="border: 1px solid #ddd; padding: 8px">
+              4. The interface transitions felt smooth and non-distracting.
+            </td>
+            <td style="border: 1px solid #ddd; text-align: center">☐</td>
+            <td style="border: 1px solid #ddd; text-align: center">☐</td>
+            <td style="border: 1px solid #ddd; text-align: center">☐</td>
+            <td style="border: 1px solid #ddd; text-align: center">☐</td>
+            <td style="border: 1px solid #ddd; text-align: center">☐</td>
+          </tr>
+          <tr>
+            <td style="border: 1px solid #ddd; padding: 8px">
+              5. I would like to use this system for studying or meetings.
+            </td>
+            <td style="border: 1px solid #ddd; text-align: center">☐</td>
+            <td style="border: 1px solid #ddd; text-align: center">☐</td>
+            <td style="border: 1px solid #ddd; text-align: center">☐</td>
+            <td style="border: 1px solid #ddd; text-align: center">☐</td>
+            <td style="border: 1px solid #ddd; text-align: center">☐</td>
+          </tr>
+        </table>
+
+        <hr style="margin: 20px 0; border: none; border-top: 1px dashed #bbb" />
+
+        <p style="font-weight: 600">Section B — Open-Ended Questions</p>
+        <table style="width: 100%; border-collapse: collapse">
+          <tr>
+            <td style="border: 1px solid #ddd; padding: 8px; width: 35%">
+              6. What was your favorite part of the concept?
+            </td>
+            <td style="border: 1px solid #ddd; padding: 8px; height: 60px"></td>
+          </tr>
+          <tr>
+            <td style="border: 1px solid #ddd; padding: 8px">
+              7. What is the main improvement you would suggest?
+            </td>
+            <td style="border: 1px solid #ddd; padding: 8px; height: 60px"></td>
+          </tr>
+          <tr>
+            <td style="border: 1px solid #ddd; padding: 8px">
+              8. Any additional comments?
+            </td>
+            <td style="border: 1px solid #ddd; padding: 8px; height: 60px"></td>
+          </tr>
+        </table>
+      </div>
+
+      <h3>5.5 Test Script (Summary)</h3>
+      <p><strong>I. Introduction (5 minutes)</strong></p>
+      <ul>
+        <li>
+          Welcome participant, read user introduction verbatim, obtain consent,
+          administer pre-test questionnaire.
+        </li>
+      </ul>
+      <p><strong>II. Test tasks (10–15 minutes)</strong></p>
+      <ul>
+        <li>
+          Present Prototype 1 (Gaze-Adaptive Player). Ask the participant to
+          point at an area of interest while thinking aloud. Wizard updates
+          paper prototype accordingly. Ask probing questions about perception
+          and peripheral shading.
+        </li>
+        <li>
+          Present Prototype 2 (Attention Heatmap Dashboard). Ask the participant
+          (acting as instructor) to interpret which segment drew most attention;
+          record time and accuracy.
+        </li>
+        <li>
+          Present Prototype 3 (Adaptive Bandwidth Controller). Explain the flow
+          diagram and simulate network drop; ask participant to evaluate
+          expected video performance and utility.
+        </li>
+      </ul>
+      <p><strong>III. Conclusion (5 minutes)</strong></p>
+      <ul>
+        <li>
+          Administer post-test questionnaire, collect feedback, and thank
+          participant.
+        </li>
+      </ul>
+      <h3>5.6 Data Collection Sheet</h3>
+      <div
+        style="
+          border: 1px solid #ccc;
+          border-radius: 6px;
+          padding: 18px 22px;
+          margin-top: 10px;
+          background: #fafafa;
+        "
+      >
+        <p style="margin-top: 12px">
+          <strong>Download the full Data Collection Sheet:</strong><br />
+          <a
+            href="./files/HCIcourseEthics_consent 2025.pdf"
+            target="_blank"
+            style="color: #0066cc; text-decoration: none; font-weight: 600"
+          >
+            consent form
+          </a>
+        </p>
+      </div>
+
+      <h2>6. Test Results</h2>
+      <p>
+        <strong>Participants:</strong> 2 (both graduate students from McGill
+        CPSL lab)
+      </p>
+      <p>
+        <strong>Testing time:</strong> ~20 minutes per participant —
+        environment: quiet study room, paper prototypes shown on desk.
+      </p>
+
+      <table>
+        <thead>
+          <tr>
+            <th>Task</th>
+            <th>Success Rate</th>
+            <th>Avg Time</th>
+            <th>Observed Issues</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Task 1 — Experience Adaptive Focus</td>
+            <td>100%</td>
+            <td>45 s</td>
+            <td>
+              Slight confusion about how gaze was simulated (pointing vs. actual
+              eye tracking)
+            </td>
+          </tr>
+          <tr>
+            <td>Task 2 — Interpret Attention Heatmap</td>
+            <td>90%</td>
+            <td>70 s</td>
+            <td>
+              Some delay interpreting shaded regions; needed clarification of
+              legend
+            </td>
+          </tr>
+          <tr>
+            <td>Task 3 — Understand Bandwidth Optimization</td>
+            <td>100%</td>
+            <td>60 s</td>
+            <td>
+              Users clearly understood the heatmap and the backend concept
+            </td>
+          </tr>
+          <tr>
+            <td>Task 4 — Assess Visual Comfort & Transition</td>
+            <td>80%</td>
+            <td>90 s</td>
+            <td>
+              Needed more explanation of adaptive bandwidth; some concern about
+              transition smoothness
+            </td>
+          </tr>
+        </tbody>
+      </table>
+
+      <h3>Key Findings</h3>
+      <ul>
+        <li>
+          Participants found the concept intuitive after a short explanation.
+        </li>
+        <li>
+          Highlighting the ROI and blurring the periphery effectively directed
+          attention.
+        </li>
+        <li>
+          One participant recommended showing a subtle boundary line for ROI
+          rather than a full blur.
+        </li>
+        <li>
+          Both participants desired clearer feedback to confirm that the system
+          had registered their gaze.
+        </li>
+      </ul>
+
+      <p><strong>Average Satisfaction Score:</strong> 4.4 / 5</p>
+      <p>
+        <strong>Main improvement suggestion:</strong> Add a minimal on-screen
+        indicator (for example, a soft ring) to show the detected focus region.
+      </p>
+
+      <h2>7. Conclusions and Next Steps</h2>
+      <p>
+        The early usability test indicates strong potential for gaze-based focus
+        enhancement in immersive video. Participants immediately grasped the
+        system’s intent and reacted positively to calm, background adjustments.
+      </p>
+
+      <h3>Next steps</h3>
+      <ul>
+        <li>
+          Refine ROI feedback cues (e.g., subtle highlight ring rather than
+          heavy blur).
+        </li>
+        <li>
+          Explore smooth temporal transitions to prevent sudden clarity shifts.
+        </li>
+        <li>
+          Integrate a simple webcam-based gaze tracker for mid-fidelity testing
+          (move from Wizard-of-Oz to simulated/automated gaze inputs).
+        </li>
+      </ul>
+
+      <footer>
+        <div>© Fall 2025 Group K — McGill University</div>
+        <div>ECSE 542 Human-Computer Interaction</div>
+      </footer>
+    </div>
+  </body>
+</html>
