@@ -274,8 +274,8 @@
       </div>
 
       <section>
-        <h2>Prototype Overview</h2>
-        <h3>System Description</h3>
+        <h2>1. Prototype Overview</h2>
+        <h3>1.1 System Description</h3>
         <p>
           The current build, the “Gaze Interaction Prototype Suite,” packages
           three gaze-inspired interaction concepts into a single HTML experience
@@ -294,8 +294,8 @@
         <ul>
           <li>
             <strong>Gaze-Adaptive Player.</strong> A focus spotlight trails the
-            viewer’s point of regard, sharpening the focal region while softening
-            the periphery.
+            viewer’s point of regard, sharpening the focal region while
+            softening the periphery.
           </li>
           <li>
             <strong>Attention Heatmap Dashboard.</strong> A timed tracking task
@@ -314,14 +314,16 @@
             Self-contained in <code>index.html</code> with no build or backend
             step.
           </li>
-          <li>Right-side drawer centralises toggles, sliders, and diagnostics.</li>
+          <li>
+            Right-side drawer centralises toggles, sliders, and diagnostics.
+          </li>
           <li>
             Hero landing screen doubles as onboarding copy and collapses to
             maximise the stage.
           </li>
           <li>
-            Accessibility notes include keyboard-accessible controls, ARIA labels,
-            and stateful badges for adaptive modes.
+            Accessibility notes include keyboard-accessible controls, ARIA
+            labels, and stateful badges for adaptive modes.
           </li>
         </ul>
 
@@ -331,15 +333,16 @@
             alt="Computer prototype interface showing the gaze-adaptive player, task overview, and unified control drawer."
           />
           <figcaption>
-            High-fidelity computer prototype highlighting the hero onboarding panel (left) and multi-tool control drawer (right).
+            High-fidelity computer prototype highlighting the hero onboarding
+            panel (left) and multi-tool control drawer (right).
           </figcaption>
         </figure>
 
-        <h3>User Goals &amp; Scenarios</h3>
+        <h3>1.2 User Goals &amp; Scenarios</h3>
         <ul>
           <li>
-            <strong>Faculty presenters</strong> demonstrate adaptive streaming to
-            prospective partners, quickly enabling or disabling spotlight and
+            <strong>Faculty presenters</strong> demonstrate adaptive streaming
+            to prospective partners, quickly enabling or disabling spotlight and
             bandwidth features during live walkthroughs.
           </li>
           <li>
@@ -348,25 +351,26 @@
             for follow-up analysis.
           </li>
           <li>
-            <strong>Technical facilitators</strong> stress-test network states in
-            the same interface, correlating playback quality with simulated
+            <strong>Technical facilitators</strong> stress-test network states
+            in the same interface, correlating playback quality with simulated
             bandwidth dips.
           </li>
         </ul>
         <p>
-          Each scenario starts with the hero overview, allowing the facilitator to
-          brief newcomers before collapsing the panel and focusing on the active
-          module. The consistent drawer layout reinforces muscle memory so users
-          do not have to hunt for controls as they switch context.
+          Each scenario starts with the hero overview, allowing the facilitator
+          to brief newcomers before collapsing the panel and focusing on the
+          active module. The consistent drawer layout reinforces muscle memory
+          so users do not have to hunt for controls as they switch context.
         </p>
 
-        <h3>Current Evaluation Focus</h3>
+        <h3>1.3 Current Evaluation Focus</h3>
         <p>
           Recent usability sessions examine how quickly observers identify the
-          spotlight’s effect, whether the heatmap hints aid situational awareness,
-          and how intuitively facilitators notice bandwidth bottlenecks. Metrics
-          include time-to-first-success for each task, perceived clarity of status
-          badges, and the number of prompts required to locate key toggles.
+          spotlight’s effect, whether the heatmap hints aid situational
+          awareness, and how intuitively facilitators notice bandwidth
+          bottlenecks. Metrics include time-to-first-success for each task,
+          perceived clarity of status badges, and the number of prompts required
+          to locate key toggles.
         </p>
         <p>
           These insights feed the iteration backlog—for example, tweaking badge
@@ -374,12 +378,12 @@
           hero panel collapses into the top navigation strip.
         </p>
 
-        <h3>Design Evolution (with rationale)</h3>
+        <h3>1.4 Design Evolution (with rationale)</h3>
         <table>
           <thead>
             <tr>
               <th>No.</th>
-              <th>Change Summary</th>
+              <th>Component / Change</th>
               <th>Why We Changed It</th>
               <th>Usability / Feasibility Rationale</th>
             </tr>
@@ -387,85 +391,100 @@
           <tbody>
             <tr>
               <td>1</td>
+              <td><strong>Single-page architecture with spotlight toggle surfaced in Task 1</strong></td>
               <td>
-                <strong>Merged multi-page flow into a single entry point</strong>
-                and surfaced the spotlight toggle in Task 1.
+                Testers were confused by multiple HTML entry points ("Which file do I open?")
+                and often missed the original spotlight toggle buried in a sub-menu. Peers
+                suggested converging on one launch path.
               </td>
               <td>
-                <em>Feedback:</em> Low-fidelity testers were unsure which HTML file
-                to start with and asked for “single file, single toggle” to ease
-                onboarding.
-              </td>
-              <td>
-                A unified <code>index.html</code> removes file confusion and places
-                the enable spotlight control where viewers expect it, reducing setup
-                time.
+                One <code>index.html</code> reduces onboarding friction and keeps the key
+                adaptive control in immediate view. This supports faster learnability (UQ1)
+                and simplifies deployment since all scripts run in a single document.
               </td>
             </tr>
             <tr>
               <td>2</td>
-              <td>
-                <strong>Added hero task overview with collapsible cards</strong>
-                via a Hide task overview toggle.
-              </td>
-              <td>
-                <em>Feedback:</em> Early demos valued the overview cards but wanted
-                to reclaim screen space during presentations.
-              </td>
-              <td>
-                The toggle preserves onboarding context for first-time viewers while
-                allowing presenters to clear the viewport instantly.
-              </td>
+              <td><strong>Hero overview cards plus hide/show toggle</strong></td>
+              <td>Participants loved the contextual cards but said they blocked demos and needed a quick collapse option.</td>
+              <td>The <code>Hide task overview</code> button delivers just-in-time onboarding and frees the stage on demand, improving visibility without sacrificing discoverability for new users.</td>
             </tr>
             <tr>
               <td>3</td>
-              <td>
-                <strong>Introduced a unified drawer with integrated diagnostics</strong>
-                covering spotlight settings, heatmap workflow, and bandwidth
-                monitoring.
-              </td>
-              <td>
-                <em>Feedback:</em> Reviewers requested consistent access to controls
-                without swapping files or scrolling long pages.
-              </td>
-              <td>
-                Centralising controls improves discoverability, reduces cognitive
-                load, and enabled the bandwidth monitor toggle.
-              </td>
+              <td><strong>Unified right-hand drawer integrating spotlight, heatmap, and bandwidth controls</strong></td>
+              <td>Early builds scattered controls across tabs. Low-fi sessions showed users wanted "all knobs in one place" and facilitators needed quick diagnostics.</td>
+              <td>Consolidating controls shortens task switching, reduces navigation errors, and keeps instrumentation (bandwidth toggle, status badges) manageable within the layout.</td>
             </tr>
           </tbody>
         </table>
+        <p><em>Table 1. Principal design changes enacted after low-fidelity testing.</em></p>
 
-        <h4>Supporting Iterations</h4>
+        <h4>1.4.1 Detailed Rationale</h4>
+        <ol>
+          <li>
+            <p>
+              <strong>From multi-file prototype to a single-page suite.</strong>
+              Three of five lo-fi participants hesitated at the file tree, unsure which HTML
+              file to open, and facilitators worried about keeping tabs synchronised. We
+              explored adding a launcher page that linked to task-specific files, but it
+              introduced an extra step and duplicated JavaScript. Merging into
+              <code>index.html</code> with the spotlight toggle surfaced at the top of the
+              drawer reduces cognitive load and enables shared state across tasks (heatmaps,
+              diagnostics) that would be harder to synchronise otherwise.
+            </p>
+          </li>
+          <li>
+            <p>
+              <strong>Hero overview with contextual toggle.</strong>
+              Reviewers appreciated the narrative cards yet wanted them out of the way once
+              testing started. Keeping them always visible hid the stage, but removing them
+              entirely harmed onboarding. The hero-level toggle now adds or removes a
+              <code>task-summary-hidden</code> class, working responsively and respecting
+              reduced-motion preferences so the experience stays accessible.
+            </p>
+          </li>
+          <li>
+            <p>
+              <strong>Unifying task controls in a persistent drawer.</strong>
+              Observers repeatedly asked where to adjust the blur radius or find the
+              bandwidth panel when controls were scattered. Centralising the controls improves
+              recognition, keeps keyboard navigation predictable, and allowed us to refactor
+              task state objects (<code>focusState</code>, <code>trackingTask</code>,
+              <code>adaptiveController</code>) into one module without global collisions.
+            </p>
+          </li>
+        </ol>
+
+        <h4>1.4.2 Supporting Adjustments</h4>
         <ul>
           <li>
-            Bandwidth monitor toggle and status badge to declutter the viewport and
-            surface automation states only when needed.
+            <strong>Bandwidth monitor toggle and status pill.</strong> Added to keep the
+            overlay from occluding the scene while giving facilitators quick access to
+            diagnostics.
           </li>
           <li>
-            Task HUD polish that keeps score and timer feedback persistent during
-            the heatmap exercise.
+            <strong>Task HUD refinement.</strong> Made score and timer feedback persistent so
+            observers maintain situational awareness during the tracking exercise.
           </li>
           <li>
-            Badge repositioning so the adaptive encoding badge no longer collides
-            with the focus settings button.
+            <strong>Adaptive encoding badge repositioning.</strong> Shifted left to avoid
+            collisions with the focus settings button, resolving an occlusion issue spotted in
+            hallway tests.
           </li>
         </ul>
         <p>
-          Collectively, these changes resolve the entry-point confusion, blocked
-          stage space, and scattered controls highlighted in low-fidelity testing,
-          resulting in a faster, more intuitive walkthrough.
+          Collectively, these updates address the pain points surfaced in lo-fi sessions:
+          uncertain entry points, obstructed staging area, and dispersed controls. The
+          high-fidelity prototype is now easier to demo, faster to learn, and better aligned
+          with the feasibility constraints of a single-page deployment.
         </p>
       </section>
 
       <section>
-        <h2>User Manual &amp; Installation Guide</h2>
-        <!-- <p class="section-lead">
-          Comprehensive documentation for setup and usage.
-        </p> -->
+        <h2>2. User Manual &amp; Installation Guide</h2>
         <div class="pdf-grid">
           <div class="pdf-card">
-            <h3>User Guide</h3>
+            <h3>2.1 User Guide</h3>
             <p>
               Step-by-step instructions covering the core streaming experience,
               adaptive gaze features, and troubleshooting tips.
@@ -481,7 +500,7 @@
             </iframe>
           </div>
           <div class="pdf-card">
-            <h3>Installation Guide</h3>
+            <h3>2.2 Installation Guide</h3>
             <p>
               Environment requirements, setup checklist, and deployment notes
               for running the computer prototype locally.
@@ -500,9 +519,10 @@
       </section>
 
       <section>
-        <h2>4. Usability Test Plan</h2>
+        <h2>3. Usability Test Plan</h2>
 
-        <h3>4.1 User Population</h3>
+        <h3>3.1 User Population</h3>
+        <p>The intended sample for the next round of testing is summarised below.</p>
         <table>
           <thead>
             <tr>
@@ -514,258 +534,529 @@
             <tr>
               <td>Target users</td>
               <td>
-                Knowledge workers and graduate students who routinely consume remote
-                presentations, training clips, or screen-share walkthroughs.
+                Knowledge workers and graduate students who regularly consume remote
+                presentations, training clips, or screen-share walkthroughs (aligned
+                with our original design brief).
               </td>
             </tr>
             <tr>
               <td>Sample size</td>
-              <td><strong>6–8 participants</strong> per round.</td>
+              <td>3&ndash;5 participants per round.</td>
             </tr>
             <tr>
               <td>Background</td>
               <td>
-                Comfortable with modern browsers, mouse/trackpad navigation, and
+                Comfortable with web browsers, mouse/trackpad navigation, and
                 multitasking between content and controls.
               </td>
             </tr>
             <tr>
               <td>Usage context</td>
               <td>
-                Adaptive media on laptop/desktop monitors in quiet office or home
-                settings, plus occasional shared screens during workshops.
+                Watching adaptive media on laptops/desktop monitors in quiet
+                office or home-office settings, occasionally on shared screens
+                during team workshops.
               </td>
             </tr>
           </tbody>
         </table>
-        <p>
-          <strong>Recruitment:</strong> Use campus mailing lists and HCI lab volunteer
-          pools that match the above profile.
-        </p>
 
-        <h3>4.2 Usability Goals</h3>
+        <h3>3.2 Usability Goals</h3>
         <table>
           <thead>
             <tr>
               <th>ID</th>
-              <th>Goal Statement</th>
-              <th>Quantitative Target</th>
+              <th>Usability Goal</th>
+              <th>Quantitative Measurement (where appropriate)</th>
             </tr>
           </thead>
           <tbody>
             <tr>
-              <td>UQ1 — Learnability</td>
+              <td>UQ1</td>
               <td>
-                Users can enable or disable adaptive controls (focus spotlight, heatmap,
-                bandwidth monitor) without facilitator guidance.
+                <strong>Learnability</strong> &mdash; Users understand how to
+                activate and use each adaptive mode (focus blur, speed
+                adaptation, bandwidth control) without external guidance.
               </td>
               <td>
-                ≥90% locate and activate the requested control within 30&nbsp;s; first
-                complete task run finishes in ≤2&nbsp;min without help.
-              </td>
-            </tr>
-            <tr>
-              <td>UQ2 — Efficiency</td>
-              <td>
-                Adaptive aids reduce effort to acquire targets and complete tracking
-                tasks.
-              </td>
-              <td>
-                Adaptive ON target acquisition time ≤80% of adaptive OFF baseline; cursor
-                travel per hit reduced by ≥15%.
+                <ul>
+                  <li>&ge; 90% of users locate and toggle the adaptive switch within 30 s.</li>
+                  <li>First complete run of any task finishes within 2 min without help.</li>
+                </ul>
               </td>
             </tr>
             <tr>
-              <td>UQ3 — Satisfaction</td>
-              <td>Adaptive visuals feel comfortable and pleasant.</td>
+              <td>UQ2</td>
               <td>
-                ≥80% rate comfort, clarity, and visual pleasantness ≥4/5 on post-task
-                Likert scales.
+                <strong>Efficiency</strong> &mdash; Adaptive mode helps users
+                complete visual search tasks faster and with fewer cursor
+                movements.
+              </td>
+              <td>
+                <ul>
+                  <li>Target acquisition time (adaptive ON) &le; 80% of adaptive OFF.</li>
+                  <li>Cursor travel distance per hit reduces by &ge; 15%.</li>
+                </ul>
               </td>
             </tr>
             <tr>
-              <td>UQ4 — Perceived Clarity</td>
-              <td>Adaptive blur enhances focus on key regions.</td>
+              <td>UQ3</td>
               <td>
-                ≥75% report improved clarity with adaptive ON; heatmap density on target
-                zones increases by ≥25%.
+                <strong>Satisfaction</strong> &mdash; Adaptive effects feel
+                comfortable and visually pleasant.
+              </td>
+              <td>
+                <ul>
+                  <li>&ge; 80% of participants rate comfort, clarity, and visual pleasantness &ge; 4/5.</li>
+                </ul>
               </td>
             </tr>
             <tr>
-              <td>UQ5 — Robustness</td>
-              <td>Adaptive streaming remains stable under network fluctuation.</td>
+              <td>UQ4</td>
               <td>
-                Update latency &lt;80&nbsp;ms; ≥95% of simulated runs show no flicker or
-                contrast loss.
+                <strong>Perceived Clarity &amp; Focus</strong> &mdash; Adaptive
+                blur helps users see important regions more clearly.
+              </td>
+              <td>
+                <ul>
+                  <li>&ge; 75% of users report improved clarity in adaptive ON mode.</li>
+                  <li>Cursor-based heatmaps show &ge; 25% higher fixation density on target zones.</li>
+                </ul>
               </td>
             </tr>
             <tr>
-              <td>UQ6 — Awareness &amp; Control</td>
-              <td>Users feel in control and not distracted by automation.</td>
+              <td>UQ5</td>
               <td>
-                ≥80% report feeling in control; &lt;10% describe adaptive effects as
-                distracting or confusing.
+                <strong>Robustness &amp; Stability</strong> &mdash; The adaptive
+                system remains visually stable under network fluctuation.
+              </td>
+              <td>
+                <ul>
+                  <li>Latency &lt; 80 ms during adaptive updates.</li>
+                  <li>&ge; 95% of bandwidth tests show no visible flicker or contrast loss.</li>
+                </ul>
+              </td>
+            </tr>
+            <tr>
+              <td>UQ6</td>
+              <td>
+                <strong>Awareness &amp; Control</strong> &mdash; Users feel aware
+                of adaptive changes and perceive them as helpful rather than
+                distracting.
+              </td>
+              <td>
+                <ul>
+                  <li>&ge; 80% of users report feeling in control.</li>
+                  <li>&lt; 10% describe adaptive effects as distracting or confusing.</li>
+                </ul>
               </td>
             </tr>
           </tbody>
         </table>
 
-        <h3>4.3 Test Procedure</h3>
+        <h3>3.3 Test Procedure</h3>
+        <h4>Number of Examiners</h4>
+        <p>
+          Three examiners participate in each usability session to ensure
+          consistent, objective observation and complete data capture.
+        </p>
+        <ul>
+          <li>
+            <strong>Facilitator.</strong> Welcomes participants, explains the
+            purpose of the session, and guides them through each task following
+            a standardised script. Introduces the think-aloud process and
+            maintains a neutral tone throughout the test.
+          </li>
+          <li>
+            <strong>Observer.</strong> Watches silently, recording visible
+            difficulties, navigation behaviour, pauses, and comments to identify
+            usability barriers and user reactions.
+          </li>
+          <li>
+            <strong>Recorder.</strong> Measures task duration, manages screen
+            and audio recordings, and ensures that all timing and data logs are
+            accurate.
+          </li>
+        </ul>
+        <p>
+          This setup ensures that both quantitative and qualitative data are
+          collected without overloading any single examiner.
+        </p>
+
+        <h4>Equipment Needed</h4>
+        <p>The following equipment and materials are prepared for each test:</p>
+        <ul>
+          <li>
+            Laptop or desktop computer with Chrome, Edge, or Firefox installed.
+          </li>
+          <li>
+            Prototype HTML files (<code>task1_focus.html</code>,
+            <code>task2_search.html</code>, <code>task3_bandwidth.html</code>)
+            opened through a local server using
+            <code>python -m http.server 8000</code>.
+          </li>
+          <li>Screen recording software (e.g., OBS Studio).</li>
+          <li>Audio recorder to capture think-aloud comments.</li>
+          <li>Stopwatch or timing tool for manual verification.</li>
+          <li>
+            Printed consent form, facilitator script, pre-/post-test
+            questionnaires, and data collection sheets.
+          </li>
+        </ul>
+        <p>
+          Before each session, examiners verify that all prototypes open
+          correctly, adaptive ON/OFF toggles function, and recordings work
+          properly.
+        </p>
+
+        <h4>Handling of the Prototype</h4>
+        <ul>
+          <li>The prototypes run in the browser and should stay in full-screen mode.</li>
+          <li>The facilitator opens the local server and navigates to each task in sequence.</li>
+          <li>Each task receives only a brief introduction to avoid bias.</li>
+          <li>No code or parameters are changed during testing.</li>
+          <li>Participants interact naturally using the mouse.</li>
+          <li>Provide 1&ndash;2 minute breaks between tasks and debrief at the end.</li>
+        </ul>
+
+        <h4>Instructions for Examiners</h4>
+        <p>
+          Each examiner plays a defined role to keep sessions smooth, unbiased,
+          and well-documented. Close coordination preserves standardisation
+          across all participants.
+        </p>
+        <p>
+          <strong>Facilitator:</strong> Explains the study, reviews procedure,
+          obtains informed consent, and introduces the think-aloud protocol,
+          asking participants to verbalise what they notice as adaptive mode
+          switches ON and OFF. Presents each prototype task&mdash;adaptive focus
+          mode, heatmap visual search, and bandwidth control&mdash;one at a
+          time, stays neutral, avoids offering help, and gathers post-session
+          reflections on clarity, comfort, and difficulty.
+        </p>
+        <p>
+          <strong>Observer:</strong> Documents visible behaviours (hesitation,
+          confusion, cursor movement) and reactions to adaptive blur changes.
+          Remains silent and seated away from the screen, noting when adaptive
+          OFF conditions lengthen task completion. Takes timestamped notes that
+          become the primary qualitative record and syncs them with screen
+          recordings.
+        </p>
+        <p>
+          <strong>Recorder:</strong> Manages timing and data capture, verifies
+          the Python server and browser setup, and monitors for technical
+          issues. Confirms that <code>task1.html</code>, <code>task2.html</code>,
+          and <code>task3.html</code> load correctly before each session and
+          remains silent unless intervention is required to keep the session
+          running.
+        </p>
+        <p>
+          Clear division of responsibilities keeps every session consistent,
+          neutral, and thoroughly documented, combining quantitative metrics
+          such as task time and error rate with qualitative insights from user
+          feedback.
+        </p>
+
+        <h4>Treatment of Participants</h4>
+        <p>
+          Participants receive professional, respectful treatment. They are
+          reminded that the goal is to evaluate the interface, not their skills,
+          and are encouraged to describe what they notice when blur changes,
+          how focus shifts during the heatmap task, and how network adjustments
+          affect clarity as adaptive modes toggle ON and OFF.
+        </p>
+        <p>
+          Informed consent is gathered for all recordings, with transparency
+          about data storage and anonymity. Participants may pause, stop, or
+          withdraw at any time, request deletion of recorded material, and can
+          expect examiners to maintain a neutral, friendly attitude that avoids
+          influencing behaviour or confidence.
+        </p>
+
+        <h4>What Examiners Should Avoid</h4>
+        <p>
+          Examiners avoid behaviour that could bias results. They do not provide
+          hints, confirm correctness, or coach participants through adaptive
+          behaviours. No gestures, feedback, or interventions occur that might
+          sway natural interaction.
+        </p>
+        <p>
+          During focus, heatmap, and bandwidth tasks, examiners refrain from
+          pointing out targets or clarifying adaptive effects. Silence and
+          non-interference preserve authentic performance and perception data.
+        </p>
+
+        <h4>Measurements: What, How, and When</h4>
+        <p>
+          Measurements combine quantitative performance metrics with qualitative
+          perception data to evaluate the adaptive visual system.
+        </p>
+        <table>
+          <thead>
+            <tr>
+              <th>Measurement</th>
+              <th>Description</th>
+              <th>Collection Method</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Task Completion Time</td>
+              <td>
+                Time to complete each visual search or interaction task under
+                adaptive ON and OFF modes.
+              </td>
+              <td>Built-in timer plus screen recording.</td>
+            </tr>
+            <tr>
+              <td>Cursor Travel Distance</td>
+              <td>
+                Total cursor distance between targets, reflecting efficiency and
+                precision.
+              </td>
+              <td>Logged via internal coordinate tracking script.</td>
+            </tr>
+            <tr>
+              <td>Error Count</td>
+              <td>
+                Missed targets, inaccurate clicks, or premature selections for
+                each task.
+              </td>
+              <td>Observer notes verified against interaction logs.</td>
+            </tr>
+            <tr>
+              <td>Heatmap Density</td>
+              <td>
+                Distribution of cursor positions to visualise attention focus
+                and scanning behaviour.
+              </td>
+              <td>Automatically generated heatmap PNG after each trial.</td>
+            </tr>
+            <tr>
+              <td>Post-test Satisfaction &amp; Clarity Ratings</td>
+              <td>
+                Participant-reported comfort, clarity, and visual stability when
+                comparing adaptive ON and OFF modes.
+              </td>
+              <td>Five-point Likert questionnaire after each session.</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <h4>Evaluation Context</h4>
+        <p>
+          Sessions last 25&ndash;30 minutes: 5-minute briefing and consent,
+          20-minute task block, and 5-minute post-test questionnaire and
+          discussion. All activities run on a desktop computer using the
+          FocusVision prototype.
+        </p>
+        <ul>
+          <li>
+            <strong>Task 1 &mdash; Speed-Sensitive Cursor Blur:</strong>
+            Participants vary cursor speed to observe adaptive focus changes and
+            assess comfort.
+          </li>
+          <li>
+            <strong>Task 2 &mdash; Attention Heatmap Search:</strong> Participants
+            locate randomised date labels while heatmaps record cursor paths to
+            compare adaptive ON and OFF performance.
+          </li>
+          <li>
+            <strong>Task 3 &mdash; Adaptive Bandwidth:</strong> Participants view
+            a simulated video-conference interface where network fluctuation
+            adjusts visual clarity, highlighting responsiveness.
+          </li>
+        </ul>
+        <p>
+          The environment captures both quantitative metrics (task time, cursor
+          distance, error rate) and qualitative indicators (comments, hesitation).
+          Participants are briefed on recording procedures beforehand, and
+          post-task questionnaires capture comfort, clarity, and focus
+          stability. The mixed-method approach verifies how adaptive ON mode
+          enhances efficiency, reduces distraction, and supports clearer visual
+          interaction compared with the static OFF condition.
+        </p>
+        <h3>3.4 Reporting: Adaptive Display System Testing Plan</h3>
+        <p>
+          This plan explains how examiners record and report data from adaptive
+          display tests so that results stay clear and comparable for later
+          analysis.
+        </p>
+        <h4>Participants</h4>
+        <p>
+          Four to six university students or young professionals complete the
+          test using desktop or laptop computers with Chrome or Edge in a quiet
+          room while working through three adaptive display tasks.
+        </p>
+        <h4>Data to Record</h4>
+        <p><strong>Quantitative data:</strong></p>
+        <ul>
+          <li>Task completion time.</li>
+          <li>Number of cursor hits on target (Task 2).</li>
+          <li>Average cursor speed.</li>
+          <li>Heatmap fixation density.</li>
+          <li>Bandwidth recovery delay (Task 3).</li>
+          <li>Task success rate.</li>
+        </ul>
+        <p><strong>Qualitative data:</strong></p>
+        <ul>
+          <li>Participant comments and think-aloud feedback.</li>
+          <li>Observed confusion, hesitation, or satisfaction.</li>
+          <li>Post-test reflections on clarity and comfort.</li>
+        </ul>
+        <h4>Recording and Reporting</h4>
+        <ul>
+          <li>
+            Screen-record every session and capture observer notes with
+            timestamps.
+          </li>
+          <li>Summarise task durations and success counts.</li>
+          <li>Include generated heatmaps and bandwidth graphs.</li>
+          <li>
+            Highlight key participant quotes and usability ratings on the 1&ndash;5
+            scale.
+          </li>
+        </ul>
+        <p>
+          Compile numerical data and qualitative notes into a single report,
+          comparing adaptive ON and OFF conditions and grouping qualitative
+          insights by clarity, effort, and focus themes.
+        </p>
+        <h4>Design Implications</h4>
+        <p>
+          Results will reveal whether adaptive effects improve focus and visual
+          comfort. Faster target finding, smoother transitions, and higher
+          fixation in adaptive ON mode indicate success and guide further tuning
+          of blur and latency parameters.
+        </p>
+      </section>
+
+      <section>
+        <h2>4. Usability Evaluation Plan</h2>
+
+        <h3>4.1 Purpose and Objectives</h3>
+        <p>
+          This evaluation examines the usability, responsiveness, and visual
+          clarity of the gaze-adaptive prototype across three tasks that probe
+          attention and comfort. Independent evaluators assess whether adaptive
+          effects support focused interaction without distraction or confusion.
+        </p>
+        <p>The evaluation investigates:</p>
+        <ul>
+          <li>Effectiveness of adaptive blur and focus mechanisms in guiding attention.</li>
+          <li>Intuitiveness of switching between adaptive ON and OFF modes.</li>
+          <li>
+            Clarity of visual cues, timing feedback, and exported results such as
+            heatmaps and speed plots.
+          </li>
+        </ul>
+        <p>
+          The process confirms that the interface remains usable, understandable,
+          and visually comfortable for both first-time and experienced users.
+        </p>
+
+        <h3>4.2 Evaluation Methodology</h3>
+        <p>
+          The team follows heuristic evaluation principles adapted from
+          Nielsen&rsquo;s heuristics and tailored for adaptive visual systems.
+          Each evaluator independently explores the prototype, records usability
+          issues, and rates severity on a 0&ndash;4 scale (0 = not an issue, 4 =
+          critical).
+        </p>
+        <h4>Selected Heuristics</h4>
+        <ul>
+          <li>
+            <strong>Visibility of System Status:</strong> Clearly indicate
+            whether adaptive ON or OFF is active so users perceive blur
+            transitions instantly.
+          </li>
+          <li>
+            <strong>User Control and Freedom:</strong> Ensure toggles, start/end
+            actions, and downloads remain obvious and reversible.
+          </li>
+          <li>
+            <strong>Consistency and Standards:</strong> Maintain placement and
+            behaviour of buttons and adaptive feedback across tasks.
+          </li>
+          <li>
+            <strong>Minimal Intrusion and Flow Balance:</strong> Keep focus
+            effects from obscuring targets or causing motion discomfort so
+            adaptive effects enhance rather than hinder task performance.
+          </li>
+          <li>
+            <strong>Aesthetic and Emotional Tone:</strong> Preserve calm,
+            smooth transitions, gentle contrast, and avoid harsh prompts to
+            support comfort.
+          </li>
+          <li>
+            <strong>Feedback and Clarity of Results:</strong> Provide heatmaps
+            and speed plots that offer immediate, accurate feedback users can
+            interpret without technical guidance.
+          </li>
+        </ul>
+
+        <h3>4.3 Evaluation Procedure</h3>
         <ol>
           <li>
-            <strong>Staffing:</strong> Two examiners per session — a facilitator to run
-            the script and a note-taker to capture metrics and observations.
+            <strong>Independent Exploration:</strong> Each evaluator completes at
+            least two runs per task (adaptive OFF and ON), noting confusion,
+            unexpected blur transitions, or unclear status indicators.
           </li>
           <li>
-            <strong>Environment &amp; equipment:</strong> 15″–24″ laptop/desktop, external
-            mouse, latest Chrome/Edge, stopwatch, consent forms, pre/post surveys, and
-            optional screen/audio capture (with consent).
+            <strong>Heuristic Logging:</strong> Evaluators document each
+            usability issue with a description, supporting screenshot or
+            timestamp, suggested improvement, and severity rating (0&ndash;4).
           </li>
           <li>
-            <strong>Prototype handling:</strong> Load <code>index.html</code> (direct open
-            or Live Server), referencing the user manual to confirm spotlight, heatmap,
-            and bandwidth controls before the participant arrives.
+            <strong>Team Review and Consensus:</strong> Evaluators meet to
+            consolidate findings and agree on a final severity rating.
           </li>
           <li>
-            <strong>Participant briefing:</strong> Explain study purpose, collect
-            demographics, remind participants they can withdraw, and encourage think-aloud
-            behaviour.
-          </li>
-          <li>
-            <strong>Task script (≈25 min):</strong>
-            <ol>
-              <li>Warm-up — Toggle focus spotlight, adjust radius.</li>
-              <li>Task 1 — Locate spotlight toggle and resize spotlight.</li>
-              <li>
-                Task 2 — Run a 45&nbsp;s heatmap session, achieve ≥5 hits, review the
-                overlay.
-              </li>
-              <li>
-                Task 3 — Enable adaptive bandwidth, simulate “Limited” and “Boosted”
-                networks, interpret the bandwidth monitor.
-              </li>
-            </ol>
-            Facilitator only offers hints after 90&nbsp;s of stall time and records
-            assistance.
-          </li>
-          <li>
-            <strong>Interaction rules:</strong> Facilitator clarifies goals but avoids
-            step-by-step coaching; respond to “Where is X?” with neutral prompts.
-          </li>
-          <li>
-            <strong>Data capture:</strong> Track time-on-task, errors, assistance, cursor
-            metrics (optionally via heatmap export), and gather post-task Likert ratings
-            plus qualitative notes.
-          </li>
-          <li>
-            <strong>Post-session wrap-up:</strong> Administer SUS-lite or custom survey,
-            run a brief interview, thank the participant, and anonymise stored data.
+            <strong>Reporting:</strong> Produce a summary that groups issues by
+            heuristic, includes representative evidence, and recommends design
+            actions for retention, revision, or removal.
           </li>
         </ol>
 
-        <h3>4.4 Reporting</h3>
-        <h4>Data Recording &amp; Reporting Workflow</h4>
+        <h3>4.4 Severity Rating Scale</h3>
         <table>
           <thead>
             <tr>
-              <th>Step</th>
-              <th>Details</th>
+              <th>Rating</th>
+              <th>Meaning</th>
             </tr>
           </thead>
           <tbody>
             <tr>
-              <td>Capture</td>
-              <td>
-                Use the shared Google Sheet for timing, errors, assistance, and heatmap
-                exports; store media captures in the secure Drive folder.
-              </td>
+              <td>0</td>
+              <td>Not a usability issue.</td>
             </tr>
             <tr>
-              <td>Survey aggregation</td>
-              <td>
-                Google Forms summarises Likert scores; export CSV for deeper analysis.
-              </td>
+              <td>1</td>
+              <td>Cosmetic issue (optional fix).</td>
             </tr>
             <tr>
-              <td>Synthesis</td>
-              <td>
-                Weekly debriefs cluster issues, track goal attainment, and update the
-                backlog.
-              </td>
+              <td>2</td>
+              <td>Minor issue (low priority).</td>
             </tr>
             <tr>
-              <td>Deliverables</td>
-              <td>
-                Produce a 2–3 page PDF summarising metrics, findings, priority issues, and
-                recommended actions; upload to the course portal and archive in
-                <code>/reports/usability-round1.pdf</code>.
-              </td>
+              <td>3</td>
+              <td>Major issue (significant impact).</td>
+            </tr>
+            <tr>
+              <td>4</td>
+              <td>Critical issue (must fix before next test).</td>
             </tr>
           </tbody>
         </table>
 
-        <h4>Evaluation Methods Overview</h4>
-        <table>
-          <thead>
-            <tr>
-              <th>Evaluation Method</th>
-              <th>Metrics &amp; Justification</th>
-              <th>Application</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td>Lab-based task testing</td>
-              <td>
-                Completion time, error counts, assistance — map directly to UQ1/UQ2 for
-                learnability and efficiency.
-              </td>
-              <td>
-                Measure during scripted tasks; compare adaptive ON vs. OFF runs.
-              </td>
-            </tr>
-            <tr>
-              <td>Perceived clarity &amp; satisfaction survey</td>
-              <td>
-                Likert ratings on comfort, clarity, and control support UQ3/UQ4/UQ6.
-              </td>
-              <td>Post-task survey plus short interview for qualitative depth.</td>
-            </tr>
-            <tr>
-              <td>Heatmap / cursor analytics</td>
-              <td>
-                Fixation density and cursor distance reinforce UQ2 and UQ4 targets.
-              </td>
-              <td>
-                Export built-in heatmap arrays or capture via observation to quantify
-                focus behaviour.
-              </td>
-            </tr>
-            <tr>
-              <td>Network stability test</td>
-              <td>
-                Latency logs and visual artefact checks validate UQ5 robustness.
-              </td>
-              <td>
-                Monitor during Task 3 simulations, using console timestamps and observer
-                notes.
-              </td>
-            </tr>
-            <tr>
-              <td>Heuristic evaluation (Nielsen 10)</td>
-              <td>
-                Focus on visibility of system status, user control, and real-world match.
-              </td>
-              <td>
-                Conducted by two HCI evaluators before and after user testing to surface
-                structural issues early.
-              </td>
-            </tr>
-          </tbody>
-        </table>
+        <h3>4.5 Expected Outcomes</h3>
         <p>
-          Combining quantitative sessions with expert heuristic reviews ensures the
-          adaptive prototype evolves based on measurable outcomes and qualitative insight.
+          The evaluation verifies whether the adaptive gaze mechanism and mode
+          switching improve focus, comfort, and efficiency compared with static
+          presentation. Findings will guide refinements to visual timing, blur
+          intensity, and feedback presentation to balance immersion with
+          awareness.
         </p>
       </section>
     </div>

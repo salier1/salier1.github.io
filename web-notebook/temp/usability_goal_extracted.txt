@@ -1,0 +1,149 @@
+User Population
+TABLE_START
+Attribute	Definition
+Target users	Knowledge workers and graduate students who regularly consume remote presentations, training clips, or screen-share walkthroughs (aligned with our original design brief).
+Sample size	3-5 participants  per round.
+Background	Comfortable with web browsers, mouse/trackpad navigation, and multitasking between content and controls.
+Usage context	Watching adaptive media on laptops/desktop monitors in quiet office/home-office settings; occasionally on shared screens during team workshops.
+TABLE_END
+TABLE_START
+ID	Usability Goal	Quantitative Measurement (where appropriate)
+UQ1	Learnability  — Users should understand how to activate and use each adaptive mode (focus blur, speed adaptation, bandwidth control) without external guidance.	• ≥90% of users locate and toggle the adaptive switch within 30 s. • First complete run of any task finished within 2 min without help.
+UQ2	Efficiency  — Adaptive mode should help users complete visual search tasks faster and with fewer cursor movements.	• Target acquisition time (adaptive ON) ≤ 80% of (adaptive OFF). • Cursor travel distance per hit reduced by ≥15%.
+UQ3	Satisfaction  — Adaptive effects should feel comfortable and visually pleasant.	• ≥80% of participants give ≥ 4/5 on Likert-scale ratings for “comfort,” “clarity,” and “visual pleasantness.”
+UQ4	Perceived Clarity & Focus  — Adaptive blur should help users see important regions more clearly.	• ≥75% of users report improved clarity in adaptive ON mode. •Cursor-based heatmaps show ≥25% higher fixation density on target zones.
+UQ5	Robustness & Stability  — The adaptive system should remain visually stable under network fluctuation.	• Latency < 80 ms during adaptive updates. • ≥95% of bandwidth tests without visible flicker or contrast loss.
+UQ6	Awareness & Control  — Users should feel aware of adaptive changes and perceive them as helpful rather than distracting.	• ≥80% of users report “felt in control.” •<10% describe adaptive effects as “distracting” or “confusing.”
+TABLE_END
+Usability Test Procedure
+Number of Examiners
+Three examiners will participate in each usability session to ensure consistent, objective observation and complete data capture.
+Facilitator: Welcomes participants, explains the purpose of the session, and guides them through each task following a standardized script. Responsible for introducing the think-aloud process and maintaining a neutral tone throughout the test.
+Observer: Observes silently, recording visible difficulties, navigation behavior, pauses, and comments. Notes will focus on identifying usability barriers and user reactions.
+Recorder: Measures task duration, manages screen and audio recordings, and ensures that all timing and data logs are accurate.
+This setup ensures that both quantitative and qualitative data are collected without overloading any single examiner.
+Equipment Needed
+The following equipment and materials will be prepared for each test:
+A laptop or desktop computer with Chrome, Edge, or Firefox installed.
+The three prototype HTML files (task1_focus.html, task2_search.html, and task3_bandwidth.html) opened through a local server using python -m http.server 8000.
+Screen recording software (e.g., OBS Studio) to capture all interactions.
+An audio recorder to collect think-aloud comments.
+A stopwatch or timing tool for manual verification.
+Printed materials: Consent Form, Facilitator Script, Pre-test and Post-test Questionnaires, and Data Collection Sheets.
+Before each session, the examiners will verify that all prototypes open correctly, that the adaptive ON/OFF toggles are functioning, and that recordings are working properly.
+Handling of the Prototype
+The prototypes are browser-based and should be run in full-screen mode.
+The facilitator will open the local server and navigate to each task in sequence.
+Each task will be introduced briefly, with minimal explanation to prevent bias.
+The system must remain unmodified during testing—no code or parameters will be changed.
+Participants will interact naturally using the mouse, completing each task as instructed.
+Between tasks, short breaks of 1–2 minutes will be provided.
+At the end of all tasks, participants will be debriefed and asked for final impressions.
+Instructions for Examiners
+Each examiner plays a defined role in ensuring that the usability test runs smoothly, remains unbiased, and produces reliable data. Close coordination among team members is essential to maintain a standardized process across all participants.
+The facilitator leads the session and interacts directly with the participant. Their primary responsibility is to explain the purpose of the study, clarify the procedure, and make sure the participant feels comfortable before testing begins. The facilitator introduces the three prototype tasks which are adaptive focus mode, heatmap visual search, and bandwidth control, emphasizing that the purpose of the session is to evaluate the system’s usability, not the participant’s ability. Before starting, the facilitator obtains informed consent and introduces the think-aloud protocol, asking participants to verbalize what they notice, what confuses them, or what they find clear when the adaptive mode switches ON or OFF. During the test, the facilitator provides instructions one task at a time, avoids offering feedback or hints, and stays neutral in tone and expression. At the end of the session, the facilitator thanks the participant and asks short follow-up questions to collect subjective impressions of clarity, comfort, and task difficulty.
+The observer is responsible for documenting the participant’s visible behaviors, such as hesitation, confusion, or eye and cursor movements. They record how users react to adaptive blur changes, where the cursor tends to move, and whether the participant takes longer to find targets when adaptive mode is OFF. The observer remains silent and seated away from the screen to minimize influence, taking timestamped notes on errors, pauses, and verbal comments. These notes serve as the main qualitative record of user behavior and will be synchronized with screen recordings after each session.
+The recorder manages all timing and data collection equipment. They record task start and end times, measure completion duration for each adaptive condition, and ensure that all video and audio recordings are functioning properly. The recorder also checks the Python local server and browser to make sure the prototype files (task1.html, task2.html, and task3.html) load correctly before the session begins. They remain silent during testing but stay alert for any technical issues, such as frozen screens or recording failures, which must be addressed immediately without disturbing the participant.
+This structured division of responsibilities ensures that every usability test remains consistent, neutral, and well-documented. By clearly defining each examiner’s duties, the team ensures reliable data collection, combining quantitative measurements such as task completion time and error rate with qualitative insights from user feedback and recorded observations.
+Treatment of Participants
+All participants will be treated with professionalism, respect, and care throughout the usability testing process. Examiners are responsible for creating a calm and supportive environment in which participants feel comfortable exploring the adaptive prototypes freely. Each participant will be reminded that the purpose of the test is to evaluate the interface design, not their personal performance or skill.
+During the session, participants will be encouraged to verbalize their thoughts and reactions using the think-aloud protocol. They may describe what they notice when adaptive blur changes, how their focus shifts during the heatmap task, or how network adjustments affect the clarity of the interface. This feedback will help the team understand both intuitive and confusing elements of each adaptive mode.
+Before testing begins, informed consent will be obtained for all forms of recording, including screen, video, and audio capture. Participants will be clearly informed about what data is collected, how it will be stored, and that all results will remain anonymous. They have the right to pause, stop, or withdraw from the test at any time, or to request deletion of any recorded material without any penalty. Examiners will maintain a neutral and friendly attitude, avoiding any expressions that may influence the participant’s behavior or confidence.
+What Examiners Should Avoid
+Examiners must avoid any behavior that could bias the test results or influence how participants interact with the adaptive system. They should not provide hints, confirm correctness, or explain how each adaptive mode works during the session. Examiners must refrain from giving feedback such as “good,” “correct,” or “almost,” and avoid leading gestures or eye contact that suggest expected actions.
+During the focus, heatmap, and bandwidth tasks, examiners must not intervene to correct cursor position, point out visual targets, or clarify adaptive effects, as this could compromise the authenticity of user reactions. They should remain silent and avoid commenting on errors or confusion, ensuring that the data collected truly reflects natural user behavior. These precautions guarantee that both performance data (e.g., task time, hit accuracy) and user perceptions remain unbiased, providing valid and reliable insights into the usability of each adaptive feature.
+Measurements: What, How, and When
+Measurements will be collected during and after each task to evaluate user performance, accuracy, and perception of the adaptive visual system. Quantitative data will provide objective evidence of efficiency, while qualitative data will capture users’ impressions and perceived clarity. Each measurement is associated with a specific collection method to ensure both consistency and reliability.
+Measurement 1 – Task Completion Time
+Time taken for participants to complete each assigned visual search or interaction task under both adaptive ON and OFF modes.
+Collection Method: Measured using a built-in timer and screen recording.
+Measurement 2 – Cursor Travel Distance
+Total distance the cursor moves between targets, reflecting movement efficiency and precision.
+Collection Method: Automatically logged from the system’s internal coordinate tracking script.
+Measurement 3 – Error Count
+Number of missed targets, inaccurate clicks, or premature selections during each task.Collection Method: Observer notes verified against recorded interaction logs.
+Measurement 4 – Heatmap Density
+Distribution of cursor positions visualized through heatmaps, indicating the user’s attention focus and visual scanning behavior.
+Collection Method: Automatically generated heatmap PNG after each trial.
+Measurement 5 – Post-test Satisfaction and Clarity Ratings
+Participant-reported scores on comfort, clarity, and visual stability when comparing adaptive ON and OFF modes.
+Collection Method: Five-point Likert-scale questionnaire administered after each session.
+Together, these measures combine quantitative metrics of performance and qualitative feedback on perception, enabling a comprehensive assessment of the adaptive system’s usability.
+Evaluation Context
+Each usability session is designed to last approximately 25 to 30 minutes, consisting of a 5-minute briefing and consent process, 20 minutes of adaptive task interaction, and a 5-minute post-test discussion and questionnaire. Participants will be informed of the study’s purpose and recording procedures before testing begins, and consent will be obtained for all screen and data captures.
+All tasks are performed on a desktop computer running the FocusVision prototype.
+Task 1 – Speed-Sensitive Cursor Blur: Participants move the cursor at varying speeds to observe adaptive focus changes, testing comfort and naturalness of motion.
+Task 2 – Attention Heatmap Search: Participants locate randomized date labels while the system records cursor paths and generates heatmaps, comparing search efficiency between adaptive ON and OFF conditions.
+Task 3 – Adaptive Bandwidth: Participants view a simulated video-conference interface where network fluctuation dynamically adjusts visual clarity, evaluating the perceived smoothness and system responsiveness.
+The test environment records both quantitative metrics—such as task time, cursor distance, and error rate—and qualitative indicators like comments and visible hesitation. Examiners observe user behavior discreetly and note moments of confusion or adjustment. After all tasks, participants complete a short questionnaire rating comfort, clarity, and focus stability.
+This mixed-method evaluation provides balanced insights into both measured performance and subjective perception. By combining objective data logging with direct participant feedback, the study verifies how adaptive ON mode enhances efficiency, reduces distraction, and supports clearer visual interaction compared with the static OFF condition.
+Reporting: Adaptive Display System Testing Plan
+This plan explains how examiners will record and report data from the usability tests of the adaptive display prototype, ensuring results are clear and comparable for later analysis.
+Participants
+4–6 university students or young professionals will join the test. They will use desktop or laptop computers running Chrome or Edge in a quiet room, testing three adaptive display tasks.
+Data to Record
+Quantitative data:
+Task completion time
+Number of cursor hits on target (Task 2)
+Average cursor speed
+Heatmap fixation density
+Bandwidth recovery delay (Task 3)
+Task success rate
+Qualitative data:
+Participant comments and think-aloud feedback
+Observed confusion, hesitation, or satisfaction
+Post-test reflections on clarity and comfort
+Recording and Reporting
+Each session will be screen-recorded, and observers will take notes with timestamps for key actions or difficulties.
+After testing, examiners will summarize:
+Task durations and success counts
+Generated heatmaps and bandwidth graphs
+Key participant quotes and usability ratings (1–5 scale)
+All results will be compiled into a single report with both numerical data and qualitative notes. Quantitative data will be compared between adaptive ON and OFF modes, and qualitative insights will be grouped by theme (clarity, effort, focus).
+Design Implications
+The data will help evaluate whether adaptive effects improve focus and visual comfort. Faster target finding, smoother transitions, and higher fixation in adaptive ON mode will indicate success and guide further tuning of blur and latency parameters.
+Usability Evaluation Plan
+1. Purpose and Objectives
+The purpose of this evaluation is to examine the usability, responsiveness, and visual clarity of the gaze-adaptive prototype, which consists of three tasks designed to explore user attention and visual comfort.Independent evaluators will assess whether the system supports focused visual interaction without causing distraction or confusion. The evaluation focuses on:
+How effectively the adaptive blur and focus mechanisms guide attention.
+Whether mode switching (Adaptive ON / OFF) is intuitive.
+The clarity of visual cues, timing feedback, and exported result functions (heatmap / speed plot).
+This evaluation will ensure that the interface remains usable, understandable, and visually comfortable for both first-time and experienced users.
+2. Evaluation Methodology
+The methodology follows heuristic evaluation principles adapted from Nielsen’s usability heuristics, supplemented with criteria relevant to adaptive visual systems.Each evaluator will use the prototype independently, record usability issues, and rate their severity using a standardized 0–4 scale (0 = not an issue, 4 = critical).
+Selected Heuristics
+Visibility of System StatusThe system should clearly indicate whether Adaptive ON or OFF is active. Users must be able to perceive focus blur transitions and overall visual state changes instantly.
+User Control and FreedomUsers should easily toggle modes, start or end tests, and download results without confusion or unexpected resets.
+Consistency and StandardsButton layout, labeling (e.g., Start Test, Download Heatmap), and adaptive feedback should follow consistent placement and behavior across tasks.
+Minimal Intrusion and Flow BalanceThe focus effect and blur transition must not obscure target visibility or cause motion discomfort. Adaptive effects should enhance, not hinder, task performance.
+Aesthetic and Emotional ToneThe interface should maintain calmness—using smooth transitions, soft contrast, and no harsh prompts—so that users remain comfortable during long tests.
+Feedback and Clarity of ResultsHeatmaps and speed plots should provide accurate, immediate feedback that users can interpret without technical explanation.
+3. Evaluation Procedure
+Step 1 – Independent Exploration
+Each evaluator will complete at least two runs per task (Adaptive OFF and ON). They will note any confusion, unexpected blur transitions, or unclear status indicators.
+Step 2 – Heuristic Logging
+For each heuristic, evaluators record:
+Description of the usability issue.
+Screenshot or timestamp (if relevant).
+Suggested improvement.
+Severity rating (0–4).
+Step 3 – Team Review and Severity Consensus
+After independent sessions, evaluators will meet to consolidate findings and assign a final severity rating to each identified problem.
+Step 4 – Reporting
+A summary report will include:
+A table of all identified usability issues, grouped by heuristic.
+Representative screenshots or brief notes.
+Ranked severity and recommended design actions (retain / revise / remove).
+The compiled report will guide improvements in the next design iteration.
+4. Severity Rating Scale
+TABLE_START
+Rating	Meaning
+0	Not a usability issue
+1	Cosmetic issue (optional fix)
+2	Minor issue (low priority)
+3	Major issue (significant impact)
+4	Critical issue (must fix before next test)
+TABLE_END
+5. Expected Outcomes
+The evaluation will determine whether the adaptive gaze mechanism and mode switching improve user focus, comfort, and efficiency compared to static presentation.
+Findings will provide concrete guidance for refining visual timing, blur intensity, and feedback presentation to achieve an optimal balance between immersion and awareness.
