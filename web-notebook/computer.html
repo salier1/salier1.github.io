@@ -8,82 +8,76 @@
       Video Streaming
     </title>
     <style>
-      /* Clean, readable styling */
       body {
-        font-family: -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial,
-          sans-serif;
-        background: #f6f7f9;
-        color: #111;
-        margin: 0;
-        padding: 24px;
+        font-family: "Helvetica Neue", Arial, sans-serif;
         line-height: 1.6;
+        background-color: #f8f9fa;
+        color: #333;
+        margin: 0;
+        padding: 0;
       }
       .container {
-        max-width: 980px;
-        margin: 28px auto;
+        max-width: 900px;
+        margin: 40px auto;
         background: #fff;
-        padding: 32px;
-        border-radius: 10px;
-        box-shadow: 0 6px 18px rgba(20, 30, 40, 0.06);
+        padding: 40px;
+        box-shadow: 0 0 8px rgba(0, 0, 0, 0.1);
+        border-radius: 8px;
       }
-      header {
+      .imagebox {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+      }
+      h1,
+      h2,
+      h3,
+      h4 {
+        color: #222;
+        font-weight: 600;
+        margin-top: 1.5em;
+      }
+      h1 {
         text-align: center;
-        margin-bottom: 18px;
-      }
-      header h1 {
-        margin: 0;
-        font-size: 1.6rem;
-      }
-      header .meta {
-        color: #555;
-        margin-top: 6px;
-        font-size: 0.95rem;
+        margin-bottom: 0.5em;
       }
       h2 {
-        font-size: 1.15rem;
-        margin-top: 26px;
-        border-bottom: 1px solid #eee;
-        padding-bottom: 8px;
+        border-bottom: 2px solid #e5e5e5;
+        padding-bottom: 4px;
+        margin-bottom: 0.6em;
       }
-      h3 {
-        font-size: 1rem;
-        margin-top: 16px;
-      }
-      p {
-        margin: 0.7em 0;
-      }
+      p,
       ul,
       ol {
-        margin: 0.5em 0 1em 1.1em;
+        margin-bottom: 1em;
+      }
+      ul ul {
+        margin-bottom: 0em;
+      }
+      ul {
+        padding-left: 1.2em;
       }
       table {
         width: 100%;
         border-collapse: collapse;
-        margin: 12px 0;
+        margin-top: 1em;
       }
       th,
       td {
-        border: 1px solid #e6e6e6;
-        padding: 10px;
+        border: 1px solid #ddd;
+        padding: 8px 10px;
         vertical-align: top;
-        text-align: left;
       }
       th {
-        background: #fafafa;
-      }
-      .note {
-        color: #555;
-        font-size: 0.95rem;
-      }
-      .small {
-        font-size: 0.9rem;
-        color: #666;
+        background-color: #f2f2f2;
+        text-align: left;
       }
       footer {
         text-align: center;
-        margin-top: 22px;
+        font-size: 0.9em;
         color: #777;
-        font-size: 0.9rem;
+        margin-top: 3em;
       }
       pre {
         background: #f4f6f8;
@@ -98,6 +92,74 @@
       nav ul li a.active {
         border-bottom: 3px solid #0078d4;
         color: #0078d4;
+      }
+      .overview-figure {
+        margin: 2em auto 2.5em;
+        text-align: center;
+      }
+      .overview-figure img {
+        max-width: 100%;
+        height: auto;
+        border-radius: 12px;
+        box-shadow: 0 10px 28px rgba(15, 23, 42, 0.16);
+        border: 1px solid #e5e7eb;
+      }
+      .overview-figure figcaption {
+        margin-top: 0.75em;
+        color: #666;
+        font-size: 0.95em;
+      }
+      .section-header {
+        text-align: center;
+        margin-bottom: 2.5em;
+      }
+      .section-header p {
+        color: #555;
+        margin-top: 0.5em;
+        font-size: 1.05em;
+      }
+      .section-lead {
+        margin-top: 0.4em;
+        color: #555;
+        font-size: 1.05em;
+      }
+      .pdf-grid {
+        display: grid;
+        gap: 32px;
+        grid-template-columns: 1fr;
+        margin-top: 1.5em;
+      }
+      .pdf-card {
+        background: #fafbfd;
+        border: 1px solid #e5e7eb;
+        border-radius: 10px;
+        padding: 24px;
+        box-shadow: 0 4px 12px rgba(15, 23, 42, 0.06);
+      }
+      .pdf-card h3 {
+        margin-top: 0;
+        margin-bottom: 0.4em;
+        font-size: 1.05em;
+      }
+      .pdf-card p {
+        margin-bottom: 0.8em;
+        color: #555;
+      }
+      .pdf-card a {
+        color: #0066cc;
+        text-decoration: none;
+        font-weight: 600;
+      }
+      .pdf-card a:hover {
+        text-decoration: underline;
+      }
+      .pdf-embed {
+        width: 100%;
+        height: 520px;
+        border: none;
+        border-radius: 8px;
+        background: #ffffff;
+        box-shadow: inset 0 0 0 1px #e5e7eb;
       }
     </style>
   </head>
@@ -202,6 +264,510 @@
         </li>
       </ul>
     </nav>
-    <div class="container">more later</div>
+    <div class="container">
+      <div class="section-header">
+        <h1>Computer Prototype</h1>
+        <p>
+          A digital walkthrough of the gaze-aware streaming experience with
+          supporting documentation for evaluators and participants.
+        </p>
+      </div>
+
+      <section>
+        <h2>Prototype Overview</h2>
+        <h3>System Description</h3>
+        <p>
+          The current build, the “Gaze Interaction Prototype Suite,” packages
+          three gaze-inspired interaction concepts into a single HTML experience
+          that stakeholders can launch without additional tooling.
+        </p>
+        <p>
+          <a
+            href="computer%20prototype.html"
+            target="_blank"
+            rel="noopener"
+            style="color: #0066cc; font-weight: 600; text-decoration: none"
+          >
+            Launch the computer prototype in a new tab
+          </a>
+        </p>
+        <ul>
+          <li>
+            <strong>Gaze-Adaptive Player.</strong> A focus spotlight trails the
+            viewer’s point of regard, sharpening the focal region while softening
+            the periphery.
+          </li>
+          <li>
+            <strong>Attention Heatmap Dashboard.</strong> A timed tracking task
+            logs cursor or gaze events, awards points for hits, and renders a
+            cumulative heatmap overlay.
+          </li>
+          <li>
+            <strong>Adaptive Bandwidth Controller.</strong> Facilitators can
+            simulate network conditions, toggle adaptive streaming, and inspect
+            bandwidth usage alongside availability.
+          </li>
+        </ul>
+        <p><strong>Key characteristics:</strong></p>
+        <ul>
+          <li>
+            Self-contained in <code>index.html</code> with no build or backend
+            step.
+          </li>
+          <li>Right-side drawer centralises toggles, sliders, and diagnostics.</li>
+          <li>
+            Hero landing screen doubles as onboarding copy and collapses to
+            maximise the stage.
+          </li>
+          <li>
+            Accessibility notes include keyboard-accessible controls, ARIA labels,
+            and stateful badges for adaptive modes.
+          </li>
+        </ul>
+
+        <figure class="overview-figure">
+          <img
+            src="images/computer%20prototype%20screenshot.png"
+            alt="Computer prototype interface showing the gaze-adaptive player, task overview, and unified control drawer."
+          />
+          <figcaption>
+            High-fidelity computer prototype highlighting the hero onboarding panel (left) and multi-tool control drawer (right).
+          </figcaption>
+        </figure>
+
+        <h3>User Goals &amp; Scenarios</h3>
+        <ul>
+          <li>
+            <strong>Faculty presenters</strong> demonstrate adaptive streaming to
+            prospective partners, quickly enabling or disabling spotlight and
+            bandwidth features during live walkthroughs.
+          </li>
+          <li>
+            <strong>HCI researchers</strong> capture gaze/cursor events while
+            participants complete timed tracking tasks, exporting heatmap states
+            for follow-up analysis.
+          </li>
+          <li>
+            <strong>Technical facilitators</strong> stress-test network states in
+            the same interface, correlating playback quality with simulated
+            bandwidth dips.
+          </li>
+        </ul>
+        <p>
+          Each scenario starts with the hero overview, allowing the facilitator to
+          brief newcomers before collapsing the panel and focusing on the active
+          module. The consistent drawer layout reinforces muscle memory so users
+          do not have to hunt for controls as they switch context.
+        </p>
+
+        <h3>Current Evaluation Focus</h3>
+        <p>
+          Recent usability sessions examine how quickly observers identify the
+          spotlight’s effect, whether the heatmap hints aid situational awareness,
+          and how intuitively facilitators notice bandwidth bottlenecks. Metrics
+          include time-to-first-success for each task, perceived clarity of status
+          badges, and the number of prompts required to locate key toggles.
+        </p>
+        <p>
+          These insights feed the iteration backlog—for example, tweaking badge
+          contrast, refining tooltip copy, and smoothing the transition when the
+          hero panel collapses into the top navigation strip.
+        </p>
+
+        <h3>Design Evolution (with rationale)</h3>
+        <table>
+          <thead>
+            <tr>
+              <th>No.</th>
+              <th>Change Summary</th>
+              <th>Why We Changed It</th>
+              <th>Usability / Feasibility Rationale</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>1</td>
+              <td>
+                <strong>Merged multi-page flow into a single entry point</strong>
+                and surfaced the spotlight toggle in Task 1.
+              </td>
+              <td>
+                <em>Feedback:</em> Low-fidelity testers were unsure which HTML file
+                to start with and asked for “single file, single toggle” to ease
+                onboarding.
+              </td>
+              <td>
+                A unified <code>index.html</code> removes file confusion and places
+                the enable spotlight control where viewers expect it, reducing setup
+                time.
+              </td>
+            </tr>
+            <tr>
+              <td>2</td>
+              <td>
+                <strong>Added hero task overview with collapsible cards</strong>
+                via a Hide task overview toggle.
+              </td>
+              <td>
+                <em>Feedback:</em> Early demos valued the overview cards but wanted
+                to reclaim screen space during presentations.
+              </td>
+              <td>
+                The toggle preserves onboarding context for first-time viewers while
+                allowing presenters to clear the viewport instantly.
+              </td>
+            </tr>
+            <tr>
+              <td>3</td>
+              <td>
+                <strong>Introduced a unified drawer with integrated diagnostics</strong>
+                covering spotlight settings, heatmap workflow, and bandwidth
+                monitoring.
+              </td>
+              <td>
+                <em>Feedback:</em> Reviewers requested consistent access to controls
+                without swapping files or scrolling long pages.
+              </td>
+              <td>
+                Centralising controls improves discoverability, reduces cognitive
+                load, and enabled the bandwidth monitor toggle.
+              </td>
+            </tr>
+          </tbody>
+        </table>
+
+        <h4>Supporting Iterations</h4>
+        <ul>
+          <li>
+            Bandwidth monitor toggle and status badge to declutter the viewport and
+            surface automation states only when needed.
+          </li>
+          <li>
+            Task HUD polish that keeps score and timer feedback persistent during
+            the heatmap exercise.
+          </li>
+          <li>
+            Badge repositioning so the adaptive encoding badge no longer collides
+            with the focus settings button.
+          </li>
+        </ul>
+        <p>
+          Collectively, these changes resolve the entry-point confusion, blocked
+          stage space, and scattered controls highlighted in low-fidelity testing,
+          resulting in a faster, more intuitive walkthrough.
+        </p>
+      </section>
+
+      <section>
+        <h2>User Manual &amp; Installation Guide</h2>
+        <!-- <p class="section-lead">
+          Comprehensive documentation for setup and usage.
+        </p> -->
+        <div class="pdf-grid">
+          <div class="pdf-card">
+            <h3>User Guide</h3>
+            <p>
+              Step-by-step instructions covering the core streaming experience,
+              adaptive gaze features, and troubleshooting tips.
+            </p>
+            <a href="files/userguide.pdf" target="_blank" rel="noopener">
+              Open in a new tab
+            </a>
+            <iframe
+              class="pdf-embed"
+              src="files/userguide.pdf#toolbar=0&navpanes=0&scrollbar=0"
+              title="Gaze-aware streaming user guide"
+            >
+            </iframe>
+          </div>
+          <div class="pdf-card">
+            <h3>Installation Guide</h3>
+            <p>
+              Environment requirements, setup checklist, and deployment notes
+              for running the computer prototype locally.
+            </p>
+            <a href="files/install.pdf" target="_blank" rel="noopener">
+              Open in a new tab
+            </a>
+            <iframe
+              class="pdf-embed"
+              src="files/install.pdf#toolbar=0&navpanes=0&scrollbar=0"
+              title="Gaze-aware streaming installation guide"
+            >
+            </iframe>
+          </div>
+        </div>
+      </section>
+
+      <section>
+        <h2>4. Usability Test Plan</h2>
+
+        <h3>4.1 User Population</h3>
+        <table>
+          <thead>
+            <tr>
+              <th>Attribute</th>
+              <th>Definition</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Target users</td>
+              <td>
+                Knowledge workers and graduate students who routinely consume remote
+                presentations, training clips, or screen-share walkthroughs.
+              </td>
+            </tr>
+            <tr>
+              <td>Sample size</td>
+              <td><strong>6–8 participants</strong> per round.</td>
+            </tr>
+            <tr>
+              <td>Background</td>
+              <td>
+                Comfortable with modern browsers, mouse/trackpad navigation, and
+                multitasking between content and controls.
+              </td>
+            </tr>
+            <tr>
+              <td>Usage context</td>
+              <td>
+                Adaptive media on laptop/desktop monitors in quiet office or home
+                settings, plus occasional shared screens during workshops.
+              </td>
+            </tr>
+          </tbody>
+        </table>
+        <p>
+          <strong>Recruitment:</strong> Use campus mailing lists and HCI lab volunteer
+          pools that match the above profile.
+        </p>
+
+        <h3>4.2 Usability Goals</h3>
+        <table>
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th>Goal Statement</th>
+              <th>Quantitative Target</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>UQ1 — Learnability</td>
+              <td>
+                Users can enable or disable adaptive controls (focus spotlight, heatmap,
+                bandwidth monitor) without facilitator guidance.
+              </td>
+              <td>
+                ≥90% locate and activate the requested control within 30&nbsp;s; first
+                complete task run finishes in ≤2&nbsp;min without help.
+              </td>
+            </tr>
+            <tr>
+              <td>UQ2 — Efficiency</td>
+              <td>
+                Adaptive aids reduce effort to acquire targets and complete tracking
+                tasks.
+              </td>
+              <td>
+                Adaptive ON target acquisition time ≤80% of adaptive OFF baseline; cursor
+                travel per hit reduced by ≥15%.
+              </td>
+            </tr>
+            <tr>
+              <td>UQ3 — Satisfaction</td>
+              <td>Adaptive visuals feel comfortable and pleasant.</td>
+              <td>
+                ≥80% rate comfort, clarity, and visual pleasantness ≥4/5 on post-task
+                Likert scales.
+              </td>
+            </tr>
+            <tr>
+              <td>UQ4 — Perceived Clarity</td>
+              <td>Adaptive blur enhances focus on key regions.</td>
+              <td>
+                ≥75% report improved clarity with adaptive ON; heatmap density on target
+                zones increases by ≥25%.
+              </td>
+            </tr>
+            <tr>
+              <td>UQ5 — Robustness</td>
+              <td>Adaptive streaming remains stable under network fluctuation.</td>
+              <td>
+                Update latency &lt;80&nbsp;ms; ≥95% of simulated runs show no flicker or
+                contrast loss.
+              </td>
+            </tr>
+            <tr>
+              <td>UQ6 — Awareness &amp; Control</td>
+              <td>Users feel in control and not distracted by automation.</td>
+              <td>
+                ≥80% report feeling in control; &lt;10% describe adaptive effects as
+                distracting or confusing.
+              </td>
+            </tr>
+          </tbody>
+        </table>
+
+        <h3>4.3 Test Procedure</h3>
+        <ol>
+          <li>
+            <strong>Staffing:</strong> Two examiners per session — a facilitator to run
+            the script and a note-taker to capture metrics and observations.
+          </li>
+          <li>
+            <strong>Environment &amp; equipment:</strong> 15″–24″ laptop/desktop, external
+            mouse, latest Chrome/Edge, stopwatch, consent forms, pre/post surveys, and
+            optional screen/audio capture (with consent).
+          </li>
+          <li>
+            <strong>Prototype handling:</strong> Load <code>index.html</code> (direct open
+            or Live Server), referencing the user manual to confirm spotlight, heatmap,
+            and bandwidth controls before the participant arrives.
+          </li>
+          <li>
+            <strong>Participant briefing:</strong> Explain study purpose, collect
+            demographics, remind participants they can withdraw, and encourage think-aloud
+            behaviour.
+          </li>
+          <li>
+            <strong>Task script (≈25 min):</strong>
+            <ol>
+              <li>Warm-up — Toggle focus spotlight, adjust radius.</li>
+              <li>Task 1 — Locate spotlight toggle and resize spotlight.</li>
+              <li>
+                Task 2 — Run a 45&nbsp;s heatmap session, achieve ≥5 hits, review the
+                overlay.
+              </li>
+              <li>
+                Task 3 — Enable adaptive bandwidth, simulate “Limited” and “Boosted”
+                networks, interpret the bandwidth monitor.
+              </li>
+            </ol>
+            Facilitator only offers hints after 90&nbsp;s of stall time and records
+            assistance.
+          </li>
+          <li>
+            <strong>Interaction rules:</strong> Facilitator clarifies goals but avoids
+            step-by-step coaching; respond to “Where is X?” with neutral prompts.
+          </li>
+          <li>
+            <strong>Data capture:</strong> Track time-on-task, errors, assistance, cursor
+            metrics (optionally via heatmap export), and gather post-task Likert ratings
+            plus qualitative notes.
+          </li>
+          <li>
+            <strong>Post-session wrap-up:</strong> Administer SUS-lite or custom survey,
+            run a brief interview, thank the participant, and anonymise stored data.
+          </li>
+        </ol>
+
+        <h3>4.4 Reporting</h3>
+        <h4>Data Recording &amp; Reporting Workflow</h4>
+        <table>
+          <thead>
+            <tr>
+              <th>Step</th>
+              <th>Details</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Capture</td>
+              <td>
+                Use the shared Google Sheet for timing, errors, assistance, and heatmap
+                exports; store media captures in the secure Drive folder.
+              </td>
+            </tr>
+            <tr>
+              <td>Survey aggregation</td>
+              <td>
+                Google Forms summarises Likert scores; export CSV for deeper analysis.
+              </td>
+            </tr>
+            <tr>
+              <td>Synthesis</td>
+              <td>
+                Weekly debriefs cluster issues, track goal attainment, and update the
+                backlog.
+              </td>
+            </tr>
+            <tr>
+              <td>Deliverables</td>
+              <td>
+                Produce a 2–3 page PDF summarising metrics, findings, priority issues, and
+                recommended actions; upload to the course portal and archive in
+                <code>/reports/usability-round1.pdf</code>.
+              </td>
+            </tr>
+          </tbody>
+        </table>
+
+        <h4>Evaluation Methods Overview</h4>
+        <table>
+          <thead>
+            <tr>
+              <th>Evaluation Method</th>
+              <th>Metrics &amp; Justification</th>
+              <th>Application</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Lab-based task testing</td>
+              <td>
+                Completion time, error counts, assistance — map directly to UQ1/UQ2 for
+                learnability and efficiency.
+              </td>
+              <td>
+                Measure during scripted tasks; compare adaptive ON vs. OFF runs.
+              </td>
+            </tr>
+            <tr>
+              <td>Perceived clarity &amp; satisfaction survey</td>
+              <td>
+                Likert ratings on comfort, clarity, and control support UQ3/UQ4/UQ6.
+              </td>
+              <td>Post-task survey plus short interview for qualitative depth.</td>
+            </tr>
+            <tr>
+              <td>Heatmap / cursor analytics</td>
+              <td>
+                Fixation density and cursor distance reinforce UQ2 and UQ4 targets.
+              </td>
+              <td>
+                Export built-in heatmap arrays or capture via observation to quantify
+                focus behaviour.
+              </td>
+            </tr>
+            <tr>
+              <td>Network stability test</td>
+              <td>
+                Latency logs and visual artefact checks validate UQ5 robustness.
+              </td>
+              <td>
+                Monitor during Task 3 simulations, using console timestamps and observer
+                notes.
+              </td>
+            </tr>
+            <tr>
+              <td>Heuristic evaluation (Nielsen 10)</td>
+              <td>
+                Focus on visibility of system status, user control, and real-world match.
+              </td>
+              <td>
+                Conducted by two HCI evaluators before and after user testing to surface
+                structural issues early.
+              </td>
+            </tr>
+          </tbody>
+        </table>
+        <p>
+          Combining quantitative sessions with expert heuristic reviews ensures the
+          adaptive prototype evolves based on measurable outcomes and qualitative insight.
+        </p>
+      </section>
+    </div>
   </body>
 </html>

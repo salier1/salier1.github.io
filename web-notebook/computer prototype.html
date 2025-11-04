@@ -1,0 +1,1879 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Gaze Focus Demo</title>
+    <style>
+      :root {
+        --focus-radius: 120px;
+        --focus-feather: 45px;
+        --focus-x: 50%;
+        --focus-y: 50%;
+        --blur-strength: 14px;
+        --background-rotation: 18deg;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        margin: 0;
+        min-height: 100vh;
+        font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+        color: #f5f5f5;
+        background: #0f1115;
+        overflow: hidden;
+      }
+
+      .background {
+        position: fixed;
+        inset: 0;
+        /* Replace the image URL with a local asset or video poster if presenting offline. */
+        background-image: linear-gradient(
+            rgba(12, 14, 19, 0.75),
+            rgba(12, 14, 19, 0.75)
+          ),
+          url("https://www.zohowebstatic.com/sites/zweb/images/meeting/remote-work/zm-vc-tb-1.webp");
+        background-size: cover;
+        background-position: center;
+        transform: scale(1.05) rotate(var(--background-rotation));
+        will-change: transform;
+      }
+
+      .background::after {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(
+          135deg,
+          rgba(255, 255, 255, 0.04),
+          rgba(0, 0, 0, 0.25)
+        );
+      }
+
+      .content {
+        position: relative;
+        z-index: 1;
+        width: 100%;
+        min-height: 100vh;
+        display: grid;
+        place-items: center;
+        text-align: center;
+        padding: 3rem 1.5rem;
+      }
+
+      .content h1 {
+        font-size: clamp(2.75rem, 4vw, 4rem);
+        margin-bottom: 1rem;
+        letter-spacing: 0.03em;
+      }
+
+      .content p {
+        max-width: 38rem;
+        margin: 0 auto;
+        font-size: 1.1rem;
+        line-height: 1.6;
+        color: rgba(245, 245, 245, 0.8);
+      }
+
+      .hero {
+        display: grid;
+        gap: 1.75rem;
+        justify-items: center;
+        text-align: center;
+      }
+
+      .hero-actions {
+        display: flex;
+        gap: 0.75rem;
+        justify-content: center;
+      }
+
+      .task-toggle {
+        padding: 0.55rem 1.2rem;
+        border-radius: 999px;
+        border: 1px solid rgba(139, 233, 253, 0.45);
+        background: rgba(8, 10, 15, 0.55);
+        color: rgba(245, 245, 245, 0.88);
+        font-size: 0.95rem;
+        font-weight: 600;
+        letter-spacing: 0.01em;
+        cursor: pointer;
+        transition: background 160ms ease, color 160ms ease,
+          border-color 160ms ease, transform 160ms ease;
+        box-shadow: 0 12px 28px rgba(0, 0, 0, 0.2);
+      }
+
+      .task-toggle:hover {
+        background: rgba(18, 22, 31, 0.8);
+        border-color: rgba(139, 233, 253, 0.75);
+        transform: translateY(-1px);
+      }
+
+      .task-toggle.is-active {
+        background: linear-gradient(
+          135deg,
+          rgba(139, 233, 253, 0.45),
+          rgba(98, 114, 164, 0.8)
+        );
+        color: #0f1115;
+        border-color: rgba(139, 233, 253, 0.85);
+      }
+
+      .hero-lede {
+        max-width: 44rem;
+        font-size: 1.05rem;
+        line-height: 1.7;
+        color: rgba(245, 245, 245, 0.78);
+      }
+
+      .task-summary {
+        display: grid;
+        gap: 1.2rem;
+        width: min(46rem, 100%);
+      }
+
+      .task-card {
+        padding: 1.1rem 1.35rem;
+        border-radius: 16px;
+        background: rgba(12, 14, 19, 0.55);
+        box-shadow: 0 18px 42px rgba(0, 0, 0, 0.2);
+        backdrop-filter: blur(12px);
+        -webkit-backdrop-filter: blur(12px);
+        text-align: left;
+        border: 1px solid rgba(139, 233, 253, 0.08);
+      }
+
+      .task-card h2 {
+        margin: 0 0 0.45rem 0;
+        font-size: 1.18rem;
+        letter-spacing: 0.01em;
+      }
+
+      .task-card p {
+        margin: 0;
+        font-size: 0.96rem;
+        line-height: 1.55;
+        color: rgba(245, 245, 245, 0.75);
+      }
+
+      body.task-summary-hidden .task-summary {
+        display: none;
+      }
+
+      .blur-overlay {
+        position: fixed;
+        inset: 0;
+        pointer-events: none;
+        backdrop-filter: blur(var(--blur-strength));
+        -webkit-backdrop-filter: blur(var(--blur-strength));
+        mask-image: radial-gradient(
+          circle at var(--focus-x) var(--focus-y),
+          transparent calc(var(--focus-radius) - var(--focus-feather)),
+          rgba(0, 0, 0, 0.95) var(--focus-radius)
+        );
+        -webkit-mask-image: radial-gradient(
+          circle at var(--focus-x) var(--focus-y),
+          transparent calc(var(--focus-radius) - var(--focus-feather)),
+          rgba(0, 0, 0, 0.95) var(--focus-radius)
+        );
+        transition: opacity 160ms ease, mask-image 120ms ease-out;
+        background-color: rgba(15, 17, 21, 0.15);
+      }
+
+      .control-toggle {
+        position: fixed;
+        top: 1.25rem;
+        right: 1.5rem;
+        z-index: 3;
+        padding: 0.65rem 1rem;
+        border: none;
+        border-radius: 999px;
+        font-size: 0.95rem;
+        font-weight: 600;
+        letter-spacing: 0.02em;
+        background: rgba(8, 10, 15, 0.85);
+        color: rgba(245, 245, 245, 0.92);
+        box-shadow: 0 18px 36px rgba(0, 0, 0, 0.28);
+        backdrop-filter: blur(16px);
+        -webkit-backdrop-filter: blur(16px);
+        cursor: pointer;
+        transition: background 140ms ease, color 140ms ease,
+          transform 220ms ease;
+      }
+
+      .control-toggle:hover {
+        background: rgba(22, 26, 36, 0.92);
+        color: #ffffff;
+      }
+
+      .control-toggle:focus-visible {
+        outline: 2px solid #8be9fd;
+        outline-offset: 3px;
+      }
+
+      .control-panel {
+        position: fixed;
+        top: 0;
+        right: 0;
+        height: 100vh;
+        width: min(320px, 80vw);
+        padding: 2.4rem 1.5rem;
+        border-radius: 0;
+        background: rgba(8, 10, 15, 0.86);
+        box-shadow: -12px 0 36px rgba(0, 0, 0, 0.35);
+        backdrop-filter: blur(16px);
+        -webkit-backdrop-filter: blur(16px);
+        z-index: 2;
+        color: rgba(245, 245, 245, 0.9);
+        transform: translateX(100%);
+        opacity: 0;
+        pointer-events: none;
+        transition: transform 220ms ease, opacity 220ms ease;
+        display: flex;
+        flex-direction: column;
+        gap: 1.5rem;
+        overflow-y: auto;
+      }
+
+      .control-panel.is-open {
+        transform: translateX(0);
+        opacity: 1;
+        pointer-events: auto;
+      }
+
+      .control-panel label {
+        display: flex;
+        flex-direction: column;
+        gap: 0.6rem;
+        font-size: 0.95rem;
+      }
+
+      .control-panel input[type="range"] {
+        width: 100%;
+        accent-color: #8be9fd;
+      }
+
+      .radius-value {
+        font-size: 0.85rem;
+        color: rgba(245, 245, 245, 0.6);
+      }
+
+      body.focus-disabled .blur-overlay {
+        opacity: 0;
+        visibility: hidden;
+      }
+
+      body.sidebar-open .control-toggle {
+        transform: translateX(-10px);
+        background: rgba(18, 22, 31, 0.9);
+      }
+
+      .task-section {
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
+        padding: 1rem 0;
+        border-top: 1px solid rgba(245, 245, 245, 0.08);
+      }
+
+      .task-section:first-of-type {
+        border-top: none;
+        padding-top: 0;
+      }
+
+      .task-section h2 {
+        margin: 0;
+        font-size: 1.05rem;
+        letter-spacing: 0.02em;
+      }
+
+      .task-controls {
+        display: flex;
+        flex-direction: column;
+        gap: 0.75rem;
+      }
+
+      .task-controls label {
+        font-size: 0.9rem;
+        gap: 0.4rem;
+      }
+
+      .task-controls input[type="number"] {
+        width: 100%;
+        padding: 0.5rem 0.6rem;
+        border-radius: 10px;
+        border: 1px solid rgba(139, 233, 253, 0.25);
+        background: rgba(10, 12, 18, 0.65);
+        color: rgba(245, 245, 245, 0.9);
+      }
+
+      .task-controls button {
+        padding: 0.65rem 1rem;
+        border-radius: 999px;
+        border: none;
+        background: linear-gradient(135deg, #8be9fd, #6272a4);
+        color: #0f1115;
+        font-weight: 600;
+        cursor: pointer;
+        transition: transform 180ms ease, box-shadow 180ms ease,
+          opacity 180ms ease;
+        box-shadow: 0 14px 32px rgba(98, 114, 164, 0.35);
+      }
+
+      .task-controls button:disabled {
+        opacity: 0.45;
+        cursor: not-allowed;
+        box-shadow: none;
+      }
+
+      .task-controls button:not(:disabled):hover {
+        transform: translateY(-1px);
+        box-shadow: 0 16px 34px rgba(98, 114, 164, 0.45);
+      }
+
+      .toggle-field {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 1rem;
+      }
+
+      .toggle-field span {
+        font-size: 0.95rem;
+        color: rgba(245, 245, 245, 0.85);
+      }
+
+      .toggle-button {
+        min-width: 3.6rem;
+        padding: 0.45rem 0.9rem;
+        border-radius: 999px;
+        border: 1px solid rgba(139, 233, 253, 0.4);
+        background: rgba(8, 10, 15, 0.55);
+        color: rgba(245, 245, 245, 0.85);
+        font-weight: 600;
+        cursor: pointer;
+        transition: background 160ms ease, border-color 160ms ease,
+          color 160ms ease, box-shadow 160ms ease;
+        box-shadow: none;
+      }
+
+      .toggle-button:hover {
+        border-color: rgba(139, 233, 253, 0.75);
+        box-shadow: 0 10px 24px rgba(139, 233, 253, 0.25);
+      }
+
+      .toggle-button.is-active {
+        background: linear-gradient(
+          135deg,
+          rgba(139, 233, 253, 0.55),
+          rgba(98, 114, 164, 0.9)
+        );
+        border-color: rgba(139, 233, 253, 0.9);
+        color: #0f1115;
+        box-shadow: 0 14px 28px rgba(98, 114, 164, 0.4);
+      }
+
+      .task-metrics {
+        display: flex;
+        justify-content: space-between;
+        gap: 0.8rem;
+        font-size: 0.9rem;
+        color: rgba(245, 245, 245, 0.8);
+      }
+
+      .task-metrics strong {
+        display: inline-block;
+        min-width: 2.5rem;
+        color: #ffffff;
+        font-variant-numeric: tabular-nums;
+      }
+
+      .task-hud {
+        position: fixed;
+        top: 1.25rem;
+        left: 1.5rem;
+        display: none;
+        align-items: center;
+        gap: 1.25rem;
+        padding: 0.65rem 1.1rem;
+        border-radius: 12px;
+        background: rgba(8, 10, 15, 0.78);
+        box-shadow: 0 18px 36px rgba(0, 0, 0, 0.25);
+        z-index: 4;
+        font-size: 0.95rem;
+        color: rgba(245, 245, 245, 0.85);
+        backdrop-filter: blur(14px);
+        -webkit-backdrop-filter: blur(14px);
+      }
+
+      body.tracking-active .task-hud {
+        display: flex;
+      }
+
+      .tracking-target {
+        position: fixed;
+        width: 42px;
+        height: 42px;
+        border-radius: 50%;
+        background: radial-gradient(
+          circle at 30% 30%,
+          #f8faff,
+          #8be9fd 55%,
+          rgba(98, 114, 164, 0.72)
+        );
+        box-shadow: 0 0 28px rgba(139, 233, 253, 0.45);
+        transform: translate(-50%, -50%);
+        opacity: 0;
+        pointer-events: none;
+        z-index: 4;
+        transition: opacity 160ms ease, transform 140ms ease;
+      }
+
+      .tracking-target.is-visible {
+        opacity: 1;
+        transform: translate(-50%, -50%) scale(1);
+      }
+
+      .heatmap-overlay {
+        position: fixed;
+        inset: 0;
+        pointer-events: none;
+        opacity: 0;
+        transition: opacity 220ms ease;
+        z-index: 1;
+      }
+
+      .heatmap-overlay.is-visible {
+        opacity: 1;
+      }
+
+      .heatmap-overlay canvas {
+        width: 100%;
+        height: 100%;
+        display: block;
+      }
+
+      .task-toast {
+        position: fixed;
+        bottom: 2rem;
+        left: 50%;
+        transform: translateX(-50%) translateY(40px);
+        padding: 0.85rem 1.5rem;
+        border-radius: 14px;
+        background: rgba(8, 10, 15, 0.92);
+        color: #f5f5f5;
+        font-size: 1rem;
+        box-shadow: 0 22px 48px rgba(0, 0, 0, 0.32);
+        opacity: 0;
+        transition: opacity 220ms ease, transform 220ms ease;
+        z-index: 4;
+        pointer-events: none;
+      }
+
+      .task-toast.is-visible {
+        opacity: 1;
+        transform: translateX(-50%) translateY(0);
+      }
+
+      @media (max-width: 600px) {
+        .control-panel {
+          width: calc(100% - 2.5rem);
+          max-width: 18rem;
+        }
+
+        body.sidebar-open .control-toggle {
+          transform: translateX(-6px);
+        }
+      }
+
+      .adaptive-section {
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
+        padding: 1rem 0;
+        border-top: 1px solid rgba(245, 245, 245, 0.08);
+      }
+
+      .adaptive-section:first-of-type {
+        border-top: none;
+        padding-top: 0;
+      }
+
+      .adaptive-section h2 {
+        margin: 0;
+        font-size: 1.05rem;
+        letter-spacing: 0.02em;
+      }
+
+      .adaptive-controls {
+        display: flex;
+        flex-direction: column;
+        gap: 0.9rem;
+      }
+
+      .adaptive-mode-buttons {
+        display: flex;
+        gap: 0.75rem;
+        flex-wrap: wrap;
+      }
+
+      .adaptive-mode-button {
+        flex: 1 1 8rem;
+        padding: 0.6rem 0.9rem;
+        border-radius: 10px;
+        border: 1px solid rgba(98, 114, 164, 0.4);
+        background: rgba(12, 14, 19, 0.55);
+        color: rgba(245, 245, 245, 0.85);
+        font-weight: 600;
+        cursor: pointer;
+        transition: transform 160ms ease, border-color 160ms ease,
+          box-shadow 160ms ease, background 160ms ease;
+      }
+
+      .adaptive-mode-button:hover {
+        border-color: rgba(139, 233, 253, 0.65);
+        box-shadow: 0 10px 24px rgba(98, 114, 164, 0.35);
+      }
+
+      .adaptive-mode-button.is-active {
+        background: linear-gradient(
+          135deg,
+          rgba(139, 233, 253, 0.25),
+          rgba(98, 114, 164, 0.65)
+        );
+        border-color: rgba(139, 233, 253, 0.85);
+        color: #ffffff;
+        box-shadow: 0 12px 28px rgba(98, 114, 164, 0.45);
+      }
+
+      .adaptive-controls .secondary-button {
+        padding: 0.55rem 0.85rem;
+        border-radius: 10px;
+        border: 1px solid rgba(139, 233, 253, 0.35);
+        background: rgba(8, 10, 15, 0.55);
+        color: rgba(245, 245, 245, 0.85);
+        font-size: 0.9rem;
+        cursor: pointer;
+        transition: border-color 150ms ease, transform 150ms ease;
+      }
+
+      .adaptive-controls .secondary-button:hover {
+        transform: translateY(-1px);
+        border-color: rgba(139, 233, 253, 0.75);
+      }
+
+      .adaptive-status {
+        display: flex;
+        align-items: center;
+        gap: 0.4rem;
+        font-size: 0.88rem;
+        color: rgba(245, 245, 245, 0.74);
+      }
+
+      .adaptive-status-indicator {
+        width: 10px;
+        height: 10px;
+        border-radius: 50%;
+        background: rgba(139, 233, 253, 0.4);
+        box-shadow: 0 0 0 2px rgba(139, 233, 253, 0.1);
+      }
+
+      .adaptive-status-indicator.is-active {
+        background: #4ade80;
+        box-shadow: 0 0 0 3px rgba(74, 222, 128, 0.25);
+      }
+
+      .adaptive-overlay {
+        position: fixed;
+        inset: 0;
+        pointer-events: none;
+        z-index: 2;
+        opacity: 0;
+        transition: opacity 180ms ease;
+      }
+
+      .adaptive-overlay.is-active {
+        opacity: 1;
+      }
+
+      .adaptive-overlay .layer {
+        position: fixed;
+        backdrop-filter: blur(16px);
+        -webkit-backdrop-filter: blur(16px);
+        background: rgba(8, 10, 15, 0.38);
+        pointer-events: none;
+      }
+
+      .roi-highlight {
+        position: fixed;
+        width: 220px;
+        height: 220px;
+        border-radius: 16px;
+        border: 2px solid rgba(74, 222, 128, 0.85);
+        background: rgba(74, 222, 128, 0.15);
+        box-shadow: 0 0 32px rgba(74, 222, 128, 0.35);
+        transform: translate(-50%, -50%);
+        pointer-events: none;
+        z-index: 3;
+        opacity: 0;
+        transition: opacity 160ms ease, transform 120ms ease;
+      }
+
+      body.adaptive-active .roi-highlight {
+        opacity: 1;
+        border-color: rgba(74, 222, 128, 0.9);
+        background: rgba(74, 222, 128, 0.2);
+        box-shadow: 0 0 36px rgba(74, 222, 128, 0.4);
+      }
+
+      .bandwidth-meter {
+        position: fixed;
+        left: 50%;
+        bottom: 1.35rem;
+        transform: translateX(-50%);
+        width: min(480px, calc(100% - 3rem));
+        padding: 1rem 1.15rem;
+        border-radius: 16px;
+        background: rgba(8, 10, 15, 0.78);
+        box-shadow: 0 18px 42px rgba(0, 0, 0, 0.3);
+        display: none;
+        flex-direction: column;
+        gap: 0.95rem;
+        color: rgba(245, 245, 245, 0.9);
+        z-index: 3;
+        backdrop-filter: blur(18px);
+        -webkit-backdrop-filter: blur(18px);
+      }
+
+      body.bandwidth-monitor-visible .bandwidth-meter {
+        display: flex;
+      }
+
+      .bandwidth-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        font-size: 0.9rem;
+        letter-spacing: 0.01em;
+      }
+
+      .bandwidth-alert {
+        padding: 0.15rem 0.6rem;
+        border-radius: 999px;
+        font-size: 0.82rem;
+        background: rgba(74, 222, 128, 0.18);
+        color: #4ade80;
+        border: 1px solid rgba(74, 222, 128, 0.35);
+        transition: background 180ms ease, color 180ms ease,
+          border-color 180ms ease;
+      }
+
+      .bandwidth-alert.is-warning {
+        background: rgba(244, 63, 94, 0.22);
+        color: #f43f5e;
+        border-color: rgba(244, 63, 94, 0.35);
+      }
+
+      .bandwidth-bars {
+        display: flex;
+        flex-direction: column;
+        gap: 0.85rem;
+      }
+
+      .bandwidth-bar {
+        display: grid;
+        gap: 0.4rem;
+      }
+
+      .bandwidth-bar .bar-label {
+        font-size: 0.85rem;
+        color: rgba(245, 245, 245, 0.75);
+      }
+
+      .bar-track {
+        position: relative;
+        height: 0.65rem;
+        border-radius: 999px;
+        background: rgba(255, 255, 255, 0.14);
+        overflow: hidden;
+      }
+
+      .bar-fill {
+        position: absolute;
+        inset: 0;
+        border-radius: inherit;
+        transform-origin: left center;
+        width: 0%;
+        transition: width 220ms ease;
+      }
+
+      .bar-fill.total {
+        background: linear-gradient(
+          90deg,
+          rgba(148, 163, 184, 0.65),
+          rgba(148, 163, 184, 0.4)
+        );
+      }
+
+      .bar-fill.used {
+        background: linear-gradient(90deg, #4ade80, #8be9fd);
+      }
+
+      .bandwidth-bar .bar-value {
+        font-size: 0.82rem;
+        color: rgba(245, 245, 245, 0.7);
+      }
+
+      .bandwidth-footer {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 0.75rem;
+        font-size: 0.82rem;
+        color: rgba(245, 245, 245, 0.74);
+      }
+
+      .cloud-indicator {
+        position: fixed;
+        top: 1.25rem;
+        right: 15.5rem;
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        padding: 0.55rem 0.85rem;
+        border-radius: 999px;
+        background: rgba(8, 10, 15, 0.72);
+        color: rgba(245, 245, 245, 0.85);
+        font-size: 0.88rem;
+        backdrop-filter: blur(16px);
+        -webkit-backdrop-filter: blur(16px);
+        box-shadow: 0 12px 28px rgba(0, 0, 0, 0.28);
+        opacity: 0;
+        transition: opacity 180ms ease, transform 180ms ease;
+        z-index: 3;
+        pointer-events: none;
+      }
+
+      body.adaptive-controller-visible .cloud-indicator {
+        opacity: 1;
+        transform: translateY(0);
+      }
+
+      .cloud-indicator svg {
+        width: 18px;
+        height: 18px;
+        fill: currentColor;
+      }
+
+      .cloud-indicator span {
+        white-space: nowrap;
+      }
+
+      .cloud-indicator.is-active {
+        color: #4ade80;
+      }
+
+      @media (max-width: 600px) {
+        .bandwidth-meter {
+          bottom: auto;
+          top: 1.25rem;
+          transform: translate(-50%, 0);
+          width: calc(100% - 2rem);
+        }
+
+        .cloud-indicator {
+          top: auto;
+          bottom: 1rem;
+          right: 50%;
+          transform: translate(50%, 12px);
+        }
+
+        body.adaptive-controller-visible .cloud-indicator {
+          transform: translate(50%, 0);
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="background"></div>
+    <div class="content">
+      <div class="hero">
+        <h1>Gaze Interaction Prototype Suite</h1>
+        <p class="hero-lede">
+          Explore three complementary gaze-driven experiences that demonstrate adaptive focus,
+          attention analytics, and bandwidth transparency across the prototype tasks.
+        </p>
+        <div class="hero-actions">
+          <button
+            class="task-toggle"
+            id="taskOverviewToggle"
+            type="button"
+            aria-pressed="true"
+          >
+            Hide task overview
+          </button>
+        </div>
+        <div class="task-summary">
+          <div class="task-card">
+            <h2>Task 1 — Gaze-Adaptive Player</h2>
+            <p>
+              Toggle the focus spotlight and adjust its radius to see how the player sharpens
+              the region you are watching while softening the surrounding view.
+            </p>
+          </div>
+          <div class="task-card">
+            <h2>Task 2 — Attention Heatmap Dashboard</h2>
+            <p>
+              Run the tracking exercise, rack up points, and review the generated heatmap to
+              visualize cumulative cursor-gaze behaviour across the scene.
+            </p>
+          </div>
+          <div class="task-card">
+            <h2>Task 3 — Adaptive Bandwidth</h2>
+            <p>
+              Experiment with adaptive streaming controls, monitor bandwidth usage, and simulate
+              network shifts to gauge how automation balances clarity and stability.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="blur-overlay" id="blurOverlay"></div>
+
+    <button
+      class="control-toggle"
+      id="controlToggle"
+      aria-label="Open focus controls"
+      aria-expanded="false"
+      aria-controls="controlPanel"
+    >
+      Focus settings
+    </button>
+
+    <div
+      class="control-panel"
+      id="controlPanel"
+      aria-label="Focus controls"
+      role="complementary"
+      tabindex="-1"
+    >
+      <div class="task-section" aria-live="polite" style="margin-top: 30px">
+        <h2>Task 1 — Gaze-Adaptive Player</h2>
+        <div class="task-controls">
+          <div class="toggle-field">
+            <span>Enable focus spotlight</span>
+            <button
+              id="focusToggle"
+              type="button"
+              class="toggle-button is-active"
+              aria-pressed="true"
+            >
+              On
+            </button>
+          </div>
+          <label for="radiusControl">
+            Focus radius
+            <input
+              id="radiusControl"
+              type="range"
+              min="60"
+              max="220"
+              value="120"
+              step="5"
+            />
+            <span class="radius-value">120 px</span>
+          </label>
+        </div>
+      </div>
+
+      <div class="task-section" aria-live="polite">
+        <h2>Task 2 — Attention Heatmap Dashboard</h2>
+        <div class="task-controls">
+          <label for="taskDuration">
+            Task duration (seconds)
+            <input
+              id="taskDuration"
+              type="number"
+              min="10"
+              max="300"
+              value="45"
+              step="5"
+              inputmode="numeric"
+            />
+          </label>
+          <button id="startTaskButton" type="button">
+            Start tracking task
+          </button>
+          <div class="task-metrics">
+            <span>Score <strong id="taskScore">0</strong></span>
+            <span>Time <strong id="taskTime">--</strong></span>
+          </div>
+          <button id="toggleHeatmapButton" type="button" disabled>
+            View heat map
+          </button>
+        </div>
+      </div>
+
+      <div class="adaptive-section" aria-live="polite">
+        <h2>Task 3 — Adaptive Bandwidth</h2>
+        <div class="adaptive-controls">
+          <div
+            class="adaptive-mode-buttons"
+            role="group"
+            aria-label="Adaptive quality mode"
+          >
+            <button
+              id="adaptiveOnButton"
+              type="button"
+              class="adaptive-mode-button"
+              aria-pressed="false"
+            >
+              Adaptive ON
+            </button>
+            <button
+              id="adaptiveOffButton"
+              type="button"
+              class="adaptive-mode-button is-active"
+              aria-pressed="true"
+            >
+              Adaptive OFF
+            </button>
+          </div>
+          <button
+            id="simulateNetworkButton"
+            type="button"
+            class="secondary-button"
+            aria-describedby="adaptiveStatusText"
+          >
+            Simulate network fluctuation
+          </button>
+          <div class="adaptive-status">
+            <span
+              class="adaptive-status-indicator"
+              id="adaptiveStatusIndicator"
+              aria-hidden="true"
+            ></span>
+            <span id="adaptiveStatusText">Adaptive streaming inactive</span>
+          </div>
+          <div class="toggle-field">
+            <span>Show bandwidth monitor</span>
+            <button
+              id="bandwidthToggle"
+              type="button"
+              class="toggle-button"
+              aria-pressed="false"
+            >
+              Off
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="task-hud" id="taskHud" aria-hidden="true">
+      <span>Score <strong id="taskHudScore">0</strong></span>
+      <span>Time <strong id="taskHudTime">--</strong></span>
+    </div>
+
+    <div class="tracking-target" id="trackingTarget" aria-hidden="true"></div>
+
+    <div class="adaptive-overlay" id="adaptiveOverlay" aria-hidden="true">
+      <div class="layer" data-segment="top"></div>
+      <div class="layer" data-segment="bottom"></div>
+      <div class="layer" data-segment="left"></div>
+      <div class="layer" data-segment="right"></div>
+    </div>
+
+    <div class="roi-highlight" id="roiHighlight" aria-hidden="true"></div>
+
+    <div class="heatmap-overlay" id="heatmapOverlay" aria-hidden="true">
+      <canvas id="heatmapCanvas"></canvas>
+    </div>
+
+    <div class="bandwidth-meter" id="bandwidthMeter" aria-hidden="true">
+      <div class="bandwidth-header">
+        <span>Bandwidth Monitor</span>
+        <span class="bandwidth-alert" id="bandwidthAlert" aria-hidden="true"
+          >Stable</span
+        >
+      </div>
+      <div class="bandwidth-bars">
+        <div class="bandwidth-bar">
+          <div class="bar-label">Total Bandwidth</div>
+          <div class="bar-track" role="presentation">
+            <div class="bar-fill total" id="totalBandwidthFill"></div>
+          </div>
+          <span class="bar-value" id="totalBandwidthLabel">100 Mbps</span>
+        </div>
+        <div class="bandwidth-bar">
+          <div class="bar-label">Used Bandwidth</div>
+          <div class="bar-track" role="presentation">
+            <div class="bar-fill used" id="usedBandwidthFill"></div>
+          </div>
+          <span class="bar-value" id="usedBandwidthLabel">100 Mbps</span>
+        </div>
+      </div>
+      <div class="bandwidth-footer">
+        <span id="bandwidthSummary">Used bandwidth: 0 Mbps / 0 Mbps</span>
+        <span id="networkStateLabel">Network: Stable</span>
+      </div>
+    </div>
+
+    <div class="cloud-indicator" id="cloudIndicator" aria-hidden="true">
+      <svg viewBox="0 0 24 24" aria-hidden="true">
+        <path
+          d="M19.36 10.46A7.49 7.49 0 0 0 5.51 8.3a4.5 4.5 0 0 0 .51 8.96h12.16a3.5 3.5 0 0 0 1.18-6.8Z"
+        />
+      </svg>
+      <span id="cloudIndicatorText">Adaptive encoding inactive</span>
+    </div>
+
+    <div
+      class="task-toast"
+      id="taskToast"
+      role="status"
+      aria-live="polite"
+    ></div>
+
+    <script>
+      // Smoothly lerps the focus mask toward the cursor for a softer eye-gaze feel.
+      const overlay = document.getElementById("blurOverlay");
+      const radiusSlider = document.getElementById("radiusControl");
+      const radiusLabel = document.querySelector(".radius-value");
+      const focusToggleButton = document.getElementById("focusToggle");
+      const controlPanel = document.getElementById("controlPanel");
+      const toggleButton = document.getElementById("controlToggle");
+      const taskDurationInput = document.getElementById("taskDuration");
+      const startTaskButton = document.getElementById("startTaskButton");
+      const toggleHeatmapButton = document.getElementById(
+        "toggleHeatmapButton"
+      );
+      const taskScoreDisplay = document.getElementById("taskScore");
+      const taskTimeDisplay = document.getElementById("taskTime");
+      const taskHud = document.getElementById("taskHud");
+      const taskHudScore = document.getElementById("taskHudScore");
+      const taskHudTime = document.getElementById("taskHudTime");
+      const trackingTarget = document.getElementById("trackingTarget");
+      const heatmapOverlay = document.getElementById("heatmapOverlay");
+      const heatmapCanvas = document.getElementById("heatmapCanvas");
+      const taskToast = document.getElementById("taskToast");
+      const adaptiveOnButton = document.getElementById("adaptiveOnButton");
+      const adaptiveOffButton = document.getElementById("adaptiveOffButton");
+      const simulateNetworkButton = document.getElementById(
+        "simulateNetworkButton"
+      );
+      const bandwidthToggleButton = document.getElementById("bandwidthToggle");
+      const adaptiveStatusIndicator = document.getElementById(
+        "adaptiveStatusIndicator"
+      );
+      const adaptiveStatusText = document.getElementById("adaptiveStatusText");
+      const adaptiveOverlay = document.getElementById("adaptiveOverlay");
+      const adaptiveOverlayLayers = adaptiveOverlay
+        ? {
+            top: adaptiveOverlay.querySelector('[data-segment="top"]'),
+            bottom: adaptiveOverlay.querySelector('[data-segment="bottom"]'),
+            left: adaptiveOverlay.querySelector('[data-segment="left"]'),
+            right: adaptiveOverlay.querySelector('[data-segment="right"]'),
+          }
+        : null;
+      const roiHighlight = document.getElementById("roiHighlight");
+      const bandwidthMeter = document.getElementById("bandwidthMeter");
+      const bandwidthAlert = document.getElementById("bandwidthAlert");
+      const totalBandwidthFill = document.getElementById("totalBandwidthFill");
+      const usedBandwidthFill = document.getElementById("usedBandwidthFill");
+      const totalBandwidthLabel = document.getElementById(
+        "totalBandwidthLabel"
+      );
+      const usedBandwidthLabel = document.getElementById("usedBandwidthLabel");
+      const bandwidthSummary = document.getElementById("bandwidthSummary");
+      const networkStateLabel = document.getElementById("networkStateLabel");
+      const cloudIndicator = document.getElementById("cloudIndicator");
+      const cloudIndicatorText = document.getElementById("cloudIndicatorText");
+      const taskOverviewToggle = document.getElementById("taskOverviewToggle");
+
+      const focusState = {
+        targetX: window.innerWidth / 2,
+        targetY: window.innerHeight / 2,
+        currentX: window.innerWidth / 2,
+        currentY: window.innerHeight / 2,
+        radius: Number(radiusSlider.value),
+        ease: 0.16,
+        enabled: true,
+      };
+
+      const trackingTask = {
+        active: false,
+        score: 0,
+        remaining: 0,
+        duration: 45,
+        countdownId: null,
+        positions: [],
+        lastSampleTime: 0,
+        target: { x: window.innerWidth / 2, y: window.innerHeight / 2 },
+        heatmapVisible: false,
+      };
+
+      const networkStates = [
+        {
+          key: "stable",
+          label: "Network: Stable",
+          multiplier: 1,
+          toast: "Network stable — steady throughput",
+        },
+        {
+          key: "congested",
+          label: "Network: Congested",
+          multiplier: 0.7,
+          toast: "Network congestion — reallocating bits outside ROI",
+        },
+        {
+          key: "limited",
+          label: "Network: Limited",
+          multiplier: 0.5,
+          toast: "Limited bandwidth — prioritizing ROI clarity",
+        },
+        {
+          key: "boosted",
+          label: "Network: Boosted",
+          multiplier: 1.2,
+          toast: "Bandwidth boost — expanding high-quality envelope",
+        },
+      ];
+
+      const adaptiveController = {
+        enabled: false,
+        roiSize: 220,
+        lastX: window.innerWidth / 2,
+        lastY: window.innerHeight / 2,
+        networkState: networkStates[0],
+        controllerVisible: false,
+        showMonitor: true,
+        baseBandwidth: 100,
+        maxBandwidth: 140,
+        baseUsedBandwidth: 78,
+        adaptiveReductionFactor: 0.62,
+        totalBandwidth: 100,
+        usedBandwidth: 78,
+        isLagging: false,
+      };
+
+      const clamp = (value, min, max) => Math.min(Math.max(value, min), max);
+
+      const formatTime = (seconds) => {
+        if (Number.isNaN(seconds) || seconds === null) {
+          return "--";
+        }
+        const total = Math.max(0, Math.ceil(seconds));
+        const minutes = Math.floor(total / 60);
+        const secs = total % 60;
+        if (minutes > 0) {
+          return `${minutes}:${secs.toString().padStart(2, "0")}`;
+        }
+        return `${secs}s`;
+      };
+
+      let heatmapContext = null;
+
+      const ensureHeatmapContext = () => {
+        if (!heatmapContext) {
+          heatmapContext = heatmapCanvas.getContext("2d");
+        }
+        return heatmapContext;
+      };
+
+      const clearHeatmap = () => {
+        const ctx = ensureHeatmapContext();
+        if (!ctx) return;
+        ctx.clearRect(0, 0, heatmapCanvas.width, heatmapCanvas.height);
+      };
+
+      const updateTaskDisplays = () => {
+        taskScoreDisplay.textContent = trackingTask.score;
+        taskHudScore.textContent = trackingTask.score;
+
+        const timeLabel = trackingTask.active
+          ? formatTime(trackingTask.remaining)
+          : "--";
+
+        taskTimeDisplay.textContent = timeLabel;
+        taskHudTime.textContent = timeLabel;
+
+        taskHud.setAttribute("aria-hidden", String(!trackingTask.active));
+      };
+
+      const showToast = (message) => {
+        if (!taskToast) return;
+        taskToast.textContent = message;
+        taskToast.classList.add("is-visible");
+        setTimeout(() => {
+          taskToast.classList.remove("is-visible");
+        }, 2600);
+      };
+
+      const ensureControllerVisible = () => {
+        if (adaptiveController.controllerVisible) return;
+        adaptiveController.controllerVisible = true;
+        document.body.classList.add("adaptive-controller-visible");
+        if (cloudIndicator) {
+          cloudIndicator.setAttribute("aria-hidden", "false");
+        }
+      };
+
+      const setTaskSummaryVisible = (isVisible) => {
+        const shouldShow = Boolean(isVisible);
+        document.body.classList.toggle("task-summary-hidden", !shouldShow);
+        if (taskOverviewToggle) {
+          taskOverviewToggle.classList.toggle("is-active", shouldShow);
+          taskOverviewToggle.setAttribute("aria-pressed", String(shouldShow));
+          taskOverviewToggle.textContent = shouldShow
+            ? "Hide task overview"
+            : "Show task overview";
+        }
+      };
+
+      const updateBandwidthVisibility = () => {
+        const shouldShow = adaptiveController.showMonitor;
+        document.body.classList.toggle("bandwidth-monitor-visible", shouldShow);
+        if (bandwidthMeter) {
+          bandwidthMeter.setAttribute("aria-hidden", String(!shouldShow));
+        }
+        if (bandwidthAlert) {
+          bandwidthAlert.setAttribute("aria-hidden", String(!shouldShow));
+        }
+      };
+
+      const updateAdaptiveOverlaySegments = () => {
+        if (!adaptiveOverlay || !adaptiveOverlayLayers) return;
+        if (!adaptiveController.enabled) {
+          Object.values(adaptiveOverlayLayers).forEach((layer) => {
+            if (layer) {
+              layer.style.width = "0px";
+              layer.style.height = "0px";
+            }
+          });
+          adaptiveOverlay.setAttribute("aria-hidden", "true");
+          adaptiveOverlay.classList.remove("is-active");
+          return;
+        }
+
+        adaptiveOverlay.setAttribute("aria-hidden", "false");
+        adaptiveOverlay.classList.add("is-active");
+
+        const half = adaptiveController.roiSize / 2;
+        const top = clamp(
+          adaptiveController.lastY - half,
+          0,
+          window.innerHeight
+        );
+        const bottom = clamp(
+          adaptiveController.lastY + half,
+          0,
+          window.innerHeight
+        );
+        const left = clamp(
+          adaptiveController.lastX - half,
+          0,
+          window.innerWidth
+        );
+        const right = clamp(
+          adaptiveController.lastX + half,
+          0,
+          window.innerWidth
+        );
+
+        const roiHeight = Math.max(bottom - top, 0);
+
+        if (adaptiveOverlayLayers.top) {
+          adaptiveOverlayLayers.top.style.top = "0px";
+          adaptiveOverlayLayers.top.style.left = "0px";
+          adaptiveOverlayLayers.top.style.width = `${window.innerWidth}px`;
+          adaptiveOverlayLayers.top.style.height = `${top}px`;
+        }
+        if (adaptiveOverlayLayers.bottom) {
+          adaptiveOverlayLayers.bottom.style.top = `${bottom}px`;
+          adaptiveOverlayLayers.bottom.style.left = "0px";
+          adaptiveOverlayLayers.bottom.style.width = `${window.innerWidth}px`;
+          adaptiveOverlayLayers.bottom.style.height = `${Math.max(
+            window.innerHeight - bottom,
+            0
+          )}px`;
+        }
+        if (adaptiveOverlayLayers.left) {
+          adaptiveOverlayLayers.left.style.top = `${top}px`;
+          adaptiveOverlayLayers.left.style.left = "0px";
+          adaptiveOverlayLayers.left.style.width = `${left}px`;
+          adaptiveOverlayLayers.left.style.height = `${roiHeight}px`;
+        }
+        if (adaptiveOverlayLayers.right) {
+          adaptiveOverlayLayers.right.style.top = `${top}px`;
+          adaptiveOverlayLayers.right.style.left = `${right}px`;
+          adaptiveOverlayLayers.right.style.width = `${Math.max(
+            window.innerWidth - right,
+            0
+          )}px`;
+          adaptiveOverlayLayers.right.style.height = `${roiHeight}px`;
+        }
+      };
+
+      const recalculateBandwidth = () => {
+        const baseUsed = adaptiveController.baseUsedBandwidth;
+        const networkMultiplier = adaptiveController.networkState.multiplier;
+        const computedTotal = clamp(
+          adaptiveController.baseBandwidth * networkMultiplier,
+          30,
+          adaptiveController.maxBandwidth
+        );
+
+        adaptiveController.totalBandwidth = computedTotal;
+
+        if (adaptiveController.enabled) {
+          adaptiveController.usedBandwidth = clamp(
+            baseUsed * adaptiveController.adaptiveReductionFactor,
+            5,
+            adaptiveController.maxBandwidth
+          );
+        } else {
+          adaptiveController.usedBandwidth = clamp(
+            baseUsed,
+            5,
+            adaptiveController.maxBandwidth
+          );
+        }
+
+        adaptiveController.isLagging =
+          adaptiveController.usedBandwidth > adaptiveController.totalBandwidth;
+      };
+
+      const updateBandwidthMeter = () => {
+        if (!bandwidthMeter) return;
+        ensureControllerVisible();
+        recalculateBandwidth();
+        updateBandwidthVisibility();
+
+        if (networkStateLabel) {
+          networkStateLabel.textContent = adaptiveController.networkState.label;
+        }
+
+        if (!adaptiveController.showMonitor) {
+          if (totalBandwidthFill) totalBandwidthFill.style.width = "0%";
+          if (usedBandwidthFill) usedBandwidthFill.style.width = "0%";
+          if (totalBandwidthLabel) totalBandwidthLabel.textContent = "—";
+          if (usedBandwidthLabel) usedBandwidthLabel.textContent = "—";
+          if (bandwidthSummary) {
+            bandwidthSummary.textContent = "Used bandwidth: -- / --";
+          }
+          return;
+        }
+
+        const { totalBandwidth, usedBandwidth, maxBandwidth, isLagging } =
+          adaptiveController;
+        const totalPercent = maxBandwidth
+          ? clamp((totalBandwidth / maxBandwidth) * 100, 0, 100)
+          : 0;
+        const usedPercent = totalBandwidth
+          ? clamp((usedBandwidth / totalBandwidth) * 100, 0, 100)
+          : 0;
+
+        if (totalBandwidthFill) {
+          totalBandwidthFill.style.width = `${totalPercent}%`;
+        }
+        if (usedBandwidthFill) {
+          usedBandwidthFill.style.width = `${usedPercent}%`;
+        }
+
+        if (totalBandwidthLabel) {
+          totalBandwidthLabel.textContent = `${totalBandwidth.toFixed(1)} Mbps`;
+        }
+        if (usedBandwidthLabel) {
+          usedBandwidthLabel.textContent = `${usedBandwidth.toFixed(1)} Mbps`;
+        }
+        if (bandwidthSummary) {
+          bandwidthSummary.textContent = `Used bandwidth: ${usedBandwidth.toFixed(
+            1
+          )} Mbps / ${totalBandwidth.toFixed(1)} Mbps`;
+        }
+
+        if (bandwidthAlert) {
+          bandwidthAlert.textContent = isLagging ? "Buffering" : "Stable";
+          bandwidthAlert.classList.toggle("is-warning", isLagging);
+          bandwidthAlert.setAttribute("aria-hidden", "false");
+        }
+      };
+
+      const updateAdaptiveStatus = () => {
+        if (!adaptiveOnButton || !adaptiveOffButton) return;
+        adaptiveOnButton.classList.toggle(
+          "is-active",
+          adaptiveController.enabled
+        );
+        adaptiveOffButton.classList.toggle(
+          "is-active",
+          !adaptiveController.enabled
+        );
+        adaptiveOnButton.setAttribute(
+          "aria-pressed",
+          String(adaptiveController.enabled)
+        );
+        adaptiveOffButton.setAttribute(
+          "aria-pressed",
+          String(!adaptiveController.enabled)
+        );
+
+        if (adaptiveStatusIndicator) {
+          adaptiveStatusIndicator.classList.toggle(
+            "is-active",
+            adaptiveController.enabled
+          );
+        }
+
+        const statusLabel = adaptiveController.enabled
+          ? "Adaptive streaming active"
+          : "Adaptive streaming inactive";
+        adaptiveStatusText.textContent = `${statusLabel} — ${adaptiveController.networkState.label.toLowerCase()}`;
+
+        if (cloudIndicator) {
+          cloudIndicator.classList.toggle(
+            "is-active",
+            adaptiveController.enabled
+          );
+          cloudIndicator.setAttribute("aria-hidden", "false");
+        }
+        if (cloudIndicatorText) {
+          cloudIndicatorText.textContent = adaptiveController.enabled
+            ? "Adaptive encoding active"
+            : "Adaptive encoding inactive";
+        }
+
+        document.body.classList.toggle(
+          "adaptive-active",
+          adaptiveController.enabled
+        );
+        ensureControllerVisible();
+        updateAdaptiveOverlaySegments();
+        updateBandwidthMeter();
+      };
+
+      const setAdaptiveMode = (isEnabled) => {
+        adaptiveController.enabled = Boolean(isEnabled);
+        updateAdaptiveStatus();
+      };
+
+      const setBandwidthMonitorShown = (isShown) => {
+        adaptiveController.showMonitor = Boolean(isShown);
+        if (bandwidthToggleButton) {
+          bandwidthToggleButton.classList.toggle(
+            "is-active",
+            adaptiveController.showMonitor
+          );
+          bandwidthToggleButton.setAttribute(
+            "aria-pressed",
+            String(adaptiveController.showMonitor)
+          );
+          bandwidthToggleButton.textContent = adaptiveController.showMonitor
+            ? "On"
+            : "Off";
+        }
+        updateBandwidthVisibility();
+        updateBandwidthMeter();
+      };
+
+      const applyNetworkState = (state) => {
+        adaptiveController.networkState = state;
+        updateAdaptiveStatus();
+        if (adaptiveController.enabled) {
+          showToast(state.toast);
+        }
+      };
+
+      const simulateNetworkFluctuation = () => {
+        const nextStates = networkStates.filter(
+          (item) => item.key !== adaptiveController.networkState.key
+        );
+        const nextState =
+          nextStates[Math.floor(Math.random() * nextStates.length)] ||
+          networkStates[0];
+        applyNetworkState(nextState);
+      };
+
+      const updateRoiPosition = (x, y) => {
+        adaptiveController.lastX = clamp(x, 0, window.innerWidth);
+        adaptiveController.lastY = clamp(y, 0, window.innerHeight);
+
+        if (roiHighlight) {
+          const size = adaptiveController.roiSize;
+          roiHighlight.style.width = `${size}px`;
+          roiHighlight.style.height = `${size}px`;
+          roiHighlight.style.left = `${adaptiveController.lastX}px`;
+          roiHighlight.style.top = `${adaptiveController.lastY}px`;
+        }
+
+        updateAdaptiveOverlaySegments();
+        updateBandwidthMeter();
+      };
+
+      const positionTrackingTarget = (x, y) => {
+        trackingTask.target.x = x;
+        trackingTask.target.y = y;
+        trackingTarget.style.left = `${x}px`;
+        trackingTarget.style.top = `${y}px`;
+      };
+
+      const spawnTrackingTarget = () => {
+        if (!trackingTask.active) return;
+        const margin = 70;
+        const panelOffset = controlPanel.classList.contains("is-open")
+          ? controlPanel.offsetWidth
+          : 0;
+        const minX = margin;
+        const maxX = Math.max(window.innerWidth - margin - panelOffset, margin);
+        const widthRange = Math.max(maxX - minX, 0);
+        const availableHeight = window.innerHeight - margin * 2;
+        const x = widthRange <= 0 ? minX : minX + Math.random() * widthRange;
+        const y = margin + Math.random() * Math.max(availableHeight, 1);
+        positionTrackingTarget(x, y);
+        trackingTarget.classList.add("is-visible");
+      };
+
+      const renderHeatmap = () => {
+        if (!trackingTask.positions.length) return;
+        const ctx = ensureHeatmapContext();
+        if (!ctx) return;
+
+        const dpr = window.devicePixelRatio || 1;
+        heatmapCanvas.width = window.innerWidth * dpr;
+        heatmapCanvas.height = window.innerHeight * dpr;
+        ctx.clearRect(0, 0, heatmapCanvas.width, heatmapCanvas.height);
+        ctx.globalCompositeOperation = "source-over";
+
+        const baseRadius = 110 * dpr;
+
+        trackingTask.positions.forEach((point) => {
+          const x = point.x * dpr;
+          const y = point.y * dpr;
+          const gradient = ctx.createRadialGradient(x, y, 0, x, y, baseRadius);
+
+          gradient.addColorStop(0, "rgba(255, 193, 7, 0.6)");
+          gradient.addColorStop(0.35, "rgba(255, 107, 0, 0.45)");
+          gradient.addColorStop(0.7, "rgba(244, 67, 54, 0.25)");
+          gradient.addColorStop(1, "rgba(244, 67, 54, 0)");
+
+          ctx.fillStyle = gradient;
+          ctx.globalCompositeOperation = "lighter";
+          ctx.beginPath();
+          ctx.arc(x, y, baseRadius, 0, Math.PI * 2);
+          ctx.fill();
+        });
+
+        ctx.globalCompositeOperation = "source-over";
+      };
+
+      const toggleHeatmapVisibility = (shouldShow) => {
+        trackingTask.heatmapVisible = shouldShow;
+        if (shouldShow) {
+          renderHeatmap();
+        } else {
+          clearHeatmap();
+        }
+
+        heatmapOverlay.classList.toggle("is-visible", shouldShow);
+        heatmapOverlay.setAttribute("aria-hidden", String(!shouldShow));
+        toggleHeatmapButton.textContent = shouldShow
+          ? "Hide heat map"
+          : "View heat map";
+      };
+
+      const endTrackingTask = (options = { completed: false }) => {
+        if (!trackingTask.active) return;
+        trackingTask.active = false;
+        clearInterval(trackingTask.countdownId);
+        trackingTask.countdownId = null;
+        trackingTask.remaining = 0;
+        trackingTarget.classList.remove("is-visible");
+        document.body.classList.remove("tracking-active");
+        startTaskButton.textContent = "Start tracking task";
+        startTaskButton.disabled = false;
+        toggleHeatmapButton.disabled = trackingTask.positions.length === 0;
+        updateTaskDisplays();
+
+        const message = options.completed
+          ? `Task complete! Score: ${trackingTask.score}`
+          : `Task ended early. Score: ${trackingTask.score}`;
+        showToast(message);
+      };
+
+      const resetHeatmapState = () => {
+        trackingTask.positions = [];
+        trackingTask.heatmapVisible = false;
+        heatmapOverlay.classList.remove("is-visible");
+        heatmapOverlay.setAttribute("aria-hidden", "true");
+        clearHeatmap();
+        toggleHeatmapButton.disabled = true;
+        toggleHeatmapButton.textContent = "View heat map";
+      };
+
+      const startTrackingTask = () => {
+        if (trackingTask.active) return;
+
+        const duration = Number(taskDurationInput.value);
+        const normalizedDuration = Number.isFinite(duration)
+          ? clamp(duration, 10, 300)
+          : 45;
+        taskDurationInput.value = normalizedDuration;
+
+        trackingTask.active = true;
+        trackingTask.duration = normalizedDuration;
+        trackingTask.remaining = normalizedDuration;
+        trackingTask.score = 0;
+        trackingTask.positions = [];
+        trackingTask.lastSampleTime = 0;
+        trackingTask.heatmapVisible = false;
+
+        document.body.classList.add("tracking-active");
+        trackingTarget.classList.add("is-visible");
+        startTaskButton.textContent = "End task";
+        toggleHeatmapButton.disabled = true;
+        heatmapOverlay.classList.remove("is-visible");
+        heatmapOverlay.setAttribute("aria-hidden", "true");
+        clearHeatmap();
+
+        updateTaskDisplays();
+        spawnTrackingTarget();
+
+        trackingTask.countdownId = setInterval(() => {
+          trackingTask.remaining -= 1;
+          updateTaskDisplays();
+          if (trackingTask.remaining <= 0) {
+            clearInterval(trackingTask.countdownId);
+            trackingTask.countdownId = null;
+            toggleHeatmapButton.disabled = trackingTask.positions.length === 0;
+            toggleHeatmapVisibility(trackingTask.positions.length > 0);
+            endTrackingTask({ completed: true });
+          }
+        }, 1000);
+      };
+
+      const handleTargetHit = () => {
+        trackingTask.score += 1;
+        updateTaskDisplays();
+        spawnTrackingTarget();
+      };
+
+      const handleTrackingMove = (event) => {
+        if (!trackingTask.active) return;
+
+        const now = performance.now();
+        if (now - trackingTask.lastSampleTime > 45) {
+          trackingTask.positions.push({ x: event.clientX, y: event.clientY });
+          trackingTask.lastSampleTime = now;
+        }
+
+        const radius = 21;
+        const dx = event.clientX - trackingTask.target.x;
+        const dy = event.clientY - trackingTask.target.y;
+        if (dx * dx + dy * dy <= radius * radius) {
+          handleTargetHit();
+        }
+      };
+
+      const updateOverlay = () => {
+        if (!focusState.enabled) {
+          return;
+        }
+        overlay.style.setProperty("--focus-x", `${focusState.currentX}px`);
+        overlay.style.setProperty("--focus-y", `${focusState.currentY}px`);
+        overlay.style.setProperty("--focus-radius", `${focusState.radius}px`);
+
+        // Keep the feather smaller than the radius so the transparent center stays visible.
+        const feather = Math.min(
+          focusState.radius * 0.6,
+          focusState.radius - 10
+        );
+        overlay.style.setProperty(
+          "--focus-feather",
+          `${Math.max(feather, 24)}px`
+        );
+      };
+
+      const setFocusEnabled = (enabled) => {
+        const isEnabled = Boolean(enabled);
+        focusState.enabled = isEnabled;
+        document.body.classList.toggle("focus-disabled", !isEnabled);
+        overlay.setAttribute("aria-hidden", String(!isEnabled));
+
+        if (focusToggleButton) {
+          focusToggleButton.classList.toggle("is-active", isEnabled);
+          focusToggleButton.setAttribute("aria-pressed", String(isEnabled));
+          focusToggleButton.textContent = isEnabled ? "On" : "Off";
+        }
+
+        if (isEnabled) {
+          overlay.style.visibility = "";
+          overlay.style.opacity = "";
+          updateOverlay();
+        } else {
+          overlay.style.visibility = "hidden";
+          overlay.style.opacity = "0";
+        }
+      };
+
+      const animate = () => {
+        focusState.currentX +=
+          (focusState.targetX - focusState.currentX) * focusState.ease;
+        focusState.currentY +=
+          (focusState.targetY - focusState.currentY) * focusState.ease;
+        updateOverlay();
+        requestAnimationFrame(animate);
+      };
+
+      document.addEventListener("mousemove", (event) => {
+        focusState.targetX = event.clientX;
+        focusState.targetY = event.clientY;
+        handleTrackingMove(event);
+        updateRoiPosition(event.clientX, event.clientY);
+      });
+
+      // Slider adjusts the radius of the clear region without interrupting animation.
+      radiusSlider.addEventListener("input", (event) => {
+        focusState.radius = Number(event.target.value);
+        radiusLabel.textContent = `${focusState.radius} px`;
+      });
+
+      if (focusToggleButton) {
+        focusToggleButton.addEventListener("click", () => {
+          setFocusEnabled(!focusState.enabled);
+        });
+      }
+
+      window.addEventListener("resize", () => {
+        focusState.targetX = Math.min(focusState.targetX, window.innerWidth);
+        focusState.targetY = Math.min(focusState.targetY, window.innerHeight);
+        if (trackingTask.active) {
+          const margin = 70;
+          const panelOffset = controlPanel.classList.contains("is-open")
+            ? controlPanel.offsetWidth
+            : 0;
+          const maxX = Math.max(
+            window.innerWidth - margin - panelOffset,
+            margin
+          );
+          const clampedX = clamp(trackingTask.target.x, margin, maxX);
+          const clampedY = clamp(
+            trackingTask.target.y,
+            margin,
+            window.innerHeight - margin
+          );
+          positionTrackingTarget(clampedX, clampedY);
+        }
+        if (trackingTask.heatmapVisible && trackingTask.positions.length) {
+          renderHeatmap();
+        }
+        updateAdaptiveOverlaySegments();
+        updateBandwidthMeter();
+      });
+
+      const setPanelOpen = (isOpen) => {
+        controlPanel.classList.toggle("is-open", isOpen);
+        document.body.classList.toggle("sidebar-open", isOpen);
+        controlPanel.setAttribute("aria-hidden", String(!isOpen));
+        toggleButton.setAttribute("aria-expanded", String(isOpen));
+        toggleButton.setAttribute(
+          "aria-label",
+          isOpen ? "Hide focus controls" : "Open focus controls"
+        );
+        toggleButton.textContent = isOpen
+          ? "Hide focus settings"
+          : "Focus settings";
+        if (trackingTask.active && isOpen) {
+          spawnTrackingTarget();
+        }
+      };
+
+      toggleButton.addEventListener("click", () => {
+        const isOpen = !controlPanel.classList.contains("is-open");
+        setPanelOpen(isOpen);
+        if (isOpen) {
+          try {
+            controlPanel.focus({ preventScroll: true });
+          } catch (error) {
+            controlPanel.focus();
+          }
+        }
+      });
+
+      document.addEventListener("keydown", (event) => {
+        if (
+          event.key === "Escape" &&
+          controlPanel.classList.contains("is-open")
+        ) {
+          setPanelOpen(false);
+          toggleButton.focus();
+        }
+      });
+
+      startTaskButton.addEventListener("click", () => {
+        if (trackingTask.active) {
+          endTrackingTask({ completed: false });
+        } else {
+          resetHeatmapState();
+          startTrackingTask();
+        }
+      });
+
+      toggleHeatmapButton.addEventListener("click", () => {
+        if (!trackingTask.positions.length) return;
+        toggleHeatmapVisibility(!trackingTask.heatmapVisible);
+      });
+
+      if (adaptiveOnButton && adaptiveOffButton) {
+        adaptiveOnButton.addEventListener("click", () => {
+          ensureControllerVisible();
+          setAdaptiveMode(true);
+        });
+
+        adaptiveOffButton.addEventListener("click", () => {
+          ensureControllerVisible();
+          setAdaptiveMode(false);
+        });
+      }
+
+      if (simulateNetworkButton) {
+        simulateNetworkButton.addEventListener("click", () => {
+          ensureControllerVisible();
+          simulateNetworkFluctuation();
+        });
+      }
+
+      if (bandwidthToggleButton) {
+        bandwidthToggleButton.addEventListener("click", () => {
+          setBandwidthMonitorShown(!adaptiveController.showMonitor);
+        });
+      }
+
+      if (taskOverviewToggle) {
+        taskOverviewToggle.addEventListener("click", () => {
+          const shouldShow = document.body.classList.contains(
+            "task-summary-hidden"
+          );
+          setTaskSummaryVisible(shouldShow);
+        });
+      }
+
+      setTaskSummaryVisible(true);
+      setFocusEnabled(true);
+      setPanelOpen(false);
+      resetHeatmapState();
+      setBandwidthMonitorShown(false);
+      updateTaskDisplays();
+      ensureControllerVisible();
+      updateAdaptiveStatus();
+      updateRoiPosition(focusState.currentX, focusState.currentY);
+      updateBandwidthMeter();
+      updateOverlay();
+      requestAnimationFrame(animate);
+    </script>
+  </body>
+</html>
