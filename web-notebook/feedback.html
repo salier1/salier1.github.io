@@ -1,28 +1,24 @@
 <!DOCTYPE html>
+
 <html lang="en">
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>
-      Low-Fidelity Prototype & Usability Test Report — Gaze-Aware Immersive
-      Video Streaming
-    </title>
+    <meta content="width=device-width, initial-scale=1" name="viewport" />
+    <title>Formative Feedback - Calm Plant Watering Alert</title>
     <style>
-      /* Clean, readable styling */
       body {
         font-family: -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial,
           sans-serif;
         background: #f6f7f9;
         color: #111;
         margin: 0;
-        padding: 24px;
         line-height: 1.6;
       }
       .container {
         max-width: 980px;
         margin: 28px auto;
         background: #fff;
-        padding: 32px;
+        padding: 36px;
         border-radius: 10px;
         box-shadow: 0 6px 18px rgba(20, 30, 40, 0.06);
       }
@@ -30,66 +26,58 @@
         text-align: center;
         margin-bottom: 18px;
       }
+      header .eyebrow {
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        color: #7a869a;
+        font-size: 0.8rem;
+        margin-bottom: 6px;
+      }
       header h1 {
         margin: 0;
-        font-size: 1.6rem;
+        font-size: 1.8rem;
+        color: #182433;
       }
       header .meta {
         color: #555;
         margin-top: 6px;
         font-size: 0.95rem;
       }
-      h2 {
-        font-size: 1.15rem;
-        margin-top: 26px;
-        border-bottom: 1px solid #eee;
-        padding-bottom: 8px;
-      }
-      h3 {
-        font-size: 1rem;
-        margin-top: 16px;
-      }
-      p {
-        margin: 0.7em 0;
-      }
-      ul,
-      ol {
-        margin: 0.5em 0 1em 1.1em;
-      }
-      table {
+      .docx-content table {
         width: 100%;
         border-collapse: collapse;
-        margin: 12px 0;
+        margin: 1rem 0;
       }
-      th,
-      td {
-        border: 1px solid #e6e6e6;
+      .docx-content table th,
+      .docx-content table td {
+        border: 1px solid #e0e0e0;
         padding: 10px;
         vertical-align: top;
-        text-align: left;
       }
-      th {
-        background: #fafafa;
+      .docx-content table th {
+        background: #f5f6f8;
       }
-      .note {
-        color: #555;
-        font-size: 0.95rem;
-      }
-      .small {
-        font-size: 0.9rem;
-        color: #666;
-      }
-      footer {
-        text-align: center;
-        margin-top: 22px;
-        color: #777;
-        font-size: 0.9rem;
-      }
-      pre {
-        background: #f4f6f8;
-        padding: 12px;
+      .docx-content img {
+        width: 100%;
+        height: auto;
         border-radius: 6px;
-        overflow: auto;
+      }
+      .docx-content h2 {
+        margin-top: 2.4rem;
+        font-size: 1.35rem;
+        color: #1d2635;
+        border-bottom: 1px solid #e5e7eb;
+        padding-bottom: 0.4rem;
+      }
+      .docx-content h3 {
+        margin-top: 1.6rem;
+        font-size: 1.1rem;
+        color: #2b3a4d;
+      }
+      .docx-content h4 {
+        margin-top: 1rem;
+        font-size: 1rem;
+        color: #3f4a5a;
       }
       nav ul li a:hover {
         background: #f3f4f6;
@@ -202,6 +190,793 @@
         </li>
       </ul>
     </nav>
-    <div class="container">more later</div>
+    <div class="container">
+      <header>
+        <div class="eyebrow">HCI Project Web Notebook</div>
+        <h1>Formative Feedback - Calm Plant Watering Alert</h1>
+        <p class="meta">Group K · Hengyuan Guo · Jiawei He · Kaiyuan Hu</p>
+      </header>
+      <article class="docx-content">
+        <h2>Testing</h2>
+        <h3>Participants and Recruitment</h3>
+        <p>
+          A formative usability test was conducted with four target users, all
+          of whom were houseplant owners. Each participant reported owning one
+          or more plants and described typical challenges such as not knowing
+          when or how much to water or fearing that they might overwater. This
+          participant group closely matched the intended target audience for the
+          Calm Plant Watering Alert system.
+        </p>
+        <p>
+          Representative participants included Zipeng Sun, Meng Bi, and Xize
+          Duan, whose academic backgrounds offered perspectives ranging from
+          advanced research to undergraduate study in computing disciplines.
+        </p>
+        <h4>Consent Form</h4>
+        <p>
+          Participants reviewed and signed the consent form below prior to the
+          usability sessions.
+        </p>
+        <iframe
+          src="files/consent form.pdf"
+          title="Consent Form"
+          style="width: 100%; height: 640px; border: 1px solid #e0e0e0"
+        >
+        </iframe>
+        <p>
+          If the embedded viewer does not load, you can
+          <a href="files/consent form.pdf" target="_blank">download the form</a>
+          directly.
+        </p>
+        <h3>Prototype and Setup</h3>
+        <p>
+          The high-fidelity computer prototype was built on an Arduino UNO with
+          an RGB LED and a 16×2 LCD display. Soil humidity was simulated using a
+          potentiometer, controlled by the examiner to represent dry, medium, or
+          moist soil. Users selected plant types via physical buttons
+          representing hydrophytes, mesophytes, and xerophytes. All sessions
+          were conducted in a quiet room under consistent lighting, with a clear
+          5-meter line of sight used to test visibility and feedback
+          recognition.
+        </p>
+        <h3>Tasks</h3>
+        <p>
+          Participants were asked to perform the seven benchmark tasks defined
+          in the evaluation plan:
+        </p>
+        <ol type="1">
+          <li><p>Set up the device on a potted plant.</p></li>
+          <li><p>Select the appropriate mode for the plant type.</p></li>
+          <li><p>Determine the plant’s current water needs.</p></li>
+          <li><p>Decide whether to water the plant.</p></li>
+          <li><p>Water the plant (simulated).</p></li>
+          <li><p>Observe the new plant status.</p></li>
+          <li><p>Decide whether to continue watering or stop.</p></li>
+        </ol>
+        <h3>Measures</h3>
+        <p>
+          The evaluation collected both quantitative and qualitative data,
+          including task completion, error frequency, time on task, recognition
+          speed from five meters, and Likert ratings of task ease (1 = not at
+          all, 5 = very easily).
+        </p>
+        <h3>Detailed Task Logs</h3>
+        <p>
+          Annotated observation sheets below capture the per-task outcomes that
+          were recorded at the end of each session for three representative
+          participants.
+        </p>
+        <h4>Participant 1 - Zipeng Sun</h4>
+        <figure style="margin: 1.2rem 0">
+          <img
+            src="images/user observation-1.jpg"
+            alt="Participant 1 usability observation log"
+            style="width: 100%; border-radius: 6px"
+          />
+          <figcaption style="text-align: center; color: #555; margin-top: 0.4rem">
+            Participant 1 detailed observation log
+          </figcaption>
+        </figure>
+        <h4>Participant 2 - Meng Bi</h4>
+        <figure style="margin: 1.2rem 0">
+          <img
+            src="images/user observation-2.jpg"
+            alt="Participant 2 usability observation log"
+            style="width: 100%; border-radius: 6px"
+          />
+          <figcaption style="text-align: center; color: #555; margin-top: 0.4rem">
+            Participant 2 detailed observation log
+          </figcaption>
+        </figure>
+        <h4>Participant 3 - Xize Duan</h4>
+        <figure style="margin: 1.2rem 0">
+          <img
+            src="images/user observation-3.jpg"
+            alt="Participant 3 usability observation log"
+            style="width: 100%; border-radius: 6px"
+          />
+          <figcaption style="text-align: center; color: #555; margin-top: 0.4rem">
+            Participant 3 detailed observation log
+          </figcaption>
+        </figure>
+        <h2>Results Summary</h2>
+        <p>
+          All participants completed all seven tasks successfully. The average
+          setup time was under 10 seconds, confirming that installation was easy
+          and intuitive. The most challenging step was selecting the correct
+          plant type, where users often hesitated due to uncertainty about how
+          to confirm their choice. Median task times and observations are
+          summarized below:
+        </p>
+        <table>
+          <colgroup>
+            <col style="width: 20%" />
+            <col style="width: 17%" />
+            <col style="width: 13%" />
+            <col style="width: 11%" />
+            <col style="width: 37%" />
+          </colgroup>
+          <thead>
+            <tr>
+              <th style="text-align: center"><strong>Task</strong></th>
+              <th style="text-align: center"><strong>Completion</strong></th>
+              <th style="text-align: center"><strong>Median Time</strong></th>
+              <th style="text-align: center"><strong>Error Rate</strong></th>
+              <th style="text-align: center">
+                <strong>Key Observation</strong>
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td style="text-align: left">Setup</td>
+              <td style="text-align: left">4/4</td>
+              <td style="text-align: left">~8 s</td>
+              <td style="text-align: left">0%</td>
+              <td style="text-align: left">
+                Quick and intuitive; one participant initially inserted the
+                probe incorrectly but corrected immediately.
+              </td>
+            </tr>
+            <tr>
+              <td style="text-align: left">Select plant type</td>
+              <td style="text-align: left">4/4</td>
+              <td style="text-align: left">~120 s</td>
+              <td style="text-align: left">~50%</td>
+              <td style="text-align: left">
+                Confusion about confirmation and mode meaning; main friction
+                point.
+              </td>
+            </tr>
+            <tr>
+              <td style="text-align: left">Water needs of plant</td>
+              <td style="text-align: left">4/4</td>
+              <td style="text-align: left">~10 s</td>
+              <td style="text-align: left">Low</td>
+              <td style="text-align: left">
+                One user hesitated about whether the display implied immediate
+                watering.
+              </td>
+            </tr>
+            <tr>
+              <td style="text-align: left">Decide to water plant</td>
+              <td style="text-align: left">4/4</td>
+              <td style="text-align: left">~10 s</td>
+              <td style="text-align: left">0%</td>
+              <td style="text-align: left">
+                Clear link between LED color and decision.
+              </td>
+            </tr>
+            <tr>
+              <td style="text-align: left">Water based on needs (simulated)</td>
+              <td style="text-align: left">4/4</td>
+              <td style="text-align: left">~10 s</td>
+              <td style="text-align: left">0%</td>
+              <td style="text-align: left">Smooth action–feedback loop.</td>
+            </tr>
+            <tr>
+              <td style="text-align: left">Determine new state</td>
+              <td style="text-align: left">4/4</td>
+              <td style="text-align: left">~10 s</td>
+              <td style="text-align: left">0%</td>
+              <td style="text-align: left">
+                LED and LCD messages easily understood.
+              </td>
+            </tr>
+            <tr>
+              <td style="text-align: left">Decide to stop water or not</td>
+              <td style="text-align: left">4/4</td>
+              <td style="text-align: left">~10 s</td>
+              <td style="text-align: left">Low</td>
+              <td style="text-align: left">
+                One participant continued watering until the light changed,
+                suggesting unclear stop cues.
+              </td>
+            </tr>
+          </tbody>
+        </table>
+        <p>
+          From a distance of five meters, all users were able to identify the
+          LED color correctly within five seconds. Median satisfaction scores
+          ranged from 4 to 5 (“Yes” to “Very easily”) for most tasks, except
+          task 2 (“Somewhat”) due to mode-selection ambiguity.
+        </p>
+        <h3>Key Findings</h3>
+        <p>The usability goals of the system were largely met:</p>
+        <ul>
+          <li>
+            <p>
+              <strong>At-a-glance status</strong> was achieved. Participants
+              consistently recognized LED feedback within five seconds at five
+              meters.
+            </p>
+          </li>
+          <li>
+            <p>
+              <strong>Timely feedback after watering</strong> was partially
+              validated. Although the LED and LCD updated immediately, the real
+              post-watering delay could not be confirmed because the humidity
+              was simulated.
+            </p>
+          </li>
+          <li>
+            <p>
+              <strong>Easy installation</strong> was fully achieved, with all
+              users completing setup in seconds.<br />
+              The main usability issue identified was unclear confirmation when
+              selecting the plant type, which caused the majority of errors and
+              hesitation.
+            </p>
+          </li>
+        </ul>
+        <h3>Representative Comments</h3>
+        <ul>
+          <li><p>“Red, green, yellow is easy to understand.”</p></li>
+          <li>
+            <p>
+              “I wasn’t sure if I had to press to select or if it selected
+              automatically.”
+            </p>
+          </li>
+          <li>
+            <p>
+              “The word <em>healthy</em> made me think of sunlight or disease,
+              not water.”
+            </p>
+          </li>
+          <li><p>“I would water until the light goes away.”</p></li>
+        </ul>
+        <h3>Design Implications</h3>
+        <p>
+          The test results directly informed several important design changes.
+        </p>
+        <ul>
+          <li>
+            <p>
+              <strong>Mode selection clarity:</strong> Replace the joystick with
+              three dedicated buttons, each with a label (“High,” “Medium,”
+              “Low”) and a confirmation blink.
+            </p>
+          </li>
+          <li>
+            <p>
+              <strong>Terminology:</strong> Replace “Healthy” with clear terms
+              such as “Soil humidity,” “Dry,” “Mid,” and “Moist.”
+            </p>
+          </li>
+          <li>
+            <p>
+              <strong>Stopping rule:</strong> Add an explicit stop message on
+              the LCD (“Enough water”) and a short note (“Recheck in 15
+              minutes”) once a real sensor is implemented.
+            </p>
+          </li>
+          <li>
+            <p>
+              <strong>Future validation:</strong> In the next version, test with
+              a real soil-moisture sensor to confirm feedback timing and
+              threshold calibration.
+            </p>
+          </li>
+        </ul>
+        <h2>Limitations</h2>
+        <p>
+          The prototype used a simulated humidity control, meaning that real
+          soil absorption and over-watering detection were not evaluated. The
+          sample size (n = 4) was sufficient for formative feedback but should
+          be expanded in future testing to include a broader range of plant
+          owners with varying experience levels.
+        </p>
+        <h2>Completion and Alignment</h2>
+        <p>
+          All seven benchmark tasks were completed by real target users, and the
+          recorded results (times, errors, notes, and user comments) were
+          analyzed. The findings led directly to concrete design
+          evolution—specifically the shift from joystick to buttons, improved
+          wording, and simplified on-screen messages.
+        </p>
+        <h2>Results and Analysis</h2>
+        <h3>Overview</h3>
+        <p>
+          Four target users, all houseplant owners, completed the seven
+          benchmark usability tasks using the Arduino prototype. Each session
+          lasted approximately 10–15 minutes and was observed by one examiner.
+          All participants were able to interact with the prototype
+          independently after brief instructions. No sessions were abandoned or
+          failed, although several users showed confusion during the plant-type
+          selection process.
+        </p>
+        <table>
+          <colgroup>
+            <col style="width: 17%" />
+            <col style="width: 16%" />
+            <col style="width: 12%" />
+            <col style="width: 15%" />
+            <col style="width: 36%" />
+          </colgroup>
+          <thead>
+            <tr>
+              <th><strong>Task</strong></th>
+              <th><strong>Completion Rate</strong></th>
+              <th><strong>Median Time (s)</strong></th>
+              <th><strong>Error Frequency</strong></th>
+              <th><strong>Key Observation</strong></th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>1.Setup device</td>
+              <td>100%</td>
+              <td>8</td>
+              <td>0</td>
+              <td>
+                Straightforward setup; one user initially inserted the probe
+                incorrectly but corrected quickly.
+              </td>
+            </tr>
+            <tr>
+              <td>2.Select plant type</td>
+              <td>100%</td>
+              <td>120</td>
+              <td>High (2–3 errors)</td>
+              <td>
+                Confusion about confirmation and mode meaning; unclear
+                joystick/button mapping.
+              </td>
+            </tr>
+            <tr>
+              <td>3. Determine water needs</td>
+              <td>100%</td>
+              <td>10</td>
+              <td>Low</td>
+              <td>One hesitation when interpreting color feedback.</td>
+            </tr>
+            <tr>
+              <td>4. Decide to water</td>
+              <td>100%</td>
+              <td>10</td>
+              <td>0</td>
+              <td>
+                Clear understanding of the link between LED color and action.
+              </td>
+            </tr>
+            <tr>
+              <td>5.Simulate watering</td>
+              <td>100%</td>
+              <td>10</td>
+              <td>0</td>
+              <td>Immediate LED feedback; no hesitation.</td>
+            </tr>
+            <tr>
+              <td>6. Check new state</td>
+              <td>100%</td>
+              <td>10</td>
+              <td>0</td>
+              <td>Recognition within five seconds at a five-meter distance.</td>
+            </tr>
+            <tr>
+              <td>7. Decide if more water is needed</td>
+              <td>100%</td>
+              <td>10</td>
+              <td>Low</td>
+              <td>
+                One participant watered until the light changed, indicating
+                unclear stopping criteria.
+              </td>
+            </tr>
+          </tbody>
+        </table>
+        <p>All participants successfully completed every task.</p>
+        <p>
+          Errors were concentrated in <strong>Task 2</strong>, due to ambiguous
+          terminology (“Healthy” vs. “Moist”) and unclear confirmation feedback.
+        </p>
+        <p>
+          LED color recognition was accurate for all users within five seconds
+          at a distance of five meters, fulfilling the visibility requirement.
+        </p>
+        <p>
+          Average satisfaction across all tasks was <strong>4.3 / 5</strong> on
+          the Likert scale, with the exception of Task 2, which averaged around
+          3 (“Somewhat”) due to navigation uncertainty.
+        </p>
+        <h2>Qualitative Observations and User Comments</h2>
+        <h3>Visual Observations:</h3>
+        <p>
+          <img
+            src="images/feedback1.jpg"
+            style="width: 4.32292in; height: 5.76042in"
+          />
+        </p>
+        <p>
+          <img
+            src="images/feedback2.jpg"
+            style="width: 4.32292in; height: 5.76042in"
+          />
+        </p>
+        <p>
+          <img
+            src="images/feedback3.jpg"
+            style="width: 4.32292in; height: 5.76042in"
+          />
+        </p>
+        <h3>Positive feedback</h3>
+        <ul>
+          <li><p>“Red, green, yellow is easy to understand.”</p></li>
+          <li><p>“Very simple—anyone could use it.”</p></li>
+          <li>
+            <p>
+              “It’s fun; my family would be more interested in watering plants.”
+            </p>
+          </li>
+        </ul>
+        <h3>Confusion points</h3>
+        <ul>
+          <li>
+            <p>
+              “I don’t know if I have to press to select or if it selects
+              automatically.”
+            </p>
+          </li>
+          <li>
+            <p>
+              “The word ‘Healthy’ made me think about sunlight or disease, not
+              water.”
+            </p>
+          </li>
+          <li><p>“Should I give more water often, or just once?”</p></li>
+        </ul>
+        <h3>Behavioral notes</h3>
+        <p>
+          Participants primarily relied on LED color rather than LCD text for
+          interpretation. Most instinctively rotated the potentiometer to
+          observe color transitions before making a decision, showing engagement
+          and curiosity. Two users verbalized uncertainty when switching modes,
+          emphasizing the need for a clearer selection confirmation.
+        </p>
+        <h2>System Usability Evaluation</h2>
+        <p>The prototype achieved nearly all of its usability objectives:</p>
+        <ul>
+          <li>
+            <p><strong>Installation</strong> was quick and straightforward.</p>
+          </li>
+          <li>
+            <p>
+              <strong>Feedback interpretation</strong> through LED color mapping
+              was intuitive and effective.
+            </p>
+          </li>
+          <li>
+            <p>
+              <strong>Recognition distance</strong> was verified participants
+              consistently identified feedback within five seconds at five
+              meters.
+            </p>
+          </li>
+          <li>
+            <p>
+              <strong>Post-watering feedback</strong> functioned well in
+              simulation, though it could not be fully validated without a real
+              soil-moisture sensor.
+            </p>
+          </li>
+        </ul>
+        <p>
+          No major usability failures occurred. The main weakness remained the
+          <strong>plant-type selection interaction</strong>, where confusion and
+          hesitation persisted.
+        </p>
+        <h2>Prioritized Usability Issues</h2>
+        <table>
+          <colgroup>
+            <col style="width: 11%" />
+            <col style="width: 23%" />
+            <col style="width: 25%" />
+            <col style="width: 39%" />
+          </colgroup>
+          <thead>
+            <tr>
+              <th><strong>Priority</strong></th>
+              <th><strong>Issue</strong></th>
+              <th><strong>Impact</strong></th>
+              <th><strong>Recommendation</strong></th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>High</strong></td>
+              <td>Confusing mode selection (confirmation unclear)</td>
+              <td>Causes hesitation and increased task time</td>
+              <td>
+                Replace joystick with three dedicated buttons (implemented) and
+                add visual confirmation LED above the active plant type.
+              </td>
+            </tr>
+            <tr>
+              <td><strong>Medium</strong></td>
+              <td>Ambiguous wording (“Healthy”)</td>
+              <td>Leads to misinterpretation of feedback</td>
+              <td>Use direct soil-related terms: “Dry,” “Mid,” and “Moist.”</td>
+            </tr>
+            <tr>
+              <td><strong>Medium</strong></td>
+              <td>Misinterpretation of stop cue (“light goes away”)</td>
+              <td>May cause unnecessary watering</td>
+              <td>Add LCD message “Enough water” when soil becomes moist.</td>
+            </tr>
+            <tr>
+              <td><strong>Low</strong></td>
+              <td>Wordy or repetitive LCD text</td>
+              <td>Minor distraction</td>
+              <td>
+                Simplify messages to two words or fewer (e.g., “DRY,” “MOIST”).
+              </td>
+            </tr>
+          </tbody>
+        </table>
+        <h3>Summary</h3>
+        <p>
+          All benchmark tasks were successfully completed, and the system met
+          its primary usability goals. Quantitative metrics—completion times,
+          error rates, and recognition speed—along with qualitative insights
+          from user comments and observations, confirm that the prototype is
+          intuitive and easy to use. The only significant problem identified was
+          the unclear mode-selection interaction, which has already been
+          addressed in the updated design.
+        </p>
+        <p>
+          Overall, the system demonstrates strong usability with only minor
+          refinements needed in feedback clarity and terminology.
+        </p>
+        <h2>Test Plan Critique</h2>
+        <p>
+          The test plan provided by the design team was well structured and
+          generally aligned with the key usability goals of the
+          <em>Calm Plant Watering Alert</em> system—namely
+          <strong>easy installation</strong>,
+          <strong>clear at-a-glance feedback</strong>, and
+          <strong>timely post-watering response</strong>. The seven benchmark
+          tasks (setting up the device, selecting the plant type, reading soil
+          status, deciding and performing watering, rechecking the state, and
+          deciding to stop) covered all major user interactions and offered a
+          coherent framework for usability testing. The plan appropriately
+          emphasized <strong>task completion</strong>,
+          <strong>error count</strong>, <strong>time to recognition</strong>,
+          and <strong>subjective ease ratings</strong>, which directly matched
+          the system’s intended metrics.
+        </p>
+        <p>
+          However, several refinements were introduced to strengthen the plan’s
+          completeness and data quality:
+        </p>
+        <ol type="1">
+          <li>
+            <h3>Alignment with clarity heuristics</h3>
+          </li>
+        </ol>
+        <blockquote>
+          <p>
+            In reference to
+            <em>Nielsen’s Heuristic #1 (Visibility of System Status)</em> and
+            <em>#2 (Match Between System and the Real World)</em>, the original
+            plan did not directly test whether LED color feedback and wording
+            such as “Healthy” or “Moist” were intuitively understood by novice
+            users. We therefore added short observation prompts asking
+            participants to explain how they interpreted each signal. This
+            yielded more detailed insights into terminology confusion and
+            recognition accuracy.
+          </p>
+        </blockquote>
+        <ol start="2" type="1">
+          <li>
+            <h3>Improving measurement validity</h3>
+          </li>
+        </ol>
+        <blockquote>
+          <p>
+            The initial plan emphasized task completion time but omitted
+            <strong>recognition speed from a distance</strong>, which is crucial
+            to verifying the “at-a-glance feedback” goal. We added a
+            <strong>5-meter visibility test</strong> to measure how quickly
+            participants could identify color feedback. This change tied the
+            quantitative measure more closely to the design objective.
+          </p>
+        </blockquote>
+        <ol start="3" type="1">
+          <li>
+            <h3>Enhancing the cognitive walkthrough</h3>
+          </li>
+        </ol>
+        <blockquote>
+          <p>
+            The plan originally listed tasks without fully specifying user
+            assumptions or interface expectations. We refined these by
+            clarifying that users were assumed to know their plant type but not
+            the underlying sensing technology, and by checking whether interface
+            cues (e.g., button layout, LED labeling) adequately supported those
+            assumptions. This made the walkthrough observations more diagnostic
+            and meaningful.
+          </p>
+        </blockquote>
+        <ol start="4" type="1">
+          <li>
+            <h3>Adding qualitative reflection</h3>
+          </li>
+        </ol>
+        <blockquote>
+          <p>
+            Beyond the Likert-scale ratings, we included a brief open-ended
+            question (“What did you think the system was telling you?”) at the
+            end of each task. This addition helped connect the quantitative
+            results with qualitative insights about users’ confidence and
+            understanding of system feedback.
+          </p>
+        </blockquote>
+        <ol start="5" type="1">
+          <li>
+            <h3>Assessing overall completeness</h3>
+          </li>
+        </ol>
+        <blockquote>
+          <p>
+            The original plan was largely sound and implementable. It
+            effectively covered installation and feedback interpretation but
+            paid less attention to post-watering confirmation, a limitation
+            inherent to using a simulated humidity sensor. Our revisions
+            addressed this gap and created a stronger alignment between
+            <strong>usability goals</strong>,
+            <strong>evaluation measures</strong>, and
+            <strong>observed outcomes</strong>.
+          </p>
+        </blockquote>
+        <h3>Summary</h3>
+        <p>
+          In summary, the original test plan was methodologically solid and
+          closely matched the design team’s usability objectives. The evaluating
+          team enhanced it by incorporating visibility-distance measures,
+          feedback-interpretation probes, and more detailed cognitive
+          walkthrough steps. These refinements produced richer, goal-oriented
+          data and strengthened adherence to established usability heuristics,
+          ensuring that the evaluation accurately reflected how well the system
+          supports its intended users.
+        </p>
+        <h2>Design Critique</h2>
+        <p>
+          Based on the usability testing results and observations, the
+          evaluating team identified several areas for improvement that would
+          make the Calm Plant Watering Alert more effective and accessible for
+          its intended users, especially beginner and casual plant owners who
+          value clarity and simplicity over technical complexity. Each
+          recommendation directly addresses issues found during evaluation and
+          reinforces the system’s core usability goals: easy installation, clear
+          feedback, and timely, confidence-building interaction.
+        </p>
+        <h3>1. Simplify Mode Selection (High Priority)</h3>
+        <h4>Observation:</h4>
+        <p>
+          Several participants hesitated or made errors when selecting the plant
+          type because the joystick interface was unclear. Users were unsure
+          whether to press, move, or confirm.
+        </p>
+        <h4>Recommendation:</h4>
+        <p>
+          Replace the joystick with three clearly labeled physical buttons, each
+          corresponding to one plant type (high, medium, or low water needs).
+          Add a small indicator light or icon above the selected option and a
+          short confirmation blink when a mode is chosen.
+        </p>
+        <h4>Rationale:</h4>
+        <p>
+          This change makes the action–feedback relationship explicit and
+          follows Nielsen’s Heuristic 1 (Visibility of System Status) and
+          Heuristic 4 (Consistency and Standards). This modification has already
+          been implemented in the computer prototype and noticeably improved
+          ease of use for new users.
+        </p>
+        <h3>2. Clarify Feedback Wording (Medium Priority)</h3>
+        <h4>Observation:</h4>
+        <p>
+          Some users misunderstood the word “Healthy,” interpreting it as
+          sunlight or disease rather than soil moisture.
+        </p>
+        <h4>Recommendation:</h4>
+        <p>
+          Use direct, unambiguous terms such as “Dry,” “Moderate,” and “Moist.”
+          Support color feedback with short text on the LCD screen, for example
+          “Soil: Dry 25%.”
+        </p>
+        <h4>Rationale:</h4>
+        <p>
+          This adjustment aligns the interface vocabulary with users’ real-world
+          understanding, following Nielsen’s Heuristic 2 (Match Between System
+          and the Real World). It reduces confusion and makes the system more
+          intuitive for beginners.
+        </p>
+        <h3>3. Add Explicit Stop or Confirmation Message (Medium Priority)</h3>
+        <h4>Observation:</h4>
+        <p>
+          One participant continued watering until the light went off, unsure
+          when to stop.
+        </p>
+        <h4>Recommendation:</h4>
+        <p>
+          When the indicator turns green, display a clear message such as
+          “Enough Water” or “Stop Watering.” Optionally, show a reminder message
+          like “Recheck in 15 minutes.”
+        </p>
+        <h4>Rationale:</h4>
+        <p>
+          This addition provides closure and builds user confidence, following
+          Nielsen’s Heuristic 9 (Help Users Recognize, Diagnose, and Recover
+          from Errors). It ensures users understand when the desired state has
+          been reached.
+        </p>
+        <h3>4. Simplify On-screen Text (Low Priority)</h3>
+        <h4>Observation:</h4>
+        <p>
+          Some participants found the LCD text too long or repetitive, which
+          slightly reduced clarity.
+        </p>
+        <h4>Recommendation:</h4>
+        <p>
+          Keep messages concise, ideally one or two words such as “Dry” or
+          “Moist.” Use LED color as the main feedback channel and reserve text
+          as a secondary confirmation.
+        </p>
+        <h4>Rationale:</h4>
+        <p>
+          Shorter text supports quick understanding and keeps interaction calm
+          and unobtrusive, which fits the design’s goal of delivering feedback
+          at a glance.
+        </p>
+        <h3>5. Prepare for Real Sensor Integration (Future Improvement)</h3>
+        <h4>Observation:</h4>
+        <p>
+          The current prototype uses a potentiometer to simulate humidity, so
+          post-watering feedback cannot fully represent real soil behavior.
+        </p>
+        <h4>Recommendation:</h4>
+        <p>
+          Integrate an actual soil-moisture sensor in future versions and
+          conduct another validation round to confirm whether the “within one
+          minute feedback” goal can be achieved.
+        </p>
+        <h4>Rationale:</h4>
+        <p>
+          This will increase realism and allow more accurate feedback, helping
+          the product move from simulation to a fully functional prototype.
+        </p>
+        <h3>Summary</h3>
+        <p>
+          The proposed design improvements—simplified plant-type selection,
+          clearer wording, explicit confirmation cues, shorter text, and sensor
+          integration—directly address the usability issues identified in
+          testing. Together, these refinements make the Calm Plant Watering
+          Alert more intuitive, transparent, and reassuring for its intended
+          users, helping casual plant owners feel more confident and engaged in
+          everyday use.
+        </p>
+      </article>
+    </div>
   </body>
 </html>

@@ -1,0 +1,197 @@
+{
+  "videoDirectory": "/video",
+  "export": {
+    "outlineTitle": "Hans Rosling - Best Stats Highlights"
+  },
+  "videos": [
+    {
+      "id": "sample-intro",
+      "title": "LLM for Note-taking Basics",
+      "src": "/videos/The best stats you've ever seen.mp4",
+      "poster": "https://images.unsplash.com/photo-1523580846011-d3a5bc25702b?auto=format&fit=crop&w=900&q=80",
+      "duration": 30,
+      "highlights": [
+        {
+          "id": "highlight-intro",
+          "title": "Course Objectives Overview",
+          "label": "Course Goals",
+          "time": 3,
+          "shape": "circle",
+          "category": "summary",
+          "note": "Showcase the note-taking skills learners gain with LLMs to build motivation."
+        },
+        {
+          "id": "highlight-benefit",
+          "title": "Advantages of LLMs",
+          "label": "LLM Benefits",
+          "time": 8,
+          "shape": "diamond",
+          "category": "insight",
+          "note": "Compare traditional note-taking with AI, emphasizing gains in speed, accuracy, and multimodal understanding."
+        },
+        {
+          "id": "highlight-steps",
+          "title": "Workflow Breakdown",
+          "label": "Workflow",
+          "time": 14,
+          "shape": "rectangle",
+          "category": "action",
+          "note": "List three practical steps—prepare materials, choose prompts, organize outputs—with key reminders."
+        },
+        {
+          "id": "highlight-prompt",
+          "title": "Prompt Engineering Tips",
+          "label": "Prompt Engineering",
+          "time": 20,
+          "shape": "circle",
+          "category": "question",
+          "note": "Provide 2-3 prompt templates and explain how to adapt them for different scenarios."
+        }
+      ]
+    },
+    {
+      "id": "hans-rosling-best-stats",
+      "title": "The best stats you've ever seen",
+      "src": "/videos/The best stats you've ever seen.mp4",
+      "poster": "https://images.unsplash.com/photo-1529333166437-7750a6dd5a70?auto=format&fit=crop&w=900&q=80",
+      "duration": 390,
+      "highlights": [
+        {
+          "id": "hans-highlight-01",
+          "title": "Host Sets the Stage",
+          "label": "Talk Setup",
+          "time": 5,
+          "shape": "circle",
+          "category": "summary",
+          "note": "The TED host frames Hans Rosling's presentation as a transformative look at global data, priming viewers for evidence-based insights."
+        },
+        {
+          "id": "hans-highlight-02",
+          "title": "Hans' Data-Driven Promise",
+          "label": "Mission",
+          "time": 24,
+          "shape": "diamond",
+          "category": "summary",
+          "note": "Hans promises to show the world through statistics instead of anecdotes, positioning the talk as a visual data journey."
+        },
+        {
+          "id": "hans-highlight-03",
+          "title": "120,000 Data Points",
+          "label": "Scope",
+          "time": 48,
+          "shape": "rectangle",
+          "category": "insight",
+          "note": "He cites the 120,000 UN data points behind the demo, underscoring the rigor underpinning the visualization."
+        },
+        {
+          "id": "hans-highlight-04",
+          "title": "Chart Legend Explained",
+          "label": "Legend",
+          "time": 69,
+          "shape": "circle",
+          "category": "summary",
+          "note": "Axes, colors, and bubble sizes are decoded—child survival, family size, continent, and population—so the audience can read the story."
+        },
+        {
+          "id": "hans-highlight-05",
+          "title": "1962 Two-World Snapshot",
+          "label": "1962 Baseline",
+          "time": 90,
+          "shape": "diamond",
+          "category": "insight",
+          "note": "The static 1962 view reveals a stark split between nations with large families and low child survival and those with the opposite, mirroring the era's 'developed vs. developing' narrative."
+        },
+        {
+          "id": "hans-highlight-06",
+          "title": "Bridging Regions",
+          "label": "Bridging Regions",
+          "time": 111,
+          "shape": "rectangle",
+          "category": "insight",
+          "note": "Hans points out Middle Eastern and Latin American countries already crossing the gap, complicating a simple rich/poor divide."
+        },
+        {
+          "id": "hans-highlight-07",
+          "title": "East Asia's Starting Point",
+          "label": "East Asia",
+          "time": 132,
+          "shape": "circle",
+          "category": "insight",
+          "note": "East Asian nations begin with large families but noticeably higher child survival than much of Africa, hinting at the surge to come."
+        },
+        {
+          "id": "hans-highlight-08",
+          "title": "Let the World Run",
+          "label": "Global Shift",
+          "time": 153,
+          "shape": "diamond",
+          "category": "summary",
+          "note": "When Hans starts the animation, bubbles sweep toward smaller families and healthier children, signalling a worldwide demographic transition."
+        },
+        {
+          "id": "hans-highlight-09",
+          "title": "Latin America's Curve",
+          "label": "Latin America",
+          "time": 174,
+          "shape": "rectangle",
+          "category": "insight",
+          "note": "Latin American countries trace a steady curve toward low fertility while sustaining child survival gains, evidencing rapid modernization."
+        },
+        {
+          "id": "hans-highlight-10",
+          "title": "East Asian Tigers Surge",
+          "label": "Tigers",
+          "time": 195,
+          "shape": "circle",
+          "category": "insight",
+          "note": "Japan, South Korea, Singapore, and peers rocket across the chart, embodying how investment in health and education accelerates development."
+        },
+        {
+          "id": "hans-highlight-11",
+          "title": "China's Leap Forward",
+          "label": "China",
+          "time": 216,
+          "shape": "diamond",
+          "category": "insight",
+          "note": "China's bubble accelerates after economic reforms, coupling steep fertility decline with dramatic gains in child survival."
+        },
+        {
+          "id": "hans-highlight-12",
+          "title": "African Progress & Setbacks",
+          "label": "Africa View",
+          "time": 237,
+          "shape": "rectangle",
+          "category": "insight",
+          "note": "Sub-Saharan bubbles inch upward yet lag behind, and Hans notes how HIV and conflict can bend trajectories despite overall improvement."
+        },
+        {
+          "id": "hans-highlight-13",
+          "title": "Country Drilldown",
+          "label": "Country Focus",
+          "time": 270,
+          "shape": "circle",
+          "category": "summary",
+          "note": "Zooming in on specific African nations, Hans shows how health policies shift individual paths even when income stays low."
+        },
+        {
+          "id": "hans-highlight-14",
+          "title": "Cultural Myth Busting",
+          "label": "Myths",
+          "time": 306,
+          "shape": "diamond",
+          "category": "insight",
+          "note": "Highlighting Muslim-majority countries, he debunks cultural myths by charting rapid fertility drops alongside investments in education and healthcare."
+        },
+        {
+          "id": "hans-highlight-15",
+          "title": "Retiring 'Developing World'",
+          "label": "New Narrative",
+          "time": 342,
+          "shape": "rectangle",
+          "category": "summary",
+          "note": "Hans concludes the opening segment by arguing the data renders 'developing world' obsolete because convergence is now the dominant pattern."
+        }
+      ]
+    }
+  ]
+}
